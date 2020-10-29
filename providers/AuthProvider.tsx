@@ -1,35 +1,36 @@
-import {useState, useEffect} from 'react';
-import AuthContext from '../contexts/AuthContext';
-import {Magic} from 'magic-sdk';
+import { useState, useEffect } from "react";
+import AuthContext from "../contexts/AuthContext";
+import { Magic } from "magic-sdk";
 
 let m: Magic;
 
-interface User  {
-  email: string,
-  tokenId: string
+interface User {
+  email: string;
+  tokenId: string;
 }
 
-export default function AuthProvider({children}) {
+export default function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string) => {
-    console.log('logging in');
+    console.log("logging in");
     try {
-     const res = await m.auth.loginWithMagicLink({email, showUI: true});
-     setUser({tokenId: res, email});
-    } catch(error) {
+      const res = await m.auth.loginWithMagicLink({ email, showUI: true });
+      setUser({ tokenId: res, email });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const logout = async () => {
-    console.log('logging out');
-    try{
+    console.log("logging out");
+    try {
       m.user.logout();
-    } catch(error) {
+      setUser(null);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const persistUser = async () => {
     try {
@@ -38,10 +39,10 @@ export default function AuthProvider({children}) {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
-    m = new Magic('pk_test_34B988B683181D01'); 
+    m = new Magic("pk_test_34B988B683181D01");
 
     (async () => {
       try {
@@ -50,20 +51,15 @@ export default function AuthProvider({children}) {
         if (isLoggedIn) {
           persistUser();
         }
-
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error);
       }
-
     })();
-
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
-
-  )
+  );
 }

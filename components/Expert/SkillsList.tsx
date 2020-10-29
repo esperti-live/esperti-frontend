@@ -8,7 +8,7 @@ const SkillsList = ({ skills }: SkillsProp) => {
       <h5>Expertise</h5>
       <ul className={styles.expertise}>
         {skills.map((skill) => (
-          <SkillItem skill={skill} />
+          <SkillItem key={skill.name} skill={skill} />
         ))}
       </ul>
     </div>

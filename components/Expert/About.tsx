@@ -22,7 +22,7 @@ export default function About({
 
         <div>
           {socials.map((social) => (
-            <span>{social}</span>
+            <span key={social}>{social}</span>
           ))}
         </div>
       </div>

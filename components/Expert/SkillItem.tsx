@@ -19,7 +19,7 @@ export default function SkillItem({ skill }: SkillProp) {
 
         <ul className={styles.additional}>
           {skill.technologies.map((technology) => (
-            <li>{technology}</li>
+            <li key={technology}>{technology}</li>
           ))}
         </ul>
       </div>

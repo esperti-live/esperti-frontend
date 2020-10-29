@@ -3,7 +3,7 @@ import AuthContext from '../contexts/AuthContext';
 
 export default function login() {
   const [emailInput, setEmailInput] = useState<string>('');
-  const {login, logout} = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
 
   const loginHandler = () => {
     console.log('logging in', emailInput);

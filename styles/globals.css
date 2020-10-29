@@ -14,3 +14,22 @@ a {
 * {
   box-sizing: border-box;
 }
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layout{
+  width: 960px;
+  padding: 75px 0;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 1024px) {
+  .layout {
+    width: 95%;
+    padding: 35px 0;
+  }
+}

@@ -6,10 +6,12 @@ import { SkillsProp, Skills } from "../../ts/interfaces";
 
 const SkillsList = ({ skills, editMode }: SkillsProp) => {
   const [skillsList, setSkillsList] = useState(skills);
+  const [showAddSkill, setShowAddSkill] = useState(false);
 
   const addedSkillHandler = (addedSkill: Skills) => {
     console.log([addedSkill, ...skillsList]);
     setSkillsList((prevSkillsList) => [...prevSkillsList, addedSkill]);
+    setShowAddSkill(false);
   };
 
   return (
@@ -19,8 +21,16 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
         {skillsList.map((skill) => (
           <SkillItem key={skill.name} skill={skill} />
         ))}
-        {editMode && <AddSkillItem skillAdded={addedSkillHandler} />}
+
+        {editMode && showAddSkill && (
+          <AddSkillItem skillAdded={addedSkillHandler} />
+        )}
       </ul>
+      {editMode && (
+        <button type="button" onClick={() => setShowAddSkill(true)}>
+          Add Skill
+        </button>
+      )}
     </div>
   );
 };

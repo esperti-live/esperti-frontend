@@ -18,7 +18,9 @@ export default function Autocomplete({ items, input, itemClicked }) {
   return (
     <ul className={styles.technologyDropdown}>
       {filteredItems.map((item) => (
-        <li onClick={() => itemClicked(item)}>{item}</li>
+        <li onClick={() => itemClicked(item)} key={item}>
+          {item}
+        </li>
       ))}
     </ul>
   );

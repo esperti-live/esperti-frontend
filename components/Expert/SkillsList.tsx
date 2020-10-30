@@ -9,7 +9,7 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
 
   const addedSkillHandler = (addedSkill: Skills) => {
     console.log([addedSkill, ...skillsList]);
-    setSkillsList((prevSkillsList) => [addedSkill, ...prevSkillsList]);
+    setSkillsList((prevSkillsList) => [...prevSkillsList, addedSkill]);
   };
 
   return (

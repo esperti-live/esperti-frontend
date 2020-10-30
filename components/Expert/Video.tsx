@@ -51,7 +51,9 @@ export default function Video({ editMode, video_url }: VideoProps) {
             onChange={(e) => setVideoSrc(e.target.value)}
             className={styles.changeVideo}
           />
-          <button type="submit">Save</button>
+          <button type="submit" className={styles.saveButton}>
+            Save
+          </button>
         </form>
       </div>
     );

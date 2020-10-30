@@ -11,6 +11,11 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
     setImage(e.target.files[0]);
   };
 
+  const updateHandler = () => {
+    // send to backend
+    console.log({ image, name: userName });
+  };
+
   useEffect(() => {
     setImage(image_url);
     setUserName(name);
@@ -36,6 +41,10 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
           className={styles.changeName}
         />
         <span>{tag}</span>
+
+        <button className={styles.saveButton} onClick={updateHandler}>
+          Save
+        </button>
       </div>
     );
   } else {

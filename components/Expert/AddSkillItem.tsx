@@ -17,36 +17,63 @@ const PLACEHOLDER_TECHNOLOGIES = [
   "Strapi",
 ];
 
+const newSkill = {
+  name: "",
+  description: "",
+  endorsements: 0,
+  experience: 0,
+  image_url: "/images/placeholder.png",
+  technologies: [],
+};
+
 interface AddSkillItem {
   skillAdded: (skill: Skills) => void;
 }
 
 export default function AddSkillItem({ skillAdded }) {
-  const [technologies, setTechnologies] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
 
-  const [description, setDescription] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [yearsExperience, setYearsExperience] = useState<number | null>(null);
-  const [endorsements, setEndorsements] = useState<number | null>(null);
+  const [skillValues, setSkillValues] = useState<Skills>(newSkill);
 
-  const addHandler = (val: string) => {
-    setInput("");
-    setTechnologies((technologies) => [...technologies, val]);
-  };
+  const addTechnologyHandler = (val: string) => {
+    const oldTechnologies = [...skillValues.technologies];
 
-  const saveHandler = () => {
-    const skill: Skills = {
-      description,
-      endorsements,
-      experience: yearsExperience,
-      image_url: "/images/placeholder.png",
-      name,
-      technologies,
+    let updatedSkillValues = {
+      ...skillValues,
+      technologies: [...oldTechnologies, val],
     };
 
-    // updates skill list locally
+    console.log(updatedSkillValues);
+    setInput("");
+    setSkillValues(updatedSkillValues);
+  };
+
+  const skillUpdateHandler = (e, key: string) => {
+    let updatedSkillValues = {
+      ...skillValues,
+      [key]: e.target.value,
+    };
+
+    console.log(updatedSkillValues);
+
+    setSkillValues(updatedSkillValues);
+  };
+
+  const addSkillHandler = () => {
+    const skill: Skills = {
+      description: skillValues.description,
+      endorsements: Number(skillValues.endorsements),
+      experience: Number(skillValues.experience),
+      image_url: "/images/placeholder.png",
+      name: skillValues.name,
+      technologies: skillValues.technologies,
+    };
+
+    // add skill to list locally
     skillAdded(skill);
+
+    // reset inputs
+    setSkillValues(newSkill);
 
     // send to backend
     console.log("sending to backend", skill);
@@ -61,8 +88,8 @@ export default function AddSkillItem({ skillAdded }) {
       <div className={styles.skillsRight}>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={skillValues.name}
+          onChange={(e) => skillUpdateHandler(e, "name")}
           className={styles.addName}
         />
 
@@ -70,20 +97,20 @@ export default function AddSkillItem({ skillAdded }) {
           <span>
             <input
               type="number"
-              value={yearsExperience}
               min={1}
               max={99}
-              onChange={(e) => setYearsExperience(Number(e.target.value))}
+              value={skillValues.experience}
+              onChange={(e) => skillUpdateHandler(e, "experience")}
             />
           </span>{" "}
           years experience |{" "}
           <span>
             <input
               type="number"
-              value={endorsements}
               min={1}
               max={99}
-              onChange={(e) => setEndorsements(Number(e.target.value))}
+              value={skillValues.endorsements}
+              onChange={(e) => skillUpdateHandler(e, "endorsements")}
             />
           </span>{" "}
           endorsements
@@ -91,12 +118,12 @@ export default function AddSkillItem({ skillAdded }) {
 
         <textarea
           className={styles.description}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={skillValues.description}
+          onChange={(e) => skillUpdateHandler(e, "description")}
         ></textarea>
 
         <div className={styles.addTechnology}>
-          {technologies.length < 3 && (
+          {skillValues.technologies.length < 3 && (
             <div>
               <input
                 type="text"
@@ -106,18 +133,18 @@ export default function AddSkillItem({ skillAdded }) {
               <Autocomplete
                 items={PLACEHOLDER_TECHNOLOGIES}
                 input={input}
-                itemClicked={addHandler}
+                itemClicked={addTechnologyHandler}
               />
             </div>
           )}
           <ul className={styles.additional}>
-            {technologies.map((technology) => (
+            {skillValues.technologies.map((technology) => (
               <li key={technology}>{technology}</li>
             ))}
           </ul>
         </div>
 
-        <button className={styles.saveButton} onClick={saveHandler}>
+        <button className={styles.saveButton} onClick={addSkillHandler}>
           Add
         </button>
       </div>

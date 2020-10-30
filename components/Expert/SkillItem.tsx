@@ -18,8 +18,8 @@ export default function SkillItem({ skill }: SkillProp) {
         <p className={styles.description}>{skill.description}</p>
 
         <ul className={styles.additional}>
-          {skill.technologies.map((technology) => (
-            <li key={technology}>{technology}</li>
+          {skill.tags.map((tag) => (
+            <li key={tag}>{tag}</li>
           ))}
         </ul>
       </div>

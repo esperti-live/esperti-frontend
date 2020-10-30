@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 
-const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
+const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
   const [image, setImage] = useState<string | File>(image_url);
   const [userName, setUserName] = useState<string>(name);
 
@@ -37,7 +37,7 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
             userName.length < 1 ? "invalid" : ""
           }`}
         />
-        <span>{tag}</span>
+        <span>{title}</span>
 
         <button className={`saveButton`} onClick={updateHandler}>
           Save
@@ -53,7 +53,7 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
           className={styles.avatar}
         />
         <h4>{userName}</h4>
-        <span>{tag}</span>
+        <span>{title}</span>
       </div>
     );
   }

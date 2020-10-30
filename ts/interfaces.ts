@@ -4,7 +4,7 @@
   endorsements: number;
   description: string;
   image_url: string;
-  technologies: string[];
+  tags: string[];
 }
 
 export interface Expert {
@@ -32,7 +32,7 @@ export interface AboutProps {
 
 export interface AvatarProps {
   image_url: string;
-  tag: string;
+  title: string;
   name: string;
   editMode: boolean;
 }
@@ -53,7 +53,7 @@ interface Request {
       image_url: string;
     },
     title: string;
-    technologies: string[];
+    tags: string[];
     type: string;
 }
 

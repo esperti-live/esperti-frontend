@@ -14,9 +14,9 @@ const Request = ({ request }: RequestProp) => {
           <div className={styles.right}>
             <h5>{request.title}</h5>
             <span className={styles.type}>{request.type}</span>
-            {request.technologies.map((technology) => (
-              <span key={technology} className={styles.technology}>
-                {technology}
+            {request.tags.map((tag) => (
+              <span key={tag} className={styles.tag}>
+                {tag}
               </span>
             ))}
           </div>

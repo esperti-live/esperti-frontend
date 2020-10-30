@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/About.module.scss";
 import Autocomplete from "../Autocomplete";
 import { Skills } from "../../ts/interfaces";
-import { PLACEHOLDER_TECHNOLOGIES } from "../../constants/placeholder";
+import { PLACEHOLDER_TAGS } from "../../constants/placeholder";
 
 const newSkill = {
   name: "",
@@ -10,7 +10,7 @@ const newSkill = {
   endorsements: 0,
   experience: 0,
   image_url: "/images/placeholder.png",
-  technologies: [],
+  tags: [],
 };
 
 interface AddSkillItem {
@@ -22,12 +22,12 @@ export default function AddSkillItem({ skillAdded }) {
 
   const [skillValues, setSkillValues] = useState<Skills>(newSkill);
 
-  const addTechnologyHandler = (val: string) => {
-    const oldTechnologies = [...skillValues.technologies];
+  const addTagHandler = (val: string) => {
+    const oldTags = [...skillValues.tags];
 
     let updatedSkillValues = {
       ...skillValues,
-      technologies: [...oldTechnologies, val],
+      tags: [...oldTags, val],
     };
 
     console.log(updatedSkillValues);
@@ -53,7 +53,7 @@ export default function AddSkillItem({ skillAdded }) {
       experience: Number(skillValues.experience),
       image_url: "/images/placeholder.png",
       name: skillValues.name,
-      technologies: skillValues.technologies,
+      tags: skillValues.tags,
     };
 
     // add skill to list locally
@@ -109,8 +109,8 @@ export default function AddSkillItem({ skillAdded }) {
           onChange={(e) => skillUpdateHandler(e, "description")}
         ></textarea>
 
-        <div className={styles.addTechnology}>
-          {skillValues.technologies.length < 3 && (
+        <div className={styles.addTag}>
+          {skillValues.tags.length < 3 && (
             <div>
               <input
                 type="text"
@@ -118,15 +118,15 @@ export default function AddSkillItem({ skillAdded }) {
                 onChange={(e) => setInput(e.target.value)}
               />
               <Autocomplete
-                items={PLACEHOLDER_TECHNOLOGIES}
+                items={PLACEHOLDER_TAGS}
                 input={input}
-                itemClicked={addTechnologyHandler}
+                itemClicked={addTagHandler}
               />
             </div>
           )}
           <ul className={styles.additional}>
-            {skillValues.technologies.map((technology) => (
-              <li key={technology}>{technology}</li>
+            {skillValues.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
             ))}
           </ul>
         </div>

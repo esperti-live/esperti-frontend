@@ -10,7 +10,7 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "I need help deploying python script",
-    technologies: ["Python", "Amazon Web Services"],
+    tags: ["Python", "Amazon Web Services"],
     type: "Freelance job",
   },
   {
@@ -20,7 +20,7 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "Azure issues in authentcation",
-    technologies: ["Azure", "Sitefinity"],
+    tags: ["Azure", "Sitefinity"],
     type: "Freelance job",
   },
   {
@@ -30,7 +30,7 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "Powershell help for aszure network security",
-    technologies: ["Azure", "Powershell"],
+    tags: ["Azure", "Powershell"],
     type: "Freelance job",
   },
   {
@@ -40,7 +40,7 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "Need mentor for cybersecurity",
-    technologies: ["Cyber secrutiy", "Mathematics"],
+    tags: ["Cyber secrutiy", "Mathematics"],
     type: "1 on 1 help",
   },
   {
@@ -50,7 +50,7 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "Open application on computer using webhooks",
-    technologies: ["PHP", "Node.js", "Amazon"],
+    tags: ["PHP", "Node.js", "Amazon"],
     type: "1 on 1 help",
   },
 ];

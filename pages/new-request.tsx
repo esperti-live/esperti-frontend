@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 
 import Autocomplete from "../components/Autocomplete";
 
-import { PLACEHOLDER_TECHNOLOGIES } from "../constants/placeholder";
+import { PLACEHOLDER_TAGS } from "../constants/placeholder";
 import { useRouter } from "next/router";
 import { NewRequest } from "../ts/interfaces";
 
@@ -82,7 +82,7 @@ const newRequest = () => {
           placeholder="Tags"
         />
         <Autocomplete
-          items={PLACEHOLDER_TECHNOLOGIES}
+          items={PLACEHOLDER_TAGS}
           input={dropdownSearch}
           itemClicked={addTagHandler}
         />

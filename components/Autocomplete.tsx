@@ -16,7 +16,7 @@ export default function Autocomplete({ items, input, itemClicked }) {
   }, [input]);
 
   return (
-    <ul className={styles.technologyDropdown}>
+    <ul className={styles.tagDropdown}>
       {filteredItems.map((item) => (
         <li onClick={() => itemClicked(item)} key={item}>
           {item}

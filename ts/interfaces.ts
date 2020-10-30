@@ -1,4 +1,4 @@
- interface Skills {
+ export interface Skills {
   name: string;
   experience: number;
   endorsements: number;
@@ -38,7 +38,8 @@ export interface AvatarProps {
 }
 
 export interface SkillsProp {
-  skills: Skills[]
+  skills: Skills[];
+  editMode: boolean;
 }
 
 export interface SkillProp {

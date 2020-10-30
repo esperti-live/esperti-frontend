@@ -9,7 +9,7 @@ export default function SkillItem({ skill }: SkillProp) {
       </div>
 
       <div>
-        <h6>React</h6>
+        <h6>{skill.name}</h6>
         <div className={styles.experience}>
           <span>{skill.experience}</span> years experience |{" "}
           <span>{skill.endorsements}</span> endorsements

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import styles from "../../styles/Expert.module.scss";
+import { useState } from "react";
+import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 
 const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
-  const [image, setImage] = useState<string | File>("");
-  const [userName, setUserName] = useState<string>("");
+  const [image, setImage] = useState<string | File>(image_url);
+  const [userName, setUserName] = useState<string>(name);
 
   const onFileHandler = (e) => {
     console.log("file", e.target.files[0]);
@@ -15,11 +15,6 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
     // send to backend
     console.log({ image, name: userName });
   };
-
-  useEffect(() => {
-    setImage(image_url);
-    setUserName(name);
-  }, [image_url]);
 
   if (editMode) {
     return (
@@ -38,11 +33,13 @@ const Avatar = ({ image_url, tag, name, editMode }: AvatarProps) => {
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          className={styles.changeName}
+          className={`${styles.changeName} ${
+            userName.length < 1 ? "invalid" : ""
+          }`}
         />
         <span>{tag}</span>
 
-        <button className={styles.saveButton} onClick={updateHandler}>
+        <button className={`saveButton`} onClick={updateHandler}>
           Save
         </button>
       </div>

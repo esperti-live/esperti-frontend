@@ -29,6 +29,15 @@ const FAKE_EXPERT: Expert = {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia itaque suscipit, aperiam eligendi facere consequatur ipsa hic asperiores sit laboriosam!",
       technologies: ["React", "Redux", "React Native"],
     },
+    // {
+    //   name: "React",
+    //   experience: 2,
+    //   endorsements: 25,
+    //   image_url: "/images/placeholder.png",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia itaque suscipit, aperiam eligendi facere consequatur ipsa hic asperiores sit laboriosam!",
+    //   technologies: ["React", "Redux", "React Native"],
+    // },
   ],
 };
 

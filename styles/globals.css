@@ -33,3 +33,18 @@ ul, li {
     padding: 35px 0;
   }
 }
+
+.invalid {
+  border-bottom: solid 2px red !important;
+}
+
+.saveButton {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  background: orangered;
+  font-size: 16px;
+  color: white;
+}

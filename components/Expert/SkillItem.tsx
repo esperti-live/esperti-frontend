@@ -1,4 +1,4 @@
-import styles from "../../styles/Expert.module.scss";
+import styles from "../../styles/About.module.scss";
 import { SkillProp } from "../../ts/interfaces";
 
 export default function SkillItem({ skill }: SkillProp) {

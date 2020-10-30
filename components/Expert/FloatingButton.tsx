@@ -6,7 +6,7 @@ interface FloatingButtonProps {
   editMode: boolean;
   changeEditMode: () => void;
 }
-const usersAccount = false; // placeholder
+const usersAccount = true; // placeholder
 
 const FloatingButton = ({ changeEditMode, editMode }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);

@@ -45,3 +45,18 @@ export interface SkillsProp {
 export interface SkillProp {
   skill: Skills
 }
+
+
+interface Request {
+    id: number;
+    user: {
+      image_url: string;
+    },
+    title: string;
+    technologies: string[];
+    type: string;
+}
+
+export interface RequestProp {
+  request: Request
+}

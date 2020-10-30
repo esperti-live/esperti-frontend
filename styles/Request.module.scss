@@ -1,0 +1,45 @@
+.request {
+  border: solid 1px #e6e5e5;
+  
+  .requestItem {
+    padding: 15px 30px 15px 30px;
+    border-bottom: solid 1px #e6e5e5;
+    display: flex;
+    align-items: center;
+
+    & .left {
+      min-width: 50px;
+      width: 50px;
+      height: 50px;
+      margin-right: 30px;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+     }
+
+     & .right {
+       font-size: 12px;
+       h5 {
+         font-size: 22px;
+         margin: 0 0 15px 0;
+       }
+
+       .type {
+         background: #e6e5e5;
+         padding: 1px 10px;
+         border-radius: 5px;
+         margin-right: 10px;
+       }
+
+       .technology {
+         &:not(:first-of-type) {
+           margin-left: 10px;
+         }
+       }
+     }
+  }
+}

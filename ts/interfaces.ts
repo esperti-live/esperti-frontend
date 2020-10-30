@@ -60,3 +60,9 @@ interface Request {
 export interface RequestProp {
   request: Request
 }
+
+export interface NewRequest {
+  title: string;
+  description: string;
+  tags: string[];
+}

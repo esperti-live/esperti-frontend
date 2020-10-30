@@ -2,20 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/About.module.scss";
 import Autocomplete from "../Autocomplete";
 import { Skills } from "../../ts/interfaces";
-
-const PLACEHOLDER_TECHNOLOGIES = [
-  "React",
-  "Redux",
-  "GraphQL",
-  "Laravel",
-  "Html",
-  "Css",
-  "Javascript",
-  "Vue",
-  "Node",
-  "Express",
-  "Strapi",
-];
+import { PLACEHOLDER_TECHNOLOGIES } from "../../constants/placeholder";
 
 const newSkill = {
   name: "",

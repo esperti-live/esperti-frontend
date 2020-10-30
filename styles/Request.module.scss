@@ -43,3 +43,30 @@
      }
   }
 }
+
+.newRequests {
+  & form {
+    padding: 30px;
+    border: solid 1px #cecece;
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & input, textarea {
+      padding: 7px 15px;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .tags {
+      display: flex;
+      span {
+        &:not(:first-of-type){
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

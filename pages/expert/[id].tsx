@@ -1,7 +1,9 @@
+import { useState } from "react";
 import styles from "../../styles/Expert.module.scss";
 import About from "../../components/Expert/About";
 import Avatar from "../../components/Expert/Avatar";
 import SkillsList from "../../components/Expert/SkillsList";
+import FloatingButton from "../../components/Expert/FloatingButton";
 import { Expert } from "../../ts/interfaces";
 
 const FAKE_EXPERT: Expert = {
@@ -38,12 +40,17 @@ const FAKE_EXPERT: Expert = {
 };
 
 export default function expert() {
+  const [editMode, setEditMode] = useState<boolean>(false);
+
+  const editModeHandler = () => setEditMode(!editMode);
+
   return (
     <div className={styles.expert}>
       <Avatar
         image_url={FAKE_EXPERT.image_url}
         name={FAKE_EXPERT.name}
         tag={FAKE_EXPERT.tag}
+        editMode={editMode}
       />
 
       <div className={styles.video}>
@@ -63,10 +70,13 @@ export default function expert() {
           language={FAKE_EXPERT.language}
           timezone={FAKE_EXPERT.timezone}
           socials={FAKE_EXPERT.socials}
+          editMode={editMode}
         />
 
-        <SkillsList skills={FAKE_EXPERT.skills} />
+        <SkillsList skills={FAKE_EXPERT.skills} editMode={editMode} />
       </div>
+
+      <FloatingButton changeEditMode={editModeHandler} editMode={editMode} />
     </div>
   );
 }

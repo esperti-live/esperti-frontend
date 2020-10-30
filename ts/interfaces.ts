@@ -32,6 +32,7 @@ export interface AvatarProps {
   image_url: string;
   tag: string;
   name: string;
+  editMode: boolean;
 }
 
 export interface SkillsProp {

@@ -6,7 +6,7 @@ interface FloatingButtonProps {
   editMode: boolean;
   changeEditMode: () => void;
 }
-const usersAccount = true; // placeholder
+const usersAccount = false; // placeholder
 
 const FloatingButton = ({ changeEditMode, editMode }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const FloatingButton = ({ changeEditMode, editMode }: FloatingButtonProps) => {
         className={styles.expertFloatingButton}
         onClick={changeEditMode}
       >
-        Save
+        Stop Editing
       </button>
     );
   } else if (usersAccount) {

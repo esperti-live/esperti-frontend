@@ -84,6 +84,13 @@
       border-bottom: solid 1px #cecece;
       padding: 30px 30px 30px 50px;
 
+      .editIntroduction {
+        font-family: inherit;
+        width: 100%;
+        font-size: 16px;
+        border: none;
+        height: 100px;
+      }
 
       .expertise {
         .skill {
@@ -164,4 +171,15 @@
     }
   }
   
+}
+
+.saveButton {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  background: orangered;
+  font-size: 16px;
+  color: white;
 }

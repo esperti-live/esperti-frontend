@@ -27,6 +27,7 @@ export interface AboutProps {
   language: string;
   timezone: string;
   socials: string[];
+  editMode: boolean;
 }
 
 export interface AvatarProps {

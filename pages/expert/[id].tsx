@@ -3,6 +3,7 @@ import styles from "../../styles/Expert.module.scss";
 import About from "../../components/Expert/About";
 import Avatar from "../../components/Expert/Avatar";
 import SkillsList from "../../components/Expert/SkillsList";
+import Video from "../../components/Expert/Video";
 import FloatingButton from "../../components/Expert/FloatingButton";
 import { Expert } from "../../ts/interfaces";
 
@@ -15,6 +16,7 @@ const FAKE_EXPERT: Expert = {
   about:
     "Morbi rutrum eros vel mi iaculis gravida. Quisque iaculis vel diam at porttitor. Quisque tincidunt blandit felis et consequat. Sed id ante semper, ultrices odio ut, condimentum ante. Aenean orci est, viverra nec maximus et, faucibus nec diam. Ut in risus ut purus gravida gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
   language: "english",
+  video_url: "https://www.youtube.com/embed/LXb3EKWsInQ",
   timezone: "Timezone (+1:00)",
   socials: ["github", "facebook"],
   skills: [
@@ -53,15 +55,7 @@ export default function expert() {
         editMode={editMode}
       />
 
-      <div className={styles.video}>
-        <iframe
-          width="960"
-          height="500"
-          src="https://www.youtube.com/embed/LXb3EKWsInQ"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
-      </div>
+      <Video editMode={editMode} video_url={FAKE_EXPERT.video_url} />
 
       <div className={styles.portfolio}>
         <About

@@ -10,6 +10,7 @@
 export interface Expert {
   name: string;
   tag: string;
+  video_url: string;
   image_url: string;
   introduction: string;
   about: string;

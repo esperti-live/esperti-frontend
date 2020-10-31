@@ -1,8 +1,14 @@
+import { useState, useContext } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import ExpertCard from "../components/ExpertCard";
 import { FAKE_EXPERTS } from "../constants/placeholder";
+import AuthContext from "../contexts/AuthContext";
+
 export default function Home() {
+  const [homeInput, setHomeInput] = useState("");
+  const { user } = useContext(AuthContext);
+
   return (
     <>
       <Head>
@@ -17,9 +23,24 @@ export default function Home() {
           </h1>
           <p>We bring you the top IT experts billed by the minute</p>
 
-          <input type="email" placeholder="Enter your email" />
+          {!user && (
+            <div className={styles.signUp}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={homeInput}
+                onChange={(e) => setHomeInput(e.target.value)}
+                className={homeInput.length > 0 ? styles.active : ""}
+              />
+              {homeInput.length > 1 && (
+                <button onClick={() => setHomeInput("")}>
+                  <img src="/images/clear_input.svg" alt="Clear input" />
+                </button>
+              )}
+            </div>
+          )}
 
-          <button>Get Help Now</button>
+          <button className={styles.getHelp}>Get Help Now</button>
         </section>
 
         <section className={styles.steps}>

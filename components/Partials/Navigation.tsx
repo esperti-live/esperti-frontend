@@ -14,16 +14,16 @@ const Navigation = () => {
     <nav className={styles.navigation}>
       <div className={styles.innerNavigation}>
         <Link href="/">
-          <a>
-            <img src="/images/logo.svg" alt="Esperti" />
-          </a>
+          <img src="/images/logo.svg" alt="Esperti" />
         </Link>
         {user && (
-          <div>
-            <span>{user.email}</span>
-            <button type="button" onClick={logoutHandler}>
+          <div className={styles.user}>
+            {/* <span>{user.email}</span> */}
+            <img src="/images/user_profile.svg" alt="Avatar" />
+            <span>Username</span>
+            {/* <button type="button" onClick={logoutHandler}>
               Logout
-            </button>
+            </button> */}
           </div>
         )}
         {!user && (

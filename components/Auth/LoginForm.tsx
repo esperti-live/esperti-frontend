@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function LoginForm({ afterLogin }) {
+export default function LoginForm() {
   const [emailInput, setEmailInput] = useState<string>("");
   const { login, user } = useContext(AuthContext);
 
@@ -12,7 +12,6 @@ export default function LoginForm({ afterLogin }) {
     const res = await login(emailInput);
     console.log(res);
     console.log(user);
-    afterLogin();
   };
 
   return (

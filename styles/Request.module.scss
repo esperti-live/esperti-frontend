@@ -1,6 +1,20 @@
 .request {
-  border: solid 1px #e6e5e5;
-  
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .button {
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    background: orangered;
+    border: none;
+    display: inline-block;
+    align-self: flex-end;
+  }
+
+  .requestList {
+    border: solid 1px #e6e5e5;
+
   .requestItem {
     padding: 15px 30px 15px 30px;
     border-bottom: solid 1px #e6e5e5;
@@ -41,6 +55,7 @@
          }
        }
      }
+  }
   }
 }
 

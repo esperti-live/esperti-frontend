@@ -1,6 +1,6 @@
-import Layout from "../components/Partials/Layout";
 import styles from "../styles/Request.module.scss";
 import Request from "../components/Request/Request";
+import Link from "next/link";
 
 const FAKE_REQUESTS = [
   {
@@ -58,11 +58,16 @@ const FAKE_REQUESTS = [
 export default function requests() {
   return (
     <div className={styles.request}>
-      <ul>
-        {FAKE_REQUESTS.map((request) => (
-          <Request request={request} key={request.id} />
-        ))}
-      </ul>
+      <Link href="/new-request">
+        <a className={styles.button}>New Request</a>
+      </Link>
+      <div className={styles.requestList}>
+        <ul>
+          {FAKE_REQUESTS.map((request) => (
+            <Request request={request} key={request.id} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

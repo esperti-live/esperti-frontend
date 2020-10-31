@@ -1,5 +1,33 @@
+.autocomplete {
+position: relative;
+width: 100%;
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 7px 15px;
+    margin-bottom: 15px;
+  }
+
 .tagDropdown {
   display: flex;
   flex-direction: column;
-}
+  position: absolute;
+  border: solid 1px orangered;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  transform-origin: top center;
+  transform: translateY(-15px);
+  background: #fff;
 
+  li {
+    padding: 2px 10px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.125);
+      cursor: pointer;
+    }
+  }
+  }
+
+}

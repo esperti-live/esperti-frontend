@@ -2,7 +2,7 @@ export const PLACEHOLDER_TAGS = [
   "React",
   "Redux",
   "GraphQL",
-  "Laravel",
+  "laravel",
   "Html",
   "Css",
   "Javascript",

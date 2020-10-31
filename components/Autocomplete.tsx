@@ -1,27 +1,44 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Autocomplete.module.scss";
 
-export default function Autocomplete({ items, input, itemClicked }) {
-  const [filteredItems, setfilteredItems] = useState<string[]>([]);
+export default function Autocomplete({ items, itemClicked }) {
+  const [filteredItems, setFilteredItems] = useState<string[]>([]);
+  const [input, setInput] = useState("");
+
+  const itemClickHandler = (item: string) => {
+    console.log("clicked", item);
+    setInput("");
+    itemClicked(item);
+  };
 
   useEffect(() => {
     if (!input) {
-      return setfilteredItems([]);
+      return setFilteredItems([]);
     }
-
-    const list = items.filter((item) => item.toLowerCase().includes(input));
-    setfilteredItems(list);
-
-    console.log("here");
+    console.log(input);
+    const list = items.filter((item: string) =>
+      item.toLowerCase().includes(input)
+    );
+    setFilteredItems(list);
   }, [input]);
 
   return (
-    <ul className={styles.tagDropdown}>
-      {filteredItems.map((item) => (
-        <li onClick={() => itemClicked(item)} key={item}>
-          {item}
-        </li>
-      ))}
-    </ul>
+    <div className={styles.autocomplete}>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Tags"
+      />
+      {filteredItems.length >= 1 && (
+        <ul className={styles.tagDropdown}>
+          {filteredItems.map((item) => (
+            <li onClick={() => itemClickHandler(item)} key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

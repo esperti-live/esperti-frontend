@@ -17,7 +17,6 @@ const initRequest: NewRequest = {
 };
 
 const newRequest = () => {
-  const [dropdownSearch, setDropdownSearch] = useState<string>("");
   const [request, setRequest] = useState<NewRequest>(initRequest);
   const router = useRouter();
 
@@ -36,16 +35,16 @@ const newRequest = () => {
   };
 
   const addTagHandler = (val: string) => {
-    const oldTags = [...request.tags];
+    if (!request.tags.includes(val)) {
+      const oldTags = [...request.tags];
+      let updatedRequest = {
+        ...request,
+        tags: [...oldTags, val],
+      };
 
-    let updatedRequest = {
-      ...request,
-      tags: [...oldTags, val],
-    };
-
-    console.log("added tag", updatedRequest);
-    setDropdownSearch("");
-    setRequest(updatedRequest);
+      console.log("added tag", updatedRequest);
+      setRequest(updatedRequest);
+    }
   };
 
   const requestChangeHandler = (e, key: string) => {
@@ -75,17 +74,7 @@ const newRequest = () => {
           onChange={(e) => requestChangeHandler(e, "description")}
         ></textarea>
 
-        <input
-          type="text"
-          value={dropdownSearch}
-          onChange={(e) => setDropdownSearch(e.target.value)}
-          placeholder="Tags"
-        />
-        <Autocomplete
-          items={PLACEHOLDER_TAGS}
-          input={dropdownSearch}
-          itemClicked={addTagHandler}
-        />
+        <Autocomplete items={PLACEHOLDER_TAGS} itemClicked={addTagHandler} />
 
         <div className={styles.tags}>
           {request.tags.map((tag) => (

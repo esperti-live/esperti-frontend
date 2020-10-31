@@ -18,8 +18,6 @@ interface AddSkillItem {
 }
 
 export default function AddSkillItem({ skillAdded }) {
-  const [input, setInput] = useState<string>("");
-
   const [skillValues, setSkillValues] = useState<Skills>(newSkill);
 
   const addTagHandler = (val: string) => {
@@ -31,7 +29,6 @@ export default function AddSkillItem({ skillAdded }) {
     };
 
     console.log(updatedSkillValues);
-    setInput("");
     setSkillValues(updatedSkillValues);
   };
 
@@ -111,18 +108,10 @@ export default function AddSkillItem({ skillAdded }) {
 
         <div className={styles.addTag}>
           {skillValues.tags.length < 3 && (
-            <div>
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <Autocomplete
-                items={PLACEHOLDER_TAGS}
-                input={input}
-                itemClicked={addTagHandler}
-              />
-            </div>
+            <Autocomplete
+              items={PLACEHOLDER_TAGS}
+              itemClicked={addTagHandler}
+            />
           )}
           <ul className={styles.additional}>
             {skillValues.tags.map((tag) => (

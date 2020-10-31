@@ -1,89 +1,66 @@
 import { useState, useContext } from "react";
 
-import Autocomplete from "../components/Autocomplete";
-
 import { PLACEHOLDER_TAGS } from "../constants/placeholder";
 import { useRouter } from "next/router";
-import { NewRequest } from "../ts/interfaces";
 
 import AuthContext from "../contexts/AuthContext";
+import RequestForm from "../components/Request/RequestForm";
+import { NewRequest } from "../ts/interfaces";
 
 import styles from "../styles/Request.module.scss";
 
-const initRequest: NewRequest = {
-  description: "",
-  tags: [],
-  title: "",
-};
-
 const newRequest = () => {
-  const [request, setRequest] = useState<NewRequest>(initRequest);
+  const [step, setStep] = useState<number>(1);
+  const [newRequest, setNewRequest] = useState<null | NewRequest>(null);
+
+  const [emailInput, setEmailInput] = useState<string>("");
+  const { login, user } = useContext(AuthContext);
+
   const router = useRouter();
 
-  const { user } = useContext(AuthContext);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
+  const submitHandler = (request: NewRequest) => {
     if (!user) {
-      return router.push("/login");
+      setNewRequest(request);
+      setStep(2);
+    } else {
+      postRequest(request, user);
     }
+  };
 
-    // send request
-    await console.log("sending request", request);
+  const postRequest = async (request: NewRequest, user) => {
+    console.log("sending request", {
+      request: request,
+      user,
+    });
     router.push("/requests");
   };
 
-  const addTagHandler = (val: string) => {
-    if (!request.tags.includes(val)) {
-      const oldTags = [...request.tags];
-      let updatedRequest = {
-        ...request,
-        tags: [...oldTags, val],
-      };
-
-      console.log("added tag", updatedRequest);
-      setRequest(updatedRequest);
-    }
-  };
-
-  const requestChangeHandler = (e, key: string) => {
-    let updatedSkillValues = {
-      ...request,
-      [key]: e.target.value,
-    };
-
-    console.log("changing request values", updatedSkillValues);
-
-    setRequest(updatedSkillValues);
+  const loginHandler = async (e) => {
+    e.preventDefault();
+    const user = await login(emailInput);
+    postRequest(newRequest, user);
   };
 
   return (
     <div className={styles.newRequests}>
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={request.title}
-          onChange={(e) => requestChangeHandler(e, "title")}
+      {!user && step == 1 && <span>Step 1</span>}
+      {!user && step == 2 && <span>Step 2</span>}
+      {step == 1 && (
+        <RequestForm
+          tags={PLACEHOLDER_TAGS}
+          formSubmit={(request) => submitHandler(request)}
         />
-
-        <textarea
-          placeholder="Description"
-          value={request.description}
-          onChange={(e) => requestChangeHandler(e, "description")}
-        ></textarea>
-
-        <Autocomplete items={PLACEHOLDER_TAGS} itemClicked={addTagHandler} />
-
-        <div className={styles.tags}>
-          {request.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-
-        <button type="submit">Confirm</button>
-      </form>
+      )}
+      {step == 2 && (
+        <form onSubmit={loginHandler}>
+          <input
+            type="email"
+            required
+            onChange={(e) => setEmailInput(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+      )}
     </div>
   );
 };

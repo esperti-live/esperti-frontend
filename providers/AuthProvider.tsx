@@ -12,14 +12,18 @@ interface User {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (email: string) => {
+  const login = (email: string) => {
     console.log("logging in");
-    try {
-      const res = await m.auth.loginWithMagicLink({ email, showUI: true });
-      setUser({ tokenId: res, email });
-    } catch (error) {
-      console.log(error);
-    }
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await m.auth.loginWithMagicLink({ email, showUI: true });
+        setUser({ tokenId: res, email });
+        resolve({ email, tokenId: res });
+      } catch (err) {
+        console.log(err);
+        reject();
+      }
+    });
   };
 
   const logout = async () => {
@@ -46,7 +50,7 @@ export default function AuthProvider({ children }) {
 
     (async () => {
       try {
-        const isLoggedIn = m.user.isLoggedIn();
+        const isLoggedIn = await m.user.isLoggedIn();
 
         if (isLoggedIn) {
           persistUser();

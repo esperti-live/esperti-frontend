@@ -37,7 +37,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
             userName.length < 1 ? "invalid" : ""
           }`}
         />
-        <span>{title}</span>
+        <span className="title">{title}</span>
 
         <button className={`saveButton`} onClick={updateHandler}>
           Save
@@ -53,7 +53,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
           className={styles.avatar}
         />
         <h4>{userName}</h4>
-        <span>{title}</span>
+        <span className="title">{title}</span>
       </div>
     );
   }

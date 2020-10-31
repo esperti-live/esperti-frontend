@@ -42,7 +42,7 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    m = new Magic("pk_test_34B988B683181D01");
+    m = new Magic("pk_test_635E3B2FA9831709");
 
     (async () => {
       try {

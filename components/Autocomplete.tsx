@@ -33,7 +33,7 @@ export default function Autocomplete({ items, itemClicked }) {
       {filteredItems.length >= 1 && (
         <ul className={styles.tagDropdown}>
           {filteredItems.map((item) => (
-            <li onClick={() => itemClickHandler(item)} key={item}>
+            <li onClick={() => itemClickHandler(item)} key={item} tabIndex={0}>
               {item}
             </li>
           ))}

@@ -25,8 +25,7 @@ export default function expert() {
 
       <div className={styles.portfolio}>
         <About
-          introduction={FAKE_EXPERT.introduction}
-          about={FAKE_EXPERT.about}
+          bio={FAKE_EXPERT.bio}
           language={FAKE_EXPERT.language}
           timezone={FAKE_EXPERT.timezone}
           socials={FAKE_EXPERT.socials}

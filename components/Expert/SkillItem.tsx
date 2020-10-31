@@ -1,7 +1,12 @@
 import styles from "../../styles/About.module.scss";
 import { SkillProp } from "../../ts/interfaces";
 
-export default function SkillItem({ skill }: SkillProp) {
+export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
+  const removeItemHandler = () => {
+    console.log("Removing Item", skill.name);
+    removeItem(skill.name);
+  };
+
   return (
     <li className={styles.skill}>
       <div className={styles.image}>
@@ -23,6 +28,16 @@ export default function SkillItem({ skill }: SkillProp) {
           ))}
         </ul>
       </div>
+
+      {editMode && (
+        <button
+          type="button"
+          className={styles.editButton}
+          onClick={removeItemHandler}
+        >
+          X
+        </button>
+      )}
     </li>
   );
 }

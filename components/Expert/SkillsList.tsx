@@ -14,12 +14,23 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
     setShowAddSkill(false);
   };
 
+  const removeItemHandler = (item: string) => {
+    setSkillsList((prevSkills) =>
+      prevSkills.filter((skill) => skill.name !== item)
+    );
+  };
+
   return (
     <div className={styles.aboutSection}>
       <h5>Expertise</h5>
       <ul className={styles.expertise}>
         {skillsList.map((skill) => (
-          <SkillItem key={skill.name} skill={skill} />
+          <SkillItem
+            key={skill.name}
+            skill={skill}
+            editMode={editMode}
+            removeItem={removeItemHandler}
+          />
         ))}
 
         {editMode && showAddSkill && (

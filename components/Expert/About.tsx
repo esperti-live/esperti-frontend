@@ -3,20 +3,17 @@ import styles from "../../styles/About.module.scss";
 import { AboutProps } from "../../ts/interfaces";
 
 export default function About({
-  introduction,
-  about,
+  bio,
   language,
   timezone,
   socials,
   editMode,
 }: AboutProps) {
-  const [introductionInput, setIntroductionInput] = useState(introduction);
-  const [aboutInput, setAboutInput] = useState(about);
+  const [bioInput, setBioInput] = useState(bio);
 
   const saveHandler = () => {
     console.log("sending to backend", {
-      introduction: introductionInput,
-      about: aboutInput,
+      bio,
     });
   };
 
@@ -27,14 +24,8 @@ export default function About({
 
         <textarea
           className={styles.editIntroduction}
-          onChange={(e) => setIntroductionInput(e.target.value)}
-          value={introductionInput}
-        ></textarea>
-
-        <textarea
-          className={styles.editIntroduction}
-          onChange={(e) => setAboutInput(e.target.value)}
-          value={aboutInput}
+          onChange={(e) => setBioInput(e.target.value)}
+          value={bioInput}
         ></textarea>
 
         <div className={styles.extra}>
@@ -59,8 +50,7 @@ export default function About({
     return (
       <div className={styles.aboutSection}>
         <h5>About me</h5>
-        <p className={styles.bold}>{introductionInput}</p>
-        <p>{aboutInput}</p>
+        <p>{bio}</p>
         <div className={styles.extra}>
           <div>
             <span>{language}</span>

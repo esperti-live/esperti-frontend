@@ -16,9 +16,7 @@ export const FAKE_EXPERT = {
   name: "Nik Vogrinec",
   title: "Professional Noob",
   image_url: "/images/placeholder.png",
-  introduction:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis felis risus. Vestibulum viverra posuere mollis. Praesent id ante a nisl consequat venenatis vitae id magna.",
-  about:
+  bio:
     "Morbi rutrum eros vel mi iaculis gravida. Quisque iaculis vel diam at porttitor. Quisque tincidunt blandit felis et consequat. Sed id ante semper, ultrices odio ut, condimentum ante. Aenean orci est, viverra nec maximus et, faucibus nec diam. Ut in risus ut purus gravida gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
   language: "english",
   video_url: "https://www.youtube.com/embed/LXb3EKWsInQ",

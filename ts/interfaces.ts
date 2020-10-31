@@ -22,8 +22,7 @@ export interface Expert {
 
 
 export interface AboutProps {
-  introduction: string;
-  about: string;
+  bio: string;
   language: string;
   timezone: string;
   socials: string[];
@@ -43,7 +42,9 @@ export interface SkillsProp {
 }
 
 export interface SkillProp {
-  skill: Skills
+  skill: Skills;
+  editMode: boolean;
+  removeItem: (item:string) => void;
 }
 
 

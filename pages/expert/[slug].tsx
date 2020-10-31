@@ -27,21 +27,21 @@ export default function expert() {
         <div className={styles.navPill}>
           <button
             type="button"
-            className={tab == "bio" && styles.active}
+            className={tab == "bio" ? styles.active : ""}
             onClick={() => setTab("bio")}
           >
             Bio
           </button>
           <button
             type="button"
-            className={tab == "skills" && styles.active}
+            className={tab == "skills" ? styles.active : ""}
             onClick={() => setTab("skills")}
           >
             Skills
           </button>
           <button
             type="button"
-            className={tab == "video" && styles.active}
+            className={tab == "video" ? styles.active : ""}
             onClick={() => setTab("video")}
           >
             Video

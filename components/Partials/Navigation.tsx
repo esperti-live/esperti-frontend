@@ -1,25 +1,41 @@
-import {useContext} from 'react';
-import styles from '../../styles/Navigation.module.scss';
-import AuthContext from '../../contexts/AuthContext';
-import Link from 'next/link';
+import { useContext } from "react";
+import styles from "../../styles/Navigation.module.scss";
+import AuthContext from "../../contexts/AuthContext";
+import Link from "next/link";
 
 const Navigation = () => {
-  const {user, logout} = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
-    const logoutHandler = () =>{
+  const logoutHandler = () => {
     logout();
-  }
+  };
 
   return (
     <nav className={styles.navigation}>
-     <div className={styles.innerNavigation}>
-        
-          <Link href='/'><a>Esperti</a></Link>
-          {user && (<div><span>{user.email}</span><button type="button" onClick={logoutHandler}>Logout</button></div>)}
-          {!user && <Link href='/login'><a>Login</a></Link>}
-     </div>
+      <div className={styles.innerNavigation}>
+        <Link href="/">
+          <a>
+            <img src="/images/logo.svg" alt="Esperti" />
+          </a>
+        </Link>
+        {user && (
+          <div>
+            <span>{user.email}</span>
+            <button type="button" onClick={logoutHandler}>
+              Logout
+            </button>
+          </div>
+        )}
+        {!user && (
+          <Link href="/login">
+            <a className={styles.loginButton}>
+              Log In <img src="/images/arrow_right.svg" alt="log in" />
+            </a>
+          </Link>
+        )}
+      </div>
     </nav>
   );
-}
+};
 
 export default Navigation;

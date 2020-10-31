@@ -1,12 +1,130 @@
 
 
-.expertsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+.jumbotron {
+  width: 100%;
+  height: 458px;
+  background-color: #1652f0;
+  border-radius: 0 0 25px 25px;
+  padding: 60px 40px 40px 40px;
 
-  @media only screen and (max-width: 860px) {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  h1 {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.36;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+  p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.59;
+    text-align: center;
+    color: #ffffff;
+    border: none;
+    margin: 0;
+    margin-bottom: 30px;
+  }
+  input {
+    width: 302px;
+    height: 57px;
+    border-radius: 29px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #ffffff;
+
+    font-size: 16px;
+    font-style: italic;
+    line-height: 0.81;
+    padding: 0 30px;
+    color: #a1abc4;
+    margin: 0 0 20px 0;
+    border: none;
+
+     &:focus {
+       border-radius: 29px;
+     }
+  }
+
+  button {
+     width: 302px;
+     height: 57px;
+     border-radius: 29px;
+     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+     background-color: #000000;
+     text-align: center;
+     color: #ffffff;
+     font-size: 16px;
+     font-weight: bold;
+     border: none;
+     cursor: pointer;
+
+  }
+}
+
+.steps {
+  text-align: center;
+  padding: 30px 20px;
+
+  span {
+      font-size: 15px;
+      line-height: 1.8;
+      text-align: center;
+      display: inline-block;
+      color: #a1abc4;
+      margin-bottom: 17px;
+  }
+
+  .step {
+    border-radius: 12px;
+    box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+    background-color: #ffffff;
+    position: relative;
+
+    &:not(:last-of-type) {
+      margin-bottom: 13px;
+    }
+    span {
+      margin: 0;
+      padding: 35px 0;
+      color: #585d78;
+      line-height: 1.71;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .step_arrow {
+      z-index: 99;
+      border-radius: 50%;
+      position: absolute;
+      width: 43px;
+      height: 43px;
+      box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+      background-color: #ffffff;
+      display:flex;
+      justify-content: center;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.experts {
+  padding: 38px 0;
+  background-color: #f1f3ff;
+  border-radius: 25px 25px 0 0;
+  h2 {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1.38;
+    text-align: center;
+    color: #3c3e48;
+    margin: 0 0 35px 0;
+  }
+  .expertContainer {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    overflow: auto;
   }
 }

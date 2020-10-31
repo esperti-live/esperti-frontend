@@ -1,15 +1,11 @@
-import React from 'react'
-import Navigation from './Navigation';
-import Footer from './Footer';
+import React from "react";
+import Navigation from "./Navigation";
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
   return (
-    <>
-    <Navigation />
-    <main className="layout">
-      {children}
-    </main>
-    <Footer />
-    </>
-  )
+    <div className="container">
+      <Navigation />
+      <main className="container">{children}</main>
+    </div>
+  );
 }

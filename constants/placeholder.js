@@ -14,14 +14,12 @@ export const PLACEHOLDER_TAGS = [
 
 export const FAKE_EXPERT = {
   name: "Nik Vogrinec",
+  slug: "expert-slug-here",
   title: "Professional Noob",
   image_url: "/images/placeholder.png",
+  video_url: "https://www.youtube.com/watch?v=LXb3EKWsInQ",
   bio:
     "Morbi rutrum eros vel mi iaculis gravida. Quisque iaculis vel diam at porttitor. Quisque tincidunt blandit felis et consequat. Sed id ante semper, ultrices odio ut, condimentum ante. Aenean orci est, viverra nec maximus et, faucibus nec diam. Ut in risus ut purus gravida gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-  language: "english",
-  video_url: "https://www.youtube.com/embed/LXb3EKWsInQ",
-  timezone: "Timezone (+1:00)",
-  socials: ["github", "facebook"],
   skills: [
     {
       name: "React",

@@ -1,9 +1,6 @@
  export interface Skills {
   name: string;
-  experience: number;
-  endorsements: number;
   description: string;
-  image_url: string;
   tags: string[];
 }
 
@@ -23,9 +20,6 @@ export interface Expert {
 
 export interface AboutProps {
   bio: string;
-  language: string;
-  timezone: string;
-  socials: string[];
   editMode: boolean;
 }
 

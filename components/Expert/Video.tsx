@@ -1,5 +1,7 @@
+import { Console } from "console";
 import { useState, useEffect } from "react";
 import styles from "../../styles/Expert.module.scss";
+import { convertVideoUrlToEmbedded, getVideoId } from "../../utils/youtube";
 
 interface VideoProps {
   editMode: boolean;
@@ -10,12 +12,6 @@ export default function Video({ editMode, video_url }: VideoProps) {
   const [videoSrc, setVideoSrc] = useState<string>("");
   const [backgroundImage, setBackgroundImage] = useState<string>("");
 
-  const getVideoId = () => {
-    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    const match = videoSrc.match(regExp);
-    return match && match[7].length == 11 ? match[7] : false;
-  };
-
   const updateVideoImage = (id) => {
     const videoImageUrl = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
     setBackgroundImage(videoImageUrl);
@@ -23,16 +19,18 @@ export default function Video({ editMode, video_url }: VideoProps) {
 
   const updateVideoHandler = (e) => {
     e.preventDefault();
-    const videoId = getVideoId();
-    const embeddedUrl = `https://www.youtube.com/embed/${videoId}`;
+    const videoId = getVideoId(videoSrc);
+    const embeddedUrl = convertVideoUrlToEmbedded(videoSrc);
+
     updateVideoImage(videoId);
     setVideoSrc(embeddedUrl);
 
     // send embeddedUrl to backend
+    console.log("updating user video", embeddedUrl);
   };
 
   useEffect(() => {
-    setVideoSrc(video_url);
+    setVideoSrc(convertVideoUrlToEmbedded(video_url));
   }, [video_url]);
 
   if (editMode) {

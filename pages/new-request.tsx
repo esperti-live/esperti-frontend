@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import slugify from "slugify";
 
 import { PLACEHOLDER_TAGS } from "../constants/placeholder";
 import { useRouter } from "next/router";
@@ -28,10 +29,15 @@ const newRequest = () => {
   };
 
   const postRequest = async (request: NewRequest, user) => {
-    console.log("sending request", {
-      request: request,
-      user,
-    });
+    const data = {
+      title: request.title,
+      description: request.description,
+      profile: user.email,
+      tags: request.tags,
+      slug: slugify(request.title),
+    };
+
+    console.log("sending request", data);
     router.push("/requests");
   };
 

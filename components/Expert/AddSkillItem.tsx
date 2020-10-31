@@ -46,9 +46,6 @@ export default function AddSkillItem({ skillAdded }) {
   const addSkillHandler = () => {
     const skill: Skills = {
       description: skillValues.description,
-      endorsements: Number(skillValues.endorsements),
-      experience: Number(skillValues.experience),
-      image_url: "/images/placeholder.png",
       name: skillValues.name,
       tags: skillValues.tags,
     };
@@ -76,29 +73,6 @@ export default function AddSkillItem({ skillAdded }) {
           onChange={(e) => skillUpdateHandler(e, "name")}
           className={styles.addName}
         />
-
-        <div className={styles.experience}>
-          <span>
-            <input
-              type="number"
-              min={1}
-              max={99}
-              value={skillValues.experience}
-              onChange={(e) => skillUpdateHandler(e, "experience")}
-            />
-          </span>{" "}
-          years experience |{" "}
-          <span>
-            <input
-              type="number"
-              min={1}
-              max={99}
-              value={skillValues.endorsements}
-              onChange={(e) => skillUpdateHandler(e, "endorsements")}
-            />
-          </span>{" "}
-          endorsements
-        </div>
 
         <textarea
           className={styles.description}

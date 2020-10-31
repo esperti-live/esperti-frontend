@@ -21,28 +21,25 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
   };
 
   return (
-    <div className={styles.aboutSection}>
-      <h5>Expertise</h5>
-      <ul className={styles.expertise}>
-        {skillsList.map((skill) => (
-          <SkillItem
-            key={skill.name}
-            skill={skill}
-            editMode={editMode}
-            removeItem={removeItemHandler}
-          />
-        ))}
+    <ul className={styles.expertise}>
+      {skillsList.map((skill) => (
+        <SkillItem
+          key={skill.name}
+          skill={skill}
+          editMode={editMode}
+          removeItem={removeItemHandler}
+        />
+      ))}
 
-        {editMode && showAddSkill && (
-          <AddSkillItem skillAdded={addedSkillHandler} />
-        )}
-      </ul>
+      {editMode && showAddSkill && (
+        <AddSkillItem skillAdded={addedSkillHandler} />
+      )}
       {editMode && (
         <button type="button" onClick={() => setShowAddSkill(true)}>
           Add Skill
         </button>
       )}
-    </div>
+    </ul>
   );
 };
 

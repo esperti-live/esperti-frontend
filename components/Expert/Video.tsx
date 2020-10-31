@@ -1,4 +1,3 @@
-import { Console } from "console";
 import { useState, useEffect } from "react";
 import styles from "../../styles/Expert.module.scss";
 import { convertVideoUrlToEmbedded, getVideoId } from "../../utils/youtube";
@@ -58,6 +57,8 @@ export default function Video({ editMode, video_url }: VideoProps) {
   } else {
     return (
       <div className={styles.video}>
+        <h6>My Intro</h6>
+        <span>Quick introduction</span>
         <iframe
           src={videoSrc}
           frameBorder="0"

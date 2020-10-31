@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
+import ExpertRating from "./ExpertRating";
 
 const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
   const [image, setImage] = useState<string | File>(image_url);
@@ -53,7 +54,8 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
           className={styles.avatar}
         />
         <h4>{userName}</h4>
-        <span className="title">{title}</span>
+        <span className={styles.title}>{title}</span>
+        <ExpertRating />
       </div>
     );
   }

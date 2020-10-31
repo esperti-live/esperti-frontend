@@ -1,19 +1,25 @@
 .expertFloatingButton {
-  max-width: 300px;
-  height: 55px;
-  border-radius: 5px;
-  border: none;
-  background: orangered;
-  color: #fff;
-  width: 90%;
   position: fixed;
-  bottom: 50px;
-  font-size: 16px;
+  bottom: 75px;
   left: 50%;
   transform: translateX(-50%); 
   cursor: pointer;
 
+  border: none;
+  width: 302px;
+  height: 57px;
+
+  border-radius: 29px;
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+  background-color: #000000;
+
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+
   @media only screen and (max-width: 1024px) {
-    bottom: 15px;
+    bottom: px;
   }
 }

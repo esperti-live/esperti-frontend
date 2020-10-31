@@ -14,7 +14,6 @@ export default function About({ bio, editMode }: AboutProps) {
   if (editMode) {
     return (
       <div className={styles.aboutSection}>
-        <h5>About me</h5>
         <textarea
           className={styles.editIntroduction}
           onChange={(e) => setBioInput(e.target.value)}
@@ -28,7 +27,6 @@ export default function About({ bio, editMode }: AboutProps) {
   } else {
     return (
       <div className={styles.aboutSection}>
-        <h5>About me</h5>
         <p>{bio}</p>
       </div>
     );

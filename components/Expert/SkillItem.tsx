@@ -9,24 +9,21 @@ export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
 
   return (
     <li className={styles.skill}>
-      <div className={styles.image}>
-        <img src={skill.image_url} alt="react" />
-      </div>
+      <img src={skill.image_url} alt="react" />
 
       <div>
         <h6>{skill.name}</h6>
         <div className={styles.experience}>
-          <span>{skill.experience}</span> years experience |{" "}
-          <span>{skill.endorsements}</span> endorsements
+          <span>{skill.experience}</span> years experience
         </div>
 
         <p className={styles.description}>{skill.description}</p>
 
-        <ul className={styles.additional}>
+        {/* <ul className={styles.additional}>
           {skill.tags.map((tag) => (
             <li key={tag}>{tag}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
 
       {editMode && (

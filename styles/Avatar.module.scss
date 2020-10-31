@@ -1,40 +1,62 @@
 .head {
+  width: 100%;
+  height: 431px;
+  border-radius: 0 0 25px 25px;
+  background-color: #f7f8ff;
+  padding: 40px 20px;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  margin-bottom: 86px;
 
-  h4 {
-    font-size: 32px;
-    margin: 15px 0 0 0;
-  }
-
-  .uploadAvatar {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 150px;
-    transform: translate(-50%, -50%);
-  }
 
   .avatar {
-    height: 300px;
-    width: 300px;
+    width: 117px;
+    height: 117px;
+    box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.13);
+    border: solid 4px #ffffff;
     border-radius: 50%;
+    margin-bottom: 20px;
   }
 
-  .changeName {
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 43px;
+  h4 {
+    font-size: 21px;
     font-weight: bold;
-    padding: 0;
-    line-height: 21;
-    color: black;
-    // width: 195px;
+    color: #3c3e48;
+    margin: 0 0 5px 0;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 600;
     text-align: center;
-    font-size: 32px;
-    margin: 15px 0 0 0;
+    color: #a1abc4;
+    margin-bottom: 10px;
+  }
+
+  .rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+       font-size: 16px;
+       font-weight: bold;
+       color: #1652f0;
+       margin-bottom: 5px;
+    }
+
+    .starsContainer {
+      &>*:not(:last-of-type) {
+        margin-right: 5px;
+      }
+      margin-bottom: 10px;
+    }
+
+    small {
+      font-size: 12px;
+      color: #a1abc4;
+      text-decoration: underline;
+    }
   }
 }

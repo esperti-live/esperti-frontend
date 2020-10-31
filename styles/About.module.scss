@@ -1,122 +1,51 @@
 .aboutSection {
   border-bottom: solid 1px #cecece;
-  padding: 30px 30px 30px 50px;
-  
+  padding: 0 10px 100px 10px;
+}
 
-     .extra {
-       display: flex;
-       margin-top: 40px;
-       justify-content: space-between;
 
-       span:last-of-type {
-         margin-left: 20px;
-       }
-     }
+.expertise {
+  padding: 0 0 100px 0;
+}
+.skill {
+  display: flex;
+  padding-bottom: 23px;
 
-  .editIntroduction {
-    font-family: inherit;
-    width: 100%;
-    font-size: 16px;
-    border: none;
-    height: 100px;
+  &:not(:first-of-type) {
+    padding: 23px 0;
   }
 
-  .expertise {
-
-    .skill,
-    .skillsEdit {
-      width: 100%;
-      display: flex;
-      align-items: flex-start;
+  border-bottom: solid 2px #a1abc44d;
 
 
-      &:not(:last-of-type) {
-        margin-bottom: 50px;
-      }
+  img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 14px;
+  }
 
-      h6 {
-        margin: 0;
-        font-size: 22px;
-        line-height: 15px;
-        margin-bottom: 10px;
-      }
+  h6 {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 31px;
+    text-align: left;
+    color: #3c3e48;
+    margin: 0;
+  }
 
-      .description {
-        margin: 10px 0 10px 0;
-      }
+  .experience {
+    font-size: 11px;
+    line-height: 11px;
+    color: #a1abc4;
+  }
 
-      .experience {
-        font-size: 14px;
-        margin-bottom: 10px;
-
-        span {
-          font-weight: bold;
-        }
-
-        input {
-          width: 45px;
-        }
-      }
-
-      .image {
-        height: 75px;
-        min-width: 75px;
-        width: 75px;
-        margin-right: 25px;
-
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      }
-
-      .additional {
-        display: flex;
-        margin-top: 10px;
-
-        li {
-          padding: 3px 8px;
-          border-radius: 5px;
-          background: #c8c7c742;
-          font-size: 12px;
-
-          &:not(:first-of-type) {
-            margin-left: 5px;
-          }
-        }
-      }
-
-      .editButton {
-        font-size: 16px;
-        margin-left: auto;
-      }
-    }
-
-
-    .addTags {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .skillsEdit {
-      display: flex;
-
-      .addName {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .skillsRight {
-        width: 100%;
-
-        .description {
-          margin: 0;
-          width: 100%;
-          height: 70px;
-        }
-      }
-    }
-
+  p {
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+    color: #3c3e48;
   }
 }
+

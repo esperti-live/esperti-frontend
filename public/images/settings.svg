@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.176" height="21.252" viewBox="0 0 22.176 21.252">
+    <defs>
+        <style>
+            .cls-1{fill:#a1abc4}
+        </style>
+    </defs>
+    <g id="settings" transform="translate(0 -10.667)">
+        <g id="Group_60" transform="translate(0 25.451)">
+            <g id="Group_59">
+                <path id="Path_61" d="M21.252 354.31h-2.461a3.213 3.213 0 0 0-6.167 0H.924a.924.924 0 0 0 0 1.848h11.7a3.213 3.213 0 0 0 6.167 0h2.461a.924.924 0 0 0 0-1.848zm-5.544 2.31a1.386 1.386 0 1 1 1.386-1.386 1.388 1.388 0 0 1-1.386 1.386z" class="cls-1" transform="translate(0 -352)"/>
+            </g>
+        </g>
+        <g id="Group_62" transform="translate(0 10.667)">
+            <g id="Group_61">
+                <path id="Path_62" d="M21.252 12.977h-2.461a3.213 3.213 0 0 0-6.167 0H.924a.924.924 0 1 0 0 1.848h11.7a3.213 3.213 0 0 0 6.167 0h2.461a.924.924 0 0 0 0-1.848zm-5.544 2.31a1.386 1.386 0 1 1 1.386-1.387 1.388 1.388 0 0 1-1.386 1.387z" class="cls-1" transform="translate(0 -10.667)"/>
+            </g>
+        </g>
+        <g id="Group_64" transform="translate(0 18.059)">
+            <g id="Group_63">
+                <path id="Path_63" d="M21.252 183.644H9.551a3.213 3.213 0 0 0-6.167 0H.924a.924.924 0 1 0 0 1.848h2.461a3.213 3.213 0 0 0 6.167 0h11.7a.924.924 0 0 0 0-1.848zm-14.784 2.31a1.386 1.386 0 1 1 1.386-1.386 1.388 1.388 0 0 1-1.386 1.386z" class="cls-1" transform="translate(0 -181.334)"/>
+            </g>
+        </g>
+    </g>
+</svg>

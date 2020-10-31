@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
+import styles from "../../styles/Auth.module.scss";
 
 export default function LoginForm() {
   const [emailInput, setEmailInput] = useState<string>("");

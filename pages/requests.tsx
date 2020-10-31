@@ -1,6 +1,7 @@
 import styles from "../styles/Request.module.scss";
 import Request from "../components/Request/Request";
 import Link from "next/link";
+import { useState } from "react";
 
 const FAKE_REQUESTS = [
   {
@@ -50,17 +51,34 @@ const FAKE_REQUESTS = [
       name: "Bob",
     },
     title: "Open application on computer using webhooks",
-    tags: ["PHP", "Node.js", "Amazon"],
+    tags: ["PHP", "Node.js", "Amazon", "PHP", "Node.js", "Amazon"],
     type: "1 on 1 help",
   },
 ];
 
 export default function requests() {
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   return (
-    <div className={styles.request}>
-      <Link href="/new-request">
+    <section className={styles.request}>
+      {/* <Link href="/new-request">
         <a className={styles.button}>New Request</a>
-      </Link>
+      </Link> */}
+      <h1>All Requests</h1>
+      <div className={styles.settings}>
+        <span>42 Requests</span>
+        <div>
+          <button onClick={() => setShowSearchBar(!showSearchBar)}>
+            <img src="/images/search.svg" alt="Search" />
+          </button>
+        </div>
+      </div>
+      <input
+        className={`${styles.searchRequests} ${
+          showSearchBar ? styles.active : ""
+        }`}
+        placeholder="Search..."
+      />
       <div className={styles.requestList}>
         <ul>
           {FAKE_REQUESTS.map((request) => (
@@ -68,6 +86,6 @@ export default function requests() {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 }

@@ -5,20 +5,22 @@ import Link from "next/link";
 
 const Request = ({ request }: RequestProp) => {
   return (
-    <li>
+    <li className={styles.requestItem}>
       <Link href={`/requests/${request.id}`}>
-        <a className={styles.requestItem}>
-          <div className={styles.left}>
+        <a>
+          <div className={styles.top}>
             <img src={request.user.image_url} alt={request.user.name} />
+            <span>andy.korn</span>
           </div>
-          <div className={styles.right}>
+          <div className={styles.bottom}>
             <h5>{request.title}</h5>
-            <span className={styles.type}>{request.type}</span>
-            {request.tags.map((tag) => (
-              <span key={tag} className={styles.tag}>
-                {tag}
-              </span>
-            ))}
+            <div className={styles.tagContainer}>
+              {request.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </a>
       </Link>

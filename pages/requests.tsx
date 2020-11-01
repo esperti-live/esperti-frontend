@@ -3,59 +3,8 @@ import Request from "../components/Request/Request";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Request as RequestInterface } from "../ts/interfaces";
-
-const FAKE_REQUESTS = [
-  {
-    id: 1,
-    user: {
-      image_url: "/images/placeholder.png",
-      name: "Bob",
-    },
-    title: "I need help deploying python script",
-    tags: ["Python", "Amazon Web Services"],
-    type: "Freelance job",
-  },
-  {
-    id: 2,
-    user: {
-      image_url: "/images/placeholder.png",
-      name: "Bob",
-    },
-    title: "Azure issues in authentcation",
-    tags: ["Azure", "Sitefinity"],
-    type: "Freelance job",
-  },
-  {
-    id: 3,
-    user: {
-      image_url: "/images/placeholder.png",
-      name: "Bob",
-    },
-    title: "Powershell help for aszure network security",
-    tags: ["Azure", "Powershell"],
-    type: "Freelance job",
-  },
-  {
-    id: 4,
-    user: {
-      image_url: "/images/placeholder.png",
-      name: "Bob",
-    },
-    title: "Need mentor for cybersecurity",
-    tags: ["Cyber secrutiy", "Mathematics"],
-    type: "1 on 1 help",
-  },
-  {
-    id: 5,
-    user: {
-      image_url: "/images/placeholder.png",
-      name: "Bob",
-    },
-    title: "Open application on computer using webhooks",
-    tags: ["PHP", "Node.js", "Amazon", "PHP", "Node.js", "Amazon"],
-    type: "1 on 1 help",
-  },
-];
+// import Link from "next/link";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -64,7 +13,9 @@ export default function requests() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get("https://strapi.esperti.live/requests");
+        const res = await axios.get(
+          "http://localhost:1337/requests?_sort=created_at:DESC"
+        );
         console.log(res.data);
         setRequests(res.data);
       } catch (err) {
@@ -96,6 +47,18 @@ export default function requests() {
       <div className={styles.requestList}>
         {requests.length < 1 && <span>No requests found...</span>}
         <ul>
+          <SkeletonTheme
+            color="rgba(255, 255, 255, 0.85)"
+            highlightColor="rgba(177, 177, 177, 0.05)"
+          >
+            {!requests.length && (
+              <Skeleton
+                height={120}
+                count={5}
+                style={{ borderRadius: "15px", marginBottom: "15px" }}
+              />
+            )}
+          </SkeletonTheme>
           {requests.map((request) => (
             <Request request={request} key={request.id} />
           ))}

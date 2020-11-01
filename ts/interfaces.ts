@@ -1,6 +1,7 @@
- export interface Skills {
+ export interface Skill {
   name: string;
   description: string;
+  profile: number;
 }
 
 export interface Expert {
@@ -11,13 +12,14 @@ export interface Expert {
   image_url?: string;
   slug: string;
   bio?: string;
-  skills?: Skills[];
+  skills?: Skill[];
 }
 
 
 export interface AboutProps {
   bio: string;
   editMode: boolean;
+  userId: number;
 }
 
 export interface AvatarProps {
@@ -28,16 +30,22 @@ export interface AvatarProps {
 }
 
 export interface SkillsProp {
-  skills: Skills[];
+  skills: Skill[];
   editMode: boolean;
+  userId: number;
 }
 
 export interface SkillProp {
-  skill: Skills;
+  skill: Skill;
   editMode: boolean;
   removeItem: (item:string) => void;
 }
 
+
+export interface Tag {
+  id: number;
+  name: string;
+}
 
 export interface Request {
     id: number;
@@ -45,7 +53,7 @@ export interface Request {
       image_url: string;
     },
     title: string;
-    tags: string[];
+    tags: Tag[];
     type: string;
 }
 
@@ -56,5 +64,5 @@ export interface RequestProp {
 export interface NewRequest {
   title: string;
   description: string;
-  tags: string[];
+  tags: Tag[];
 }

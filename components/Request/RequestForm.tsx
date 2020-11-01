@@ -1,28 +1,27 @@
 import { useState } from "react";
 import styles from "../../styles/Request.module.scss";
-import { NewRequest } from "../../ts/interfaces";
+import { NewRequest, Tag } from "../../ts/interfaces";
 import Autocomplete from "../Autocomplete";
 
 interface RequestFormProps {
   formSubmit: (request: NewRequest) => void;
-  tags: string[];
 }
 
 const initRequest: NewRequest = {
   description: "",
-  tags: [],
   title: "",
+  tags: [],
 };
 
-export default function RequestForm({ formSubmit, tags }: RequestFormProps) {
+export default function RequestForm({ formSubmit }: RequestFormProps) {
   const [request, setRequest] = useState<NewRequest>(initRequest);
 
-  const addTagHandler = (val: string) => {
-    if (!request.tags.includes(val)) {
+  const addTagHandler = (tag: Tag) => {
+    if (!request.tags.includes(tag)) {
       const oldTags = [...request.tags];
       let updatedRequest = {
         ...request,
-        tags: [...oldTags, val],
+        tags: [...oldTags, tag],
       };
 
       console.log("added tag", updatedRequest);
@@ -30,10 +29,10 @@ export default function RequestForm({ formSubmit, tags }: RequestFormProps) {
     }
   };
 
-  const removeTagHandler = (tag: string) => {
+  const removeTagHandler = (tag: Tag) => {
     setRequest({
       ...request,
-      tags: request.tags.filter((oldTag) => oldTag !== tag),
+      tags: request.tags.filter((oldTag) => oldTag.id !== tag.id),
     });
   };
 
@@ -74,12 +73,12 @@ export default function RequestForm({ formSubmit, tags }: RequestFormProps) {
       ></textarea>
 
       <label>Select tags</label>
-      <Autocomplete items={tags} itemClicked={addTagHandler} />
+      <Autocomplete itemClicked={addTagHandler} />
 
       <div className={styles.tags}>
         {request.tags.map((tag) => (
-          <span key={tag}>
-            {tag}{" "}
+          <span key={tag.id}>
+            {tag.name}{" "}
             <button type="button" onClick={() => removeTagHandler(tag)}>
               <img src="/images/remove_tag.svg" alt="Remove tag" />
             </button>

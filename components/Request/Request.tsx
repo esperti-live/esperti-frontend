@@ -16,8 +16,8 @@ const Request = ({ request }: RequestProp) => {
             <h5>{request.title}</h5>
             <div className={styles.tagContainer}>
               {request.tags.map((tag) => (
-                <span key={tag} className={styles.tag}>
-                  {tag}
+                <span key={tag.id} className={styles.tag}>
+                  {tag.name}
                 </span>
               ))}
             </div>

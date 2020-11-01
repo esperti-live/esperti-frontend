@@ -17,6 +17,7 @@ export default function AuthProvider({ children }) {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await m.auth.loginWithMagicLink({ email, showUI: false });
+        console.log(res);
         setUser({ tokenId: res, email });
         resolve({ email, tokenId: res });
       } catch (err) {

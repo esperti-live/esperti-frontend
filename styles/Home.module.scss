@@ -55,15 +55,15 @@
     }
 
   }
-  button {
+  .clearInput {
     position: absolute;
     border: none;
     padding: 0;
     height: auto;
     background: transparent;
-    top: 50%;
-    transform: translateY(-90%);
-    right: 15px;
+    top: 20px;
+    // transform: translateY(-100%);
+    right: 10px;
     cursor: pointer;
   }
 }

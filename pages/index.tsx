@@ -44,14 +44,24 @@ export default function Home() {
                     className={emailInput.length > 0 ? styles.active : ""}
                   />
                   {emailInput.length > 1 && (
-                    <button type="button" onClick={() => setEmailInput("")}>
+                    <button
+                      type="button"
+                      className={styles.clearInput}
+                      onClick={() => setEmailInput("")}
+                    >
                       <img src="/images/clear_input.svg" alt="Clear input" />
                     </button>
                   )}
+
+                  <button
+                    className={styles.getHelp}
+                    type="submit"
+                    onClick={loginHandler}
+                  >
+                    Get Help Now
+                  </button>
                 </form>
               </div>
-
-              <button className={styles.getHelp}>Get Help Now</button>
             </>
           )}
 

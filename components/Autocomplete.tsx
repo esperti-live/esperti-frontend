@@ -28,7 +28,8 @@ export default function Autocomplete({ items, itemClicked }) {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Tags"
+        placeholder="Add tags"
+        className={styles.autocompleteInput}
       />
       {filteredItems.length >= 1 && (
         <ul className={styles.tagDropdown}>

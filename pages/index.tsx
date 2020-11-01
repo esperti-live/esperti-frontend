@@ -4,10 +4,19 @@ import styles from "../styles/Home.module.scss";
 import ExpertCard from "../components/ExpertCard";
 import { FAKE_EXPERTS } from "../constants/placeholder";
 import AuthContext from "../contexts/AuthContext";
+import CheckEmailModal from "../components/Modal/CheckEmailModal";
+import Link from "next/link";
 
 export default function Home() {
-  const [homeInput, setHomeInput] = useState("");
-  const { user } = useContext(AuthContext);
+  const [emailInput, setEmailInput] = useState("");
+  const { user, login } = useContext(AuthContext);
+  const [viewModal, setViewModal] = useState(false);
+
+  const loginHandler = async (e) => {
+    e.preventDefault();
+    setViewModal(true);
+    login(emailInput).then((_) => setViewModal(false));
+  };
 
   return (
     <>
@@ -24,23 +33,33 @@ export default function Home() {
           <p>We bring you the top IT experts billed by the minute</p>
 
           {!user && (
-            <div className={styles.signUp}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={homeInput}
-                onChange={(e) => setHomeInput(e.target.value)}
-                className={homeInput.length > 0 ? styles.active : ""}
-              />
-              {homeInput.length > 1 && (
-                <button onClick={() => setHomeInput("")}>
-                  <img src="/images/clear_input.svg" alt="Clear input" />
-                </button>
-              )}
-            </div>
+            <>
+              <div className={styles.signUp}>
+                <form onSubmit={loginHandler}>
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    className={emailInput.length > 0 ? styles.active : ""}
+                  />
+                  {emailInput.length > 1 && (
+                    <button type="button" onClick={() => setEmailInput("")}>
+                      <img src="/images/clear_input.svg" alt="Clear input" />
+                    </button>
+                  )}
+                </form>
+              </div>
+
+              <button className={styles.getHelp}>Get Help Now</button>
+            </>
           )}
 
-          <button className={styles.getHelp}>Get Help Now</button>
+          {user && (
+            <Link href="/new-request">
+              <a className={styles.getHelp}>Get Help Now</a>
+            </Link>
+          )}
         </section>
 
         <section className={styles.steps}>
@@ -78,6 +97,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {viewModal && <CheckEmailModal closeModal={() => setViewModal(false)} />}
     </>
   );
 }

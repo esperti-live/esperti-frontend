@@ -1,13 +1,12 @@
-import {createContext} from 'react';
-
+import { createContext } from "react";
 
 interface User {
-  email: string,
-  tokenId: string
+  email: string;
+  tokenId: string;
 }
 
 interface Auth {
-  login: (email: string) => {};
+  login: (email: string) => Promise<any>;
   logout: () => {};
   user: User;
 }

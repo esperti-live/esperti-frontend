@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="198" height="156.564" viewBox="0 0 198 156.564">
+    <defs>
+        <filter id="Rectangle_52" width="198" height="139" x="0" y="17.564" filterUnits="userSpaceOnUse">
+            <feOffset dy="8"/>
+            <feGaussianBlur result="blur" stdDeviation="7.5"/>
+            <feFlood flood-opacity=".071"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Ellipse_13" width="70.402" height="70.402" x="63.436" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-2" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1{fill:#fff}.cls-2{fill:#a1abc4;opacity:.59}.cls-3{fill:#c7cddc;opacity:.33}
+        </style>
+    </defs>
+    <g id="Group_65" transform="translate(-88.5 -194.936)">
+        <g id="Group_58" transform="translate(21.823 -40.485)">
+            <g filter="url(#Rectangle_52)" transform="translate(66.68 235.42)">
+                <rect id="Rectangle_52-2" width="153" height="94" class="cls-1" rx="12" transform="translate(22.5 32.06)"/>
+            </g>
+            <rect id="Rectangle_53" width="126" height="6" class="cls-2" rx="3" transform="translate(104.177 298.485)"/>
+            <rect id="Rectangle_54" width="42" height="6" class="cls-2" rx="3" transform="translate(104.177 312.485)"/>
+            <rect id="Rectangle_55" width="28" height="10" class="cls-3" rx="5" transform="translate(101.177 332.485)"/>
+            <rect id="Rectangle_56" width="28" height="10" class="cls-3" rx="5" transform="translate(135.177 332.485)"/>
+            <rect id="Rectangle_57" width="28" height="10" class="cls-3" rx="5" transform="translate(168.177 332.485)"/>
+        </g>
+        <g id="Group_57" transform="translate(85 -105)">
+            <g filter="url(#Ellipse_13)" transform="translate(3.5 299.94)">
+                <circle id="Ellipse_13-2" cx="26.201" cy="26.201" r="26.201" fill="#16ce7a" transform="translate(72.44 6)"/>
+            </g>
+            <g id="Group_56" transform="translate(90.81 323.529)">
+                <path id="Path_59" d="M96.958 207.053a2.015 2.015 0 0 1 0 2.8l-1.561 1.56a2.015 2.015 0 0 1-2.8 0l-6.834-6.888a2.015 2.015 0 0 1 0-2.8l1.561-1.561a2.015 2.015 0 0 1 2.8 0z" class="cls-1" transform="translate(-85.2 -194.596)"/>
+                <path id="Path_60" d="M176.8 125.765a2.015 2.015 0 0 1 2.8 0l1.561 1.561a2.015 2.015 0 0 1 0 2.8l-11.838 11.785a2.015 2.015 0 0 1-2.8 0l-1.561-1.56a2.015 2.015 0 0 1 0-2.8z" class="cls-1" transform="translate(-159.073 -125.2)"/>
+            </g>
+        </g>
+    </g>
+</svg>

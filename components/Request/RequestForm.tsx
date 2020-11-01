@@ -30,6 +30,13 @@ export default function RequestForm({ formSubmit, tags }: RequestFormProps) {
     }
   };
 
+  const removeTagHandler = (tag: string) => {
+    setRequest({
+      ...request,
+      tags: request.tags.filter((oldTag) => oldTag !== tag),
+    });
+  };
+
   const requestChangeHandler = (e, key: string) => {
     let updatedSkillValues = {
       ...request,
@@ -48,28 +55,47 @@ export default function RequestForm({ formSubmit, tags }: RequestFormProps) {
 
   return (
     <form onSubmit={submitHandler}>
+      <label htmlFor="title">Add a title</label>
       <input
+        name="title"
         type="text"
-        placeholder="Title"
+        placeholder="How we can help you?"
         value={request.title}
         onChange={(e) => requestChangeHandler(e, "title")}
       />
 
+      <label htmlFor="description">Describe your request</label>
       <textarea
-        placeholder="Description"
+        name="description"
+        placeholder="Give us more information"
         value={request.description}
+        rows={5}
         onChange={(e) => requestChangeHandler(e, "description")}
       ></textarea>
 
+      <label>Select tags</label>
       <Autocomplete items={tags} itemClicked={addTagHandler} />
 
       <div className={styles.tags}>
         {request.tags.map((tag) => (
-          <span key={tag}>{tag}</span>
+          <span key={tag}>
+            {tag}{" "}
+            <button type="button" onClick={() => removeTagHandler(tag)}>
+              <img src="/images/remove_tag.svg" alt="Remove tag" />
+            </button>
+          </span>
         ))}
       </div>
 
-      <button type="submit">Confirm</button>
+      <button
+        type="submit"
+        className={styles.submit}
+        disabled={
+          !request.description || !request.title || !request.tags.length
+        }
+      >
+        Confirm
+      </button>
     </form>
   );
 }

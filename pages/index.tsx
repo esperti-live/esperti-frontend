@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import ExpertCard from "../components/ExpertCard";
@@ -6,11 +6,19 @@ import { FAKE_EXPERTS } from "../constants/placeholder";
 import AuthContext from "../contexts/AuthContext";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Home() {
   const [emailInput, setEmailInput] = useState("");
   const { user, login } = useContext(AuthContext);
   const [viewModal, setViewModal] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const profiles = await axios.get("https://strapi.esperti.live/profiles");
+      console.log(profiles);
+    })();
+  }, []);
 
   const loginHandler = async (e) => {
     e.preventDefault();

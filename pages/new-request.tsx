@@ -10,6 +10,7 @@ import { NewRequest } from "../ts/interfaces";
 import styles from "../styles/Request.module.scss";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import RequestSuccessModal from "../components/Modal/RequestSuccessModal";
+import axios from "axios";
 
 const newRequest = () => {
   const [step, setStep] = useState<number>(1);
@@ -38,8 +39,16 @@ const newRequest = () => {
       slug: slugify(request.title, { lower: true, strict: true }),
     };
 
-    await console.log("sending request", data);
-    setShowRequestSuccess(true);
+    console.log("sending request", data);
+
+    try {
+      await axios.post("https://strapi.esperti.live/requests", data, {
+        headers: { Authorization: `Bearer ${user.tokenId}` },
+      });
+      setShowRequestSuccess(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const loginHandler = async (e) => {

@@ -1,7 +1,8 @@
 import styles from "../styles/Request.module.scss";
 import Request from "../components/Request/Request";
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Request as RequestInterface } from "../ts/interfaces";
 
 const FAKE_REQUESTS = [
   {
@@ -58,6 +59,19 @@ const FAKE_REQUESTS = [
 
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [requests, setRequests] = useState<RequestInterface[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("https://strapi.esperti.live/requests");
+        console.log(res.data);
+        setRequests(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   return (
     <section className={styles.request}>
@@ -80,8 +94,9 @@ export default function requests() {
         placeholder="Search..."
       />
       <div className={styles.requestList}>
+        {requests.length < 1 && <span>No requests found...</span>}
         <ul>
-          {FAKE_REQUESTS.map((request) => (
+          {requests.map((request) => (
             <Request request={request} key={request.id} />
           ))}
         </ul>

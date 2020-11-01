@@ -39,8 +39,9 @@ export default function AuthProvider({ children }) {
 
   const persistUser = async () => {
     try {
-      const { email, publicAddress } = await m.user.getMetadata();
-      setUser({ email, tokenId: publicAddress });
+      const { email } = await m.user.getMetadata();
+      const tokenId = await m.user.generateIdToken();
+      setUser({ email, tokenId });
     } catch (err) {
       console.log(err);
     }
@@ -52,6 +53,7 @@ export default function AuthProvider({ children }) {
     (async () => {
       try {
         const isLoggedIn = await m.user.isLoggedIn();
+        console.log(await m.user);
 
         if (isLoggedIn) {
           persistUser();

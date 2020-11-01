@@ -41,9 +41,26 @@ ul, li {
 }
 
 .saveButton {
-  width: 262px;
-  height: 57px;
+  padding: 5px 20px;
+  margin-top: 25px;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
   border-radius: 29px;
   box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
   background-color: #000000;
+  color: #fff;
+}
+
+.editInput {
+    padding: 10px 20px;
+    width: 100%;
+    font-family: inherit;
+    font-weight: italic;
+    min-height: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.07);
+    border: solid 1px #a1abc4;
+    background-color: #ffffff;
+    margin-bottom: 5px;
 }

@@ -1,7 +1,6 @@
  export interface Skills {
   name: string;
   description: string;
-  tags: string[];
 }
 
 export interface Expert {
@@ -39,7 +38,7 @@ export interface SkillProp {
 }
 
 
-interface Request {
+export interface Request {
     id: number;
     user: {
       image_url: string;

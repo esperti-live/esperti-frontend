@@ -20,7 +20,7 @@ const Navigation = () => {
           <div className={styles.user}>
             {/* <span>{user.email}</span> */}
             <img src="/images/user_profile.svg" alt="Avatar" />
-            <span>Username</span>
+            <span>{user.email.split("@")[0]}</span>
             {/* <button type="button" onClick={logoutHandler}>
               Logout
             </button> */}

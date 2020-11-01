@@ -42,7 +42,7 @@ const newRequest = () => {
     console.log("sending request", data);
 
     try {
-      await axios.post("https://strapi.esperti.live/requests", data, {
+      await axios.post(`http://localhost:1337/requests`, data, {
         headers: { Authorization: `Bearer ${user.tokenId}` },
       });
       setShowRequestSuccess(true);
@@ -68,20 +68,22 @@ const newRequest = () => {
       {/* {!user && step == 1 && <span>Step 1</span>}
       {!user && step == 2 && <span>Step 2</span>} */}
       {step == 1 && (
-        <RequestForm
-          tags={PLACEHOLDER_TAGS}
-          formSubmit={(request) => submitHandler(request)}
-        />
+        <RequestForm formSubmit={(request) => submitHandler(request)} />
       )}
       {step == 2 && (
         <form onSubmit={loginHandler}>
+          <h5>
+            Before we continue, please log in or register by entering your email
+            address below!
+          </h5>
           <input
             type="email"
             required
             onChange={(e) => setEmailInput(e.target.value)}
+            placeholder="Email address"
           />
           <button type="submit" className={styles.submit}>
-            Login
+            Log In / Register
           </button>
         </form>
       )}

@@ -22,7 +22,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
       <div className={styles.head}>
         <input
           type="file"
-          className={styles.uploadAvatar}
+          className="editInput"
           onChange={(e) => onFileHandler(e)}
         />
         <img
@@ -34,9 +34,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          className={`${styles.changeName} ${
-            userName.length < 1 ? "invalid" : ""
-          }`}
+          className={`editInput ${userName.length < 1 ? "invalid" : ""}`}
         />
         <span className="title">{title}</span>
 

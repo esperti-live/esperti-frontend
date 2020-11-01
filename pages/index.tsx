@@ -124,7 +124,7 @@ export default function Home({ profiles }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get("https://strapi.esperti.live/profiles?_limit=5");
+  const res = await axios.get("http://localhost:1337/profiles?_limit=5");
 
   return {
     props: {

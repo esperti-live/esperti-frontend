@@ -9,6 +9,9 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [requests, setRequests] = useState<RequestInterface[]>([]);
+  const [shownRequests, setShownRequests] = useState<RequestInterface[]>([]);
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -18,11 +21,20 @@ export default function requests() {
         );
         console.log(res.data);
         setRequests(res.data);
+        setShownRequests(res.data);
       } catch (err) {
         console.log(err);
       }
     })();
   }, []);
+
+  useEffect(() => {
+    const queriedRequests = requests.filter(
+      (request) => request.title.includes(searchQuery) !== false
+    );
+    console.log(queriedRequests);
+    setShownRequests(queriedRequests);
+  }, [searchQuery]);
 
   return (
     <section className={styles.request}>
@@ -31,7 +43,7 @@ export default function requests() {
       </Link> */}
       <h1>All Requests</h1>
       <div className={styles.settings}>
-        <span>42 Requests</span>
+        <span>{shownRequests.length} Requests</span>
         <div>
           <button onClick={() => setShowSearchBar(!showSearchBar)}>
             <img src="/images/search.svg" alt="Search" />
@@ -43,6 +55,8 @@ export default function requests() {
           showSearchBar ? styles.active : ""
         }`}
         placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
       <div className={styles.requestList}>
         {requests.length < 1 && <span>No requests found...</span>}
@@ -59,7 +73,7 @@ export default function requests() {
               />
             )}
           </SkeletonTheme>
-          {requests.map((request) => (
+          {shownRequests.map((request) => (
             <Request request={request} key={request.id} />
           ))}
         </ul>

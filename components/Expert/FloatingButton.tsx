@@ -9,7 +9,7 @@ interface FloatingButtonProps {
   profile: Expert;
 }
 
-const isUserProfile = true;
+const isUserProfile = false;
 
 const FloatingButton = ({
   changeEditMode,

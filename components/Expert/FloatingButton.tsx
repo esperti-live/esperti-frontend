@@ -1,18 +1,23 @@
 import { useContext } from "react";
 import styles from "../../styles/Button.module.scss";
 import AuthContext from "../../contexts/AuthContext";
+import { Expert } from "../../ts/interfaces";
 
 interface FloatingButtonProps {
   editMode: boolean;
   changeEditMode: () => void;
+  profile: Expert;
 }
-const usersAccount = true; // placeholder
 
-const FloatingButton = ({ changeEditMode, editMode }: FloatingButtonProps) => {
+const FloatingButton = ({
+  changeEditMode,
+  editMode,
+  profile,
+}: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
   // todo: check if current account is your account
 
-  if (usersAccount && editMode) {
+  if (user && user.email == profile.email && editMode) {
     return (
       <button
         type="button"
@@ -22,7 +27,7 @@ const FloatingButton = ({ changeEditMode, editMode }: FloatingButtonProps) => {
         Stop Editing
       </button>
     );
-  } else if (usersAccount) {
+  } else if (user && user.email == profile.email) {
     return (
       <button
         type="button"

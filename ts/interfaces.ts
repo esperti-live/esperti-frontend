@@ -6,14 +6,11 @@
 
 export interface Expert {
   name: string;
-  tag: string;
+  title: string;
   video_url: string;
   image_url: string;
-  introduction: string;
-  about: string;
-  language: string;
-  timezone: string;
-  socials: string[];
+  slug: string;
+  bio: string;
   skills: Skills[];
 }
 

@@ -7,7 +7,7 @@ import Video from "../../components/Expert/Video";
 import FloatingButton from "../../components/Expert/FloatingButton";
 import { FAKE_EXPERT } from "../../constants/placeholder";
 
-export default function expert() {
+export default function expert({ profile }) {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [tab, setTab] = useState("bio");
 
@@ -17,8 +17,8 @@ export default function expert() {
     <div className={styles.expert}>
       <Avatar
         image_url={FAKE_EXPERT.image_url}
-        name={FAKE_EXPERT.name}
-        title={FAKE_EXPERT.title}
+        name={profile.name}
+        title={profile.title}
         editMode={editMode}
       />
 
@@ -48,16 +48,49 @@ export default function expert() {
           </button>
         </div>
 
-        {tab == "bio" && <About bio={FAKE_EXPERT.bio} editMode={editMode} />}
+        {tab == "bio" && <About bio={profile.bio} editMode={editMode} />}
         {tab == "video" && (
-          <Video editMode={editMode} video_url={FAKE_EXPERT.video_url} />
+          <Video editMode={editMode} video_url={profile.video_url} />
         )}
         {tab == "skills" && (
-          <SkillsList skills={FAKE_EXPERT.skills} editMode={editMode} />
+          <SkillsList skills={profile.skills} editMode={editMode} />
         )}
       </div>
 
-      <FloatingButton changeEditMode={editModeHandler} editMode={editMode} />
+      <FloatingButton
+        changeEditMode={editModeHandler}
+        editMode={editMode}
+        profile={profile}
+      />
     </div>
   );
 }
+
+export async function getStaticPaths() {
+  const res = await fetch("https://strapi.esperti.live/profiles");
+  const profiles = await res.json();
+
+  const paths = profiles.map((profile) => ({
+    params: { slug: profile.slug },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async ({ params }) => {
+  const res = await fetch(
+    `https://strapi.esperti.live/profiles/${params.slug}`
+  );
+  const profile = await res.json();
+
+  console.log(profile);
+
+  return {
+    props: {
+      profile,
+    },
+  };
+};

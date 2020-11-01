@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styles from "../../styles/About.module.scss";
-import Autocomplete from "../Autocomplete";
 import { Skills } from "../../ts/interfaces";
-import { PLACEHOLDER_TAGS } from "../../constants/placeholder";
 
 const newSkill = {
   name: "",
@@ -20,18 +18,6 @@ interface AddSkillItem {
 export default function AddSkillItem({ skillAdded }) {
   const [skillValues, setSkillValues] = useState<Skills>(newSkill);
 
-  const addTagHandler = (val: string) => {
-    const oldTags = [...skillValues.tags];
-
-    let updatedSkillValues = {
-      ...skillValues,
-      tags: [...oldTags, val],
-    };
-
-    console.log(updatedSkillValues);
-    setSkillValues(updatedSkillValues);
-  };
-
   const skillUpdateHandler = (e, key: string) => {
     let updatedSkillValues = {
       ...skillValues,
@@ -47,7 +33,6 @@ export default function AddSkillItem({ skillAdded }) {
     const skill: Skills = {
       description: skillValues.description,
       name: skillValues.name,
-      tags: skillValues.tags,
     };
 
     // add skill to list locally
@@ -71,31 +56,19 @@ export default function AddSkillItem({ skillAdded }) {
           type="text"
           value={skillValues.name}
           onChange={(e) => skillUpdateHandler(e, "name")}
-          className={styles.addName}
+          placeholder="Skill name"
+          className="editInput"
         />
 
         <textarea
-          className={styles.description}
           value={skillValues.description}
           onChange={(e) => skillUpdateHandler(e, "description")}
+          className="editInput"
+          placeholder="Enter your description"
         ></textarea>
 
-        <div className={styles.addTag}>
-          {skillValues.tags.length < 3 && (
-            <Autocomplete
-              items={PLACEHOLDER_TAGS}
-              itemClicked={addTagHandler}
-            />
-          )}
-          <ul className={styles.additional}>
-            {skillValues.tags.map((tag) => (
-              <li key={tag}>{tag}</li>
-            ))}
-          </ul>
-        </div>
-
-        <button className={styles.saveButton} onClick={addSkillHandler}>
-          Add
+        <button className={styles.addButton} onClick={addSkillHandler}>
+          Add new skill
         </button>
       </div>
     </li>

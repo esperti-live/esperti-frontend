@@ -15,11 +15,12 @@ export default function About({ bio, editMode }: AboutProps) {
     return (
       <div className={styles.aboutSection}>
         <textarea
-          className={styles.editIntroduction}
+          className="editInput"
+          rows={10}
           onChange={(e) => setBioInput(e.target.value)}
           value={bioInput}
         ></textarea>
-        <button onClick={saveHandler} className={styles.saveButton}>
+        <button onClick={saveHandler} className="saveButton">
           Save
         </button>
       </div>

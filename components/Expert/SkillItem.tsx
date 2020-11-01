@@ -9,9 +9,9 @@ export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
 
   return (
     <li className={styles.skill}>
-      <img src={skill.image_url} alt="react" />
+      <img src={skill.image_url} alt={skill.name} />
 
-      <div>
+      <div className={styles.skillContent}>
         <h6>{skill.name}</h6>
         <div className={styles.experience}>
           <span>{skill.experience}</span> years experience
@@ -29,10 +29,10 @@ export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
       {editMode && (
         <button
           type="button"
-          className={styles.editButton}
+          className={styles.removeItem}
           onClick={removeItemHandler}
         >
-          X
+          <img src="/images/remove_tag.svg" alt="Remove skill" />
         </button>
       )}
     </li>

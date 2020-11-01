@@ -40,9 +40,21 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
         />
         <span className="title">{title}</span>
 
+        {/* <ExpertRating /> */}
         <button className={`saveButton`} onClick={updateHandler}>
           Save
         </button>
+
+        <div className={styles.pillHeader}>
+          <div>
+            <span>10 EUR</span>
+            <small>For 10 min call</small>
+          </div>
+          <div>
+            <span>94</span>
+            <small>Sessions / Jobs</small>
+          </div>
+        </div>
       </div>
     );
   } else {

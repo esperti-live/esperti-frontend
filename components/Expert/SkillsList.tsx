@@ -9,8 +9,8 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
   const [showAddSkill, setShowAddSkill] = useState(false);
 
   const addedSkillHandler = (addedSkill: Skills) => {
-    console.log([addedSkill, ...skillsList]);
-    setSkillsList((prevSkillsList) => [...prevSkillsList, addedSkill]);
+    console.log([...skillsList, addedSkill]);
+    setSkillsList((prevSkillsList) => [addedSkill, ...prevSkillsList]);
     setShowAddSkill(false);
   };
 
@@ -22,6 +22,18 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
 
   return (
     <ul className={styles.expertise}>
+      {editMode && (
+        <button
+          type="button"
+          className={styles.addItem}
+          onClick={() => setShowAddSkill(true)}
+        >
+          Add Skill
+        </button>
+      )}
+      {editMode && showAddSkill && (
+        <AddSkillItem skillAdded={addedSkillHandler} />
+      )}
       {skillsList.map((skill) => (
         <SkillItem
           key={skill.name}
@@ -30,15 +42,6 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
           removeItem={removeItemHandler}
         />
       ))}
-
-      {editMode && showAddSkill && (
-        <AddSkillItem skillAdded={addedSkillHandler} />
-      )}
-      {editMode && (
-        <button type="button" onClick={() => setShowAddSkill(true)}>
-          Add Skill
-        </button>
-      )}
     </ul>
   );
 };

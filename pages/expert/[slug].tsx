@@ -40,6 +40,7 @@ export default function expert({ profile }) {
             Skills
           </button>
           <button
+            disabled={true}
             type="button"
             className={tab == "video" ? styles.active : ""}
             onClick={() => setTab("video")}

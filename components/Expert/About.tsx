@@ -1,13 +1,20 @@
-import { useState } from "react";
-import styles from "../../styles/About.module.scss";
+import { useContext, useState } from "react";
 import { AboutProps } from "../../ts/interfaces";
 
-export default function About({ bio, editMode }: AboutProps) {
+import AuthContext from "../../contexts/AuthContext";
+
+import styles from "../../styles/About.module.scss";
+import axios from "axios";
+
+export default function About({ bio, editMode, userId }: AboutProps) {
   const [bioInput, setBioInput] = useState(bio);
+  const { user } = useContext(AuthContext);
 
   const saveHandler = () => {
-    console.log("sending to backend", {
-      bioInput,
+    console.log("upading backend");
+    axios.put(`http://localhost:1337/profiles/${userId}`, {
+      bio: bioInput,
+      headers: { Authorization: `Bearer ${user.tokenId}` },
     });
   };
 

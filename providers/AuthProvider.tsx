@@ -41,6 +41,7 @@ export default function AuthProvider({ children }) {
     try {
       const { email } = await m.user.getMetadata();
       const tokenId = await m.user.generateIdToken();
+      console.log(tokenId);
       setUser({ email, tokenId });
     } catch (err) {
       console.log(err);
@@ -48,7 +49,7 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    m = new Magic("pk_test_635E3B2FA9831709");
+    m = new Magic("pk_test_34B988B683181D01");
 
     (async () => {
       try {

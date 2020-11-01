@@ -2,13 +2,13 @@ import { useState } from "react";
 import SkillItem from "./SkillItem";
 import AddSkillItem from "./AddSkillItem";
 import styles from "../../styles/About.module.scss";
-import { SkillsProp, Skills } from "../../ts/interfaces";
+import { SkillsProp, Skill } from "../../ts/interfaces";
 
-const SkillsList = ({ skills, editMode }: SkillsProp) => {
+const SkillsList = ({ skills, editMode, userId }: SkillsProp) => {
   const [skillsList, setSkillsList] = useState(skills);
   const [showAddSkill, setShowAddSkill] = useState(false);
 
-  const addedSkillHandler = (addedSkill: Skills) => {
+  const addedSkillHandler = (addedSkill: Skill) => {
     console.log([...skillsList, addedSkill]);
     setSkillsList((prevSkillsList) => [addedSkill, ...prevSkillsList]);
     setShowAddSkill(false);
@@ -32,7 +32,7 @@ const SkillsList = ({ skills, editMode }: SkillsProp) => {
         </button>
       )}
       {editMode && showAddSkill && (
-        <AddSkillItem skillAdded={addedSkillHandler} />
+        <AddSkillItem skillAdded={addedSkillHandler} userId={userId} />
       )}
       {skillsList.map((skill) => (
         <SkillItem

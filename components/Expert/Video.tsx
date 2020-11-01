@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../../styles/Expert.module.scss";
-import { convertVideoUrlToEmbedded, getVideoId } from "../../utils/youtube";
+import { getVideoId } from "../../utils/youtube";
+import Youtube from "react-youtube";
 
 interface VideoProps {
   editMode: boolean;
@@ -8,7 +9,8 @@ interface VideoProps {
 }
 
 export default function Video({ editMode, video_url }: VideoProps) {
-  const [videoSrc, setVideoSrc] = useState<string>("");
+  const [videoId, setVideoId] = useState<string>("");
+  const [videoFullUrl, setVideoFullUrl] = useState<string>("");
   const [backgroundImage, setBackgroundImage] = useState<string>("");
 
   const updateVideoImage = (id) => {
@@ -18,18 +20,17 @@ export default function Video({ editMode, video_url }: VideoProps) {
 
   const updateVideoHandler = (e) => {
     e.preventDefault();
-    const videoId = getVideoId(videoSrc);
-    const embeddedUrl = convertVideoUrlToEmbedded(videoSrc);
 
-    updateVideoImage(videoId);
-    setVideoSrc(embeddedUrl);
+    const newVideoId = getVideoId(videoFullUrl);
+    updateVideoImage(newVideoId);
+    setVideoId(newVideoId);
 
     // send embeddedUrl to backend
-    console.log("updating user video", embeddedUrl);
+    console.log("updating user video", videoId);
   };
 
   useEffect(() => {
-    setVideoSrc(convertVideoUrlToEmbedded(video_url));
+    setVideoId(getVideoId(video_url));
   }, [video_url]);
 
   if (editMode) {
@@ -44,11 +45,15 @@ export default function Video({ editMode, video_url }: VideoProps) {
         <form onSubmit={updateVideoHandler}>
           <input
             type="text"
-            value={videoSrc}
-            onChange={(e) => setVideoSrc(e.target.value)}
-            className={styles.changeVideo}
+            value={videoFullUrl}
+            onChange={(e) => setVideoFullUrl(e.target.value)}
+            className="editInput"
           />
-          <button type="submit" className={styles.saveButton}>
+          <button
+            type="submit"
+            className="saveButton"
+            onClick={updateVideoHandler}
+          >
             Save
           </button>
         </form>
@@ -59,11 +64,7 @@ export default function Video({ editMode, video_url }: VideoProps) {
       <div className={styles.video}>
         <h6>My Intro</h6>
         <span>Quick introduction</span>
-        <iframe
-          src={videoSrc}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
+        <Youtube videoId={videoId} />
       </div>
     );
   }

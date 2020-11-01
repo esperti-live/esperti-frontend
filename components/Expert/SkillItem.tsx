@@ -9,13 +9,13 @@ export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
 
   return (
     <li className={styles.skill}>
-      <img src={skill.image_url} alt={skill.name} />
+      <img src="/images/skills_icon.svg" alt={skill.name} />
 
       <div className={styles.skillContent}>
         <h6>{skill.name}</h6>
-        <div className={styles.experience}>
+        {/* <div className={styles.experience}>
           <span>{skill.experience}</span> years experience
-        </div>
+        </div> */}
 
         <p className={styles.description}>{skill.description}</p>
 

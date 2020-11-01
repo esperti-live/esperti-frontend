@@ -40,7 +40,6 @@ export default function expert({ profile }) {
             Skills
           </button>
           <button
-            disabled={true}
             type="button"
             className={tab == "video" ? styles.active : ""}
             onClick={() => setTab("video")}
@@ -49,12 +48,18 @@ export default function expert({ profile }) {
           </button>
         </div>
 
-        {tab == "bio" && <About bio={profile.bio} editMode={editMode} />}
+        {tab == "bio" && (
+          <About bio={profile.bio} editMode={editMode} userId={profile.id} />
+        )}
         {tab == "video" && (
           <Video editMode={editMode} video_url={profile.video_url} />
         )}
         {tab == "skills" && (
-          <SkillsList skills={profile.skills} editMode={editMode} />
+          <SkillsList
+            skills={profile.skills}
+            editMode={editMode}
+            userId={profile.id}
+          />
         )}
       </div>
 
@@ -68,9 +73,10 @@ export default function expert({ profile }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("https://strapi.esperti.live/profiles");
+  const res = await fetch("http://localhost:1337/profiles");
   const profiles = await res.json();
 
+  console.log(profiles);
   const paths = profiles.map((profile) => ({
     params: { slug: profile.slug },
   }));
@@ -82,12 +88,8 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(
-    `https://strapi.esperti.live/profiles/${params.slug}`
-  );
+  const res = await fetch(`http://localhost:1337/profiles/${params.slug}`);
   const profile = await res.json();
-
-  console.log(profile);
 
   return {
     props: {

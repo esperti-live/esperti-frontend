@@ -2,13 +2,14 @@ import { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import ExpertCard from "../components/ExpertCard";
-import { FAKE_EXPERTS } from "../constants/placeholder";
+// import { FAKE_EXPERTS } from "../constants/placeholder";
 import AuthContext from "../contexts/AuthContext";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import Link from "next/link";
 import axios from "axios";
+import { Expert } from "../ts/interfaces";
 
-export default function Home() {
+export default function Home({ profiles }) {
   const [emailInput, setEmailInput] = useState("");
   const { user, login } = useContext(AuthContext);
   const [viewModal, setViewModal] = useState(false);
@@ -103,8 +104,9 @@ export default function Home() {
         <section className={styles.experts}>
           <h2>Get help from our experts</h2>
           <div className={styles.expertContainer}>
-            {FAKE_EXPERTS.map((expert) => (
+            {profiles.map((expert: Expert) => (
               <ExpertCard
+                slug={expert.slug}
                 key={expert.id}
                 image_url={expert.image_url}
                 name={expert.name}
@@ -120,3 +122,13 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await axios.get("https://strapi.esperti.live/profiles?_limit=5");
+
+  return {
+    props: {
+      profiles: res.data,
+    },
+  };
+};

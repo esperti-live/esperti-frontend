@@ -8,10 +8,10 @@ const Request = ({ request }: RequestProp) => {
     <li className={styles.requestItem}>
       <Link href={`/requests/${request.id}`}>
         <a>
-          <div className={styles.top}>
+          {/* <div className={styles.top}>
             <img src={request.user.image_url} alt={request.user.name} />
             <span>andy.korn</span>
-          </div>
+          </div> */}
           <div className={styles.bottom}>
             <h5>{request.title}</h5>
             <div className={styles.tagContainer}>

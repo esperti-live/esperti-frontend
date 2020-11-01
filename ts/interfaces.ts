@@ -4,13 +4,14 @@
 }
 
 export interface Expert {
+  id: string;
   name: string;
   title: string;
-  video_url: string;
-  image_url: string;
+  video_url?: string;
+  image_url?: string;
   slug: string;
-  bio: string;
-  skills: Skills[];
+  bio?: string;
+  skills?: Skills[];
 }
 
 

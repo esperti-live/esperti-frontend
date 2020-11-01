@@ -158,12 +158,22 @@
         }
     }
 
-    input:last-of-type {
-      margin-bottom: 12px;
+    & input:last-child {
+      margin-bottom: 10px;
+    }
+
+    .loginBtn {
+       border: none;
+       padding: 0;
+       height: auto;
+       background: transparent;
+       top: 50%;
+       right: 5px;
+       cursor: pointer;
     }
 
     .submit {
-      width: 302px;
+      width: 100%;
       border-radius: 29px;
       box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
       background-color: #000000;

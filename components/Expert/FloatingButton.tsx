@@ -10,8 +10,6 @@ interface FloatingButtonProps {
   profile: Expert;
 }
 
-const isUserProfile = false;
-
 const FloatingButton = ({
   changeEditMode,
   editMode,
@@ -19,9 +17,8 @@ const FloatingButton = ({
 }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
-  // todo: check if current account is your account
 
-  if (isUserProfile && editMode) {
+  if (user && user.slug == profile.slug && editMode) {
     return (
       <button
         type="button"
@@ -31,7 +28,7 @@ const FloatingButton = ({
         Stop Editing
       </button>
     );
-  } else if (isUserProfile) {
+  } else if (user && user.slug == profile.slug) {
     return (
       <button
         type="button"
@@ -41,7 +38,7 @@ const FloatingButton = ({
         Edit
       </button>
     );
-  } else {
+  } else if (user) {
     return (
       <>
         {showModal && (
@@ -59,6 +56,8 @@ const FloatingButton = ({
         </button>
       </>
     );
+  } else {
+    return null;
   }
 };
 

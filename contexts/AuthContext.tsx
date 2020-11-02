@@ -3,6 +3,7 @@ import { createContext } from "react";
 interface User {
   email: string;
   tokenId: string;
+  slug?: string;
 }
 
 interface Auth {

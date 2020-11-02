@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Magic } from "magic-sdk";
+import axios from "axios";
 
 let m: Magic;
 
 interface User {
   email: string;
   tokenId: string;
+  slug?: string;
 }
 
 export default function AuthProvider({ children }) {
@@ -18,6 +20,10 @@ export default function AuthProvider({ children }) {
       try {
         const res = await m.auth.loginWithMagicLink({ email, showUI: false });
         console.log(res);
+        // const slug = await axios.get(
+        //   `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
+        //   { headers: { Authorization: `Bearer ${user.tokenId}` } }
+        // );
         setUser({ tokenId: res, email });
         resolve({ email, tokenId: res });
       } catch (err) {
@@ -41,6 +47,10 @@ export default function AuthProvider({ children }) {
     try {
       const { email } = await m.user.getMetadata();
       const tokenId = await m.user.generateIdToken();
+      // const slug = await axios.get(
+      //   `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
+      // { headers: { Authorization: `Bearer ${user.tokenId}` } } { headers: { Authorization: `Bearer ${user.tokenId}` } }
+      // );
       console.log(tokenId);
       setUser({ email, tokenId });
     } catch (err) {

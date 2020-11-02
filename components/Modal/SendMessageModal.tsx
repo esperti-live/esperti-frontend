@@ -13,14 +13,20 @@ const CheckEmailModal = ({ closeModal, profile }) => {
     setDisabled(true);
     e.preventDefault();
 
-    const data = {
-      message,
-      profile: profile.id,
-    };
+    try {
+      const data = {
+        message,
+        profile: profile.id,
+      };
 
-    axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/messages`, data, {
-      headers: { Authorization: `Bearer ${user.tokenId}` },
-    });
+      axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/messages`, data, {
+        headers: { Authorization: `Bearer ${user.tokenId}` },
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      closeModal();
+    }
   };
 
   const changeMessageHandler = (e) => {

@@ -17,7 +17,7 @@ export default function requests() {
     (async () => {
       try {
         const res = await axios.get(
-          "http://localhost:1337/requests?_sort=created_at:DESC"
+          `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?_sort=created_at:DESC`
         );
         console.log(res.data);
         setRequests(res.data);

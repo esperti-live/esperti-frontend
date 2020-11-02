@@ -14,13 +14,6 @@ export default function Home({ profiles }) {
   const { user, login } = useContext(AuthContext);
   const [viewModal, setViewModal] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const profiles = await axios.get("https://strapi.esperti.live/profiles");
-      console.log(profiles);
-    })();
-  }, []);
-
   const loginHandler = async (e) => {
     e.preventDefault();
     setViewModal(true);
@@ -127,7 +120,9 @@ export default function Home({ profiles }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:1337/profiles?_limit=5");
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles?_limit=5`
+  );
 
   return {
     props: {

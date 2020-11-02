@@ -41,7 +41,7 @@ export default function AddSkillItem({ skillAdded, userId }) {
 
     // send to backend
     console.log("sending to backend", skill);
-    axios.post("http://localhost:1337/skills", skill, {
+    axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/skills`, skill, {
       headers: { Authorization: `Bearer ${user.tokenId}` },
     });
   };

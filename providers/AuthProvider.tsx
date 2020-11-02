@@ -49,7 +49,7 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    m = new Magic("pk_test_34B988B683181D01");
+    m = new Magic(process.env.NEXT_PUBLIC_MAGIC_PK);
 
     (async () => {
       try {

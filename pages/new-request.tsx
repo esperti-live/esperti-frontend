@@ -42,7 +42,7 @@ const newRequest = () => {
     console.log("sending request", data);
 
     try {
-      await axios.post(`http://localhost:1337/requests`, data, {
+      await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`, data, {
         headers: { Authorization: `Bearer ${user.tokenId}` },
       });
       setShowRequestSuccess(true);

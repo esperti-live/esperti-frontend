@@ -27,7 +27,7 @@ export default function Autocomplete({ itemClicked }) {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("http://localhost:1337/tags");
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/tags`);
       setTagsList(res.data);
     })();
   }, []);

@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "../../styles/Button.module.scss";
 import AuthContext from "../../contexts/AuthContext";
 import { Expert } from "../../ts/interfaces";
+import SendMessageModal from "../Modal/SendMessageModal";
 
 interface FloatingButtonProps {
   editMode: boolean;
@@ -17,6 +18,7 @@ const FloatingButton = ({
   profile,
 }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
   // todo: check if current account is your account
 
   if (isUserProfile && editMode) {
@@ -41,9 +43,21 @@ const FloatingButton = ({
     );
   } else {
     return (
-      <button type="button" className={styles.expertFloatingButton}>
-        Message
-      </button>
+      <>
+        {showModal && (
+          <SendMessageModal
+            closeModal={() => setShowModal(false)}
+            profile={profile}
+          />
+        )}
+        <button
+          type="button"
+          className={styles.expertFloatingButton}
+          onClick={() => setShowModal(true)}
+        >
+          Message
+        </button>
+      </>
     );
   }
 };

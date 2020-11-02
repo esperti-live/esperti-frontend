@@ -12,7 +12,7 @@ export default function About({ bio, editMode, userId }: AboutProps) {
 
   const saveHandler = () => {
     console.log("upading backend");
-    axios.put(`http://localhost:1337/profiles/${userId}`, {
+    axios.put(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/${userId}`, {
       bio: bioInput,
       headers: { Authorization: `Bearer ${user.tokenId}` },
     });

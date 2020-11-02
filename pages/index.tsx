@@ -30,8 +30,11 @@ export default function Home({ profiles }) {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Esperti.live</title>
+        <meta
+          name="description"
+          content="Expert Help is one click away. We bring you the top IT experts billed by the minute"
+        />
       </Head>
 
       <main>

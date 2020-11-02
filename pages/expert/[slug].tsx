@@ -6,6 +6,7 @@ import SkillsList from "../../components/Expert/SkillsList";
 import Video from "../../components/Expert/Video";
 import FloatingButton from "../../components/Expert/FloatingButton";
 import { FAKE_EXPERT } from "../../constants/placeholder";
+import Head from "next/head";
 
 export default function expert({ profile }) {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -14,61 +15,66 @@ export default function expert({ profile }) {
   const editModeHandler = () => setEditMode(!editMode);
 
   return (
-    <div className={styles.expert}>
-      <Avatar
-        image_url={FAKE_EXPERT.image_url}
-        name={profile.name}
-        title={profile.title}
-        editMode={editMode}
-      />
+    <>
+      <Head>
+        <title>Esperti.live | {profile.name}</title>
+      </Head>
+      <div className={styles.expert}>
+        <Avatar
+          image_url={FAKE_EXPERT.image_url}
+          name={profile.name}
+          title={profile.title}
+          editMode={editMode}
+        />
 
-      <div className={styles.about}>
-        <h2>About me</h2>
-        <div className={styles.navPill}>
-          <button
-            type="button"
-            className={tab == "bio" ? styles.active : ""}
-            onClick={() => setTab("bio")}
-          >
-            Bio
-          </button>
-          <button
-            type="button"
-            className={tab == "skills" ? styles.active : ""}
-            onClick={() => setTab("skills")}
-          >
-            Skills
-          </button>
-          <button
-            type="button"
-            className={tab == "video" ? styles.active : ""}
-            onClick={() => setTab("video")}
-          >
-            Video
-          </button>
+        <div className={styles.about}>
+          <h2>About me</h2>
+          <div className={styles.navPill}>
+            <button
+              type="button"
+              className={tab == "bio" ? styles.active : ""}
+              onClick={() => setTab("bio")}
+            >
+              Bio
+            </button>
+            <button
+              type="button"
+              className={tab == "skills" ? styles.active : ""}
+              onClick={() => setTab("skills")}
+            >
+              Skills
+            </button>
+            <button
+              type="button"
+              className={tab == "video" ? styles.active : ""}
+              onClick={() => setTab("video")}
+            >
+              Video
+            </button>
+          </div>
+
+          {tab == "bio" && (
+            <About bio={profile.bio} editMode={editMode} userId={profile.id} />
+          )}
+          {tab == "video" && (
+            <Video editMode={editMode} video_url={profile.video_url} />
+          )}
+          {tab == "skills" && (
+            <SkillsList
+              skills={profile.skills}
+              editMode={editMode}
+              userId={profile.id}
+            />
+          )}
         </div>
 
-        {tab == "bio" && (
-          <About bio={profile.bio} editMode={editMode} userId={profile.id} />
-        )}
-        {tab == "video" && (
-          <Video editMode={editMode} video_url={profile.video_url} />
-        )}
-        {tab == "skills" && (
-          <SkillsList
-            skills={profile.skills}
-            editMode={editMode}
-            userId={profile.id}
-          />
-        )}
+        <FloatingButton
+          changeEditMode={editModeHandler}
+          editMode={editMode}
+          profile={profile}
+        />
       </div>
-
-      <FloatingButton
-        changeEditMode={editModeHandler}
-        editMode={editMode}
-        profile={profile}
-      />
-    </div>
+    </>
   );
 }
 

@@ -5,6 +5,9 @@ import styles from "../../styles/Footer.module.scss";
 const Footer = () => {
   return (
     <footer className={styles.footer}>
+      <Link href="/requests">
+        View Requests
+      </Link>
       <Link href="/create-profile">
         <a>
           <span>Create profile</span>

@@ -1,10 +1,13 @@
 import styles from "../styles/Request.module.scss";
+import buttons from "../styles/Button.module.scss";
 import Request from "../components/Request/Request";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Request as RequestInterface } from "../ts/interfaces";
 // import Link from "next/link";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Link from "next/link";
 
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -78,6 +81,9 @@ export default function requests() {
           ))}
         </ul>
       </div>
+      <Link href="/new-request">
+        <a className={buttons.linkFloatingButton}>Submit Request</a>
+      </Link>
     </section>
   );
 }

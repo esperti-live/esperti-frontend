@@ -15,6 +15,7 @@ const initRequest: NewRequest = {
 
 export default function RequestForm({ formSubmit }: RequestFormProps) {
   const [request, setRequest] = useState<NewRequest>(initRequest);
+  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
 
   const addTagHandler = (tag: Tag) => {
     if (!request.tags.includes(tag)) {
@@ -48,6 +49,7 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
   };
 
   const submitHandler = (e) => {
+    setButtonClicked(true);
     e.preventDefault();
     formSubmit(request);
   };
@@ -90,7 +92,10 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
         type="submit"
         className={styles.submit}
         disabled={
-          !request.description || !request.title || !request.tags.length
+          !request.description ||
+          !request.title ||
+          !request.tags.length ||
+          buttonClicked
         }
       >
         Confirm

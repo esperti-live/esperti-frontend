@@ -24,6 +24,8 @@ export default function expert({ profile }) {
           name={profile.name}
           title={profile.title}
           editMode={editMode}
+          rate={profile.rate}
+          experience={profile.experience}
         />
 
         <div className={styles.about}>

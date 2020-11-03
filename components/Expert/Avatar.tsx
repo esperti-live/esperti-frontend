@@ -4,7 +4,7 @@ import { AvatarProps } from "../../ts/interfaces";
 import ExpertRating from "./ExpertRating";
 import { getImageUrl } from "../../utils/format";
 
-const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
+const Avatar = ({ image, title, name, rate, experience, editMode }: AvatarProps) => {
   const [localImage, setLocalImage] = useState<string | File>(image);
   const [userName, setUserName] = useState<string>(name);
 
@@ -70,12 +70,12 @@ const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
 
         <div className={styles.pillHeader}>
           <div>
-            <span>10 EUR</span>
+            <span>{rate} EUR</span>
             <small>For 15 min call</small>
           </div>
           <div>
-            <span>94</span>
-            <small>Sessions / Jobs</small>
+            <span>{experience}</span>
+            <small>Years</small>
           </div>
         </div>
       </div>

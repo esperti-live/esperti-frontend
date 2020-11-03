@@ -4,11 +4,7 @@ import AuthContext from "../../contexts/AuthContext";
 import Link from "next/link";
 
 const Navigation = () => {
-  const { user, logout } = useContext(AuthContext);
-
-  const logoutHandler = () => {
-    logout();
-  };
+  const { user } = useContext(AuthContext);
 
   return (
     <nav className={styles.navigation}>
@@ -21,12 +17,8 @@ const Navigation = () => {
         {user && (
           <Link href="/settings">
             <div className={styles.user}>
-              {/* <span>{user.email}</span> */}
               <img src="/images/user_profile.svg" alt="Avatar" />
               <span>{user.email.split("@")[0]}</span>
-              {/* <button type="button" onClick={logoutHandler}>
-              Logout
-            </button> */}
             </div>
           </Link>
         )}

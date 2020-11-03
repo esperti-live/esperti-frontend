@@ -64,3 +64,11 @@ ul, li {
     background-color: #ffffff;
     margin-bottom: 5px;
 }
+
+button, input {
+  font-family: inherit;
+}
+
+button, a {
+  cursor: pointer;
+}

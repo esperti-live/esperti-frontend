@@ -78,7 +78,7 @@ export default function expert({ profile }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:1337/profiles");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles`);
   const profiles = await res.json();
 
   console.log(profiles);
@@ -93,7 +93,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:1337/profiles/${params.slug}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/${params.slug}`);
   const profile = await res.json();
 
   return {

@@ -9,6 +9,8 @@ import Link from "next/link";
 import axios from "axios";
 import { Expert } from "../ts/interfaces";
 
+import { getExpertImage } from "../utils/format";
+
 export default function Home({ profiles }) {
   const [emailInput, setEmailInput] = useState("");
   const { user, login } = useContext(AuthContext);
@@ -104,7 +106,7 @@ export default function Home({ profiles }) {
               <ExpertCard
                 slug={expert.slug}
                 key={expert.id}
-                image_url={expert.image_url}
+                image_url={getExpertImage(expert)}
                 name={expert.name}
                 skills={expert.skills}
                 title={expert.title}

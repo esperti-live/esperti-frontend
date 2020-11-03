@@ -9,7 +9,7 @@ export interface Expert {
   name: string;
   title: string;
   video_url?: string;
-  image_url?: string;
+  image?: any;
   slug: string;
   bio?: string;
   skills?: Skill[];
@@ -23,7 +23,7 @@ export interface AboutProps {
 }
 
 export interface AvatarProps {
-  image_url: string;
+  image?: any;
   title: string;
   name: string;
   editMode: boolean;

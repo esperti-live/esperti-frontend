@@ -72,3 +72,8 @@ button, input {
 button, a {
   cursor: pointer;
 }
+
+.btnSuccess {
+  background-color: green !important;
+  color: #fff !important;
+}

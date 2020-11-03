@@ -7,6 +7,7 @@ import CheckEmailModal from "../components/Modal/CheckEmailModal";
 // import ProfileCreatedModal from "../components/Modal/ProfileCreatedModal";
 import axios from "axios";
 import { useRouter } from "next/router";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const newRequest = () => {
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
@@ -20,8 +21,10 @@ const newRequest = () => {
 
   const [name, setName] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const { login, user } = useContext(AuthContext);
+  const { login, user, persistUser } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user || user.slug) {
@@ -30,6 +33,7 @@ const newRequest = () => {
   }, []);
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     console.log({ name, image });
@@ -41,8 +45,13 @@ const newRequest = () => {
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles`, data, {
         headers: { Authorization: `Bearer ${user.tokenId}` },
       });
+      await persistUser();
+      setLoading(false);
+      setSuccess(true);
 
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+      }, 1500);
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +87,7 @@ const newRequest = () => {
         )}
         {user && (
           <form onSubmit={submitHandler}>
-            <label htmlFor="title">Add your name</label>
+            <label htmlFor="title">Add your name*</label>
             <input
               type="text"
               placeholder="What is your name?"
@@ -89,9 +98,24 @@ const newRequest = () => {
             <label htmlFor="title">Add an image</label>
             <input type="file" onChange={(e) => setImage(e.target.files[0])} />
 
-            <button type="submit" className={styles.submit}>
-              Create
-            </button>
+            {!success && (
+              <button
+                type="submit"
+                className={styles.submit}
+                disabled={loading}
+              >
+                {loading ? <LoadingSpinner /> : "Create"}
+              </button>
+            )}
+            {success && (
+              <button
+                type="submit"
+                className={`${styles.submit} btnSuccess`}
+                disabled
+              >
+                &#10004;
+              </button>
+            )}
           </form>
         )}
         {showAuthModal && (

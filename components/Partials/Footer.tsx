@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { useContext } from "react";
-import AuthContext from "../../contexts/AuthContext";
+// import { useContext } from "react";
+// import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Footer.module.scss";
 
 const Footer = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
   return (
     <footer className={styles.footer}>
       <Link href="/requests">View Requests</Link>
-      {user && !user.slug && (
+      {/* {user && !user.slug && (
         <Link href="/create-profile">
           <a>
             <span>Create profile</span>
@@ -26,7 +26,7 @@ const Footer = () => {
             </svg>
           </a>
         </Link>
-      )}
+      )} */}
       <img src="/images/logo.svg" alt="Esperti.live" />
     </footer>
   );

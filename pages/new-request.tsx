@@ -1,8 +1,6 @@
 import { useState, useContext } from "react";
 import slugify from "slugify";
 
-import { PLACEHOLDER_TAGS } from "../constants/placeholder";
-
 import AuthContext from "../contexts/AuthContext";
 import RequestForm from "../components/Request/RequestForm";
 import { NewRequest } from "../ts/interfaces";
@@ -42,6 +40,7 @@ const newRequest = () => {
     console.log("sending request", data);
 
     try {
+      console.log(user);
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`, data, {
         headers: { Authorization: `Bearer ${user.tokenId}` },
       });
@@ -51,6 +50,7 @@ const newRequest = () => {
     }
   };
 
+  // old logic - redundant (REMOVE IN FUTURE)
   const loginHandler = async (e) => {
     e.preventDefault();
     setShowAuthModal(true);

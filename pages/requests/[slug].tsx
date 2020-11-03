@@ -47,7 +47,7 @@ export default function request({ request }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:1337/requests");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`);
   const requests = await res.json();
 
   console.log(requests);
@@ -63,7 +63,9 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:1337/requests/${params.slug}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests/${params.slug}`
+  );
   const request = await res.json();
 
   console.log(request);

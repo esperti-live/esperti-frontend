@@ -2,19 +2,20 @@ import { useState } from "react";
 import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 import ExpertRating from "./ExpertRating";
+import { getImageUrl } from "../../utils/format";
 
-const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
-  const [image, setImage] = useState<string | File>(image_url);
+const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
+  const [localImage, setLocalImage] = useState<string | File>(image);
   const [userName, setUserName] = useState<string>(name);
 
   const onFileHandler = (e) => {
     console.log("file", e.target.files[0]);
-    setImage(e.target.files[0]);
+    setLocalImage(e.target.files[0]);
   };
 
   const updateHandler = () => {
     // send to backend
-    console.log({ image, name: userName });
+    console.log({ localImage, name: userName });
   };
 
   if (editMode) {
@@ -26,7 +27,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
           onChange={(e) => onFileHandler(e)}
         />
         <img
-          src={typeof image == "string" ? image : URL.createObjectURL(image)}
+          src={getImageUrl(localImage)}
           alt="Nik Vogrinec"
           className={styles.avatar}
         />
@@ -59,7 +60,7 @@ const Avatar = ({ image_url, title, name, editMode }: AvatarProps) => {
     return (
       <div className={styles.head}>
         <img
-          src={typeof image == "string" ? image : URL.createObjectURL(image)}
+          src={getImageUrl(localImage)}
           alt="Nik Vogrinec"
           className={styles.avatar}
         />

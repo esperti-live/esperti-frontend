@@ -21,7 +21,7 @@ export default function expert({ profile }) {
       </Head>
       <div className={styles.expert}>
         <Avatar
-          image_url={FAKE_EXPERT.image_url}
+          image={profile.image}
           name={profile.name}
           title={profile.title}
           editMode={editMode}

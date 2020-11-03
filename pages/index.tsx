@@ -60,11 +60,7 @@ export default function Home({ profiles }) {
                     </button>
                   )}
 
-                  <button
-                    className={styles.getHelp}
-                    type="submit"
-                    onClick={loginHandler}
-                  >
+                  <button className={styles.getHelp} type="submit">
                     Get Help Now
                   </button>
                 </form>

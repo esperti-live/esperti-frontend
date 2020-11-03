@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Profiler, useState } from "react";
 import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 import ExpertRating from "./ExpertRating";
@@ -28,7 +28,7 @@ const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
         />
         <img
           src={getImageUrl(localImage)}
-          alt="Nik Vogrinec"
+          alt={userName}
           className={styles.avatar}
         />
         <input
@@ -61,7 +61,7 @@ const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
       <div className={styles.head}>
         <img
           src={getImageUrl(localImage)}
-          alt="Nik Vogrinec"
+          alt={userName}
           className={styles.avatar}
         />
         <h4>{userName}</h4>

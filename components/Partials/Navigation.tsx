@@ -14,7 +14,9 @@ const Navigation = () => {
     <nav className={styles.navigation}>
       <div className={styles.innerNavigation}>
         <Link href="/">
-          <img src="/images/logo.svg" alt="Esperti" />
+          <a>
+            <img src="/images/logo.svg" alt="Esperti" />
+          </a>
         </Link>
         {user && (
           <div className={styles.user}>

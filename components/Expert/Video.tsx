@@ -64,7 +64,10 @@ export default function Video({ editMode, video_url }: VideoProps) {
       <div className={styles.video}>
         <h6>My Intro</h6>
         <span>Quick introduction</span>
-        <Youtube videoId={videoId} />
+        {videoId &&
+          <Youtube videoId={videoId} />
+        }
+        
       </div>
     );
   }

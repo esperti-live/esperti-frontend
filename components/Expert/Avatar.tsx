@@ -47,7 +47,7 @@ const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
         <div className={styles.pillHeader}>
           <div>
             <span>10 EUR</span>
-            <small>For 10 min call</small>
+            <small>For 15 min call</small>
           </div>
           <div>
             <span>94</span>
@@ -66,12 +66,12 @@ const Avatar = ({ image, title, name, editMode }: AvatarProps) => {
         />
         <h4>{userName}</h4>
         <span className={styles.title}>{title}</span>
-        <ExpertRating />
+        {/* <ExpertRating /> */}
 
         <div className={styles.pillHeader}>
           <div>
             <span>10 EUR</span>
-            <small>For 10 min call</small>
+            <small>For 15 min call</small>
           </div>
           <div>
             <span>94</span>

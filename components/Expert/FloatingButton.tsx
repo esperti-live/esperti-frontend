@@ -30,14 +30,9 @@ const FloatingButton = ({
       </button>
     );
   } else if (user && user.slug == profile.slug) {
+    //Show noting if it's your profile for now
     return (
-      <button
-        type="button"
-        className={styles.expertFloatingButton}
-        onClick={changeEditMode}
-      >
-        Edit
-      </button>
+      <></>
     );
   } else if (user) {
     return (

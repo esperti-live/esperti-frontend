@@ -25,7 +25,6 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
         tags: [...oldTags, tag],
       };
 
-      console.log("added tag", updatedRequest);
       setRequest(updatedRequest);
     }
   };
@@ -42,8 +41,6 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
       ...request,
       [key]: e.target.value,
     };
-
-    console.log("changing request values", updatedSkillValues);
 
     setRequest(updatedSkillValues);
   };

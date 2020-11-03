@@ -55,6 +55,7 @@ export interface Request {
     title: string;
     tags: Tag[];
     type: string;
+    slug: string;
 }
 
 export interface RequestProp {

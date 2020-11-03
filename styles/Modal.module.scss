@@ -89,6 +89,9 @@
     .btnPrimary {
     margin-bottom: 15px;
     background-color: #000;
+    &.success {
+      background-color: green;
+    }
   }
 
   .inputPrimary {

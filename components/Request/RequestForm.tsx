@@ -96,7 +96,6 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
         disabled={
           !request.description ||
           !request.title ||
-          !request.tags.length ||
           buttonClicked
         }
       >

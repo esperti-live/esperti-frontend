@@ -124,3 +124,31 @@
     color: #ffffff;
   }
 }
+
+.settings {
+  min-height: calc(100vh - 130px);
+  padding: 50px 25px;
+
+  a, button {
+    cursor: pointer;
+    width :100%;
+    border-radius: 29px;
+    padding: 15px 0;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 15px;
+    display: block;
+    font-weight: 500;
+  }
+
+  a {
+    background-color: #000000;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  button {
+    background-color: #1653f0;
+  }
+}

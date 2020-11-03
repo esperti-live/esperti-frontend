@@ -19,14 +19,16 @@ const Navigation = () => {
           </a>
         </Link>
         {user && (
-          <div className={styles.user}>
-            {/* <span>{user.email}</span> */}
-            <img src="/images/user_profile.svg" alt="Avatar" />
-            <span>{user.email.split("@")[0]}</span>
-            {/* <button type="button" onClick={logoutHandler}>
+          <Link href="/settings">
+            <div className={styles.user}>
+              {/* <span>{user.email}</span> */}
+              <img src="/images/user_profile.svg" alt="Avatar" />
+              <span>{user.email.split("@")[0]}</span>
+              {/* <button type="button" onClick={logoutHandler}>
               Logout
             </button> */}
-          </div>
+            </div>
+          </Link>
         )}
         {!user && (
           <Link href="/login">

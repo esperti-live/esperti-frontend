@@ -47,6 +47,7 @@ export default function Home({ profiles }) {
                     type="email"
                     placeholder="Enter your email"
                     value={emailInput}
+                    required
                     onChange={(e) => setEmailInput(e.target.value)}
                     className={emailInput.length > 0 ? styles.active : ""}
                   />

@@ -11,6 +11,7 @@ interface Auth {
   login: (email: string) => Promise<any>;
   logout: () => {};
   persistUser: () => Promise<any>;
+  userLoading: boolean;
   user: User;
 }
 

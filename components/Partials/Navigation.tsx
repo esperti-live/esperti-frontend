@@ -4,7 +4,7 @@ import AuthContext from "../../contexts/AuthContext";
 import Link from "next/link";
 
 const Navigation = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userLoading } = useContext(AuthContext);
 
   return (
     <nav className={styles.navigation}>
@@ -22,7 +22,8 @@ const Navigation = () => {
             </div>
           </Link>
         )}
-        {!user && (
+        {userLoading && <p className={styles.loginButton}>Loading profile</p>}
+        {!user && !userLoading && (
           <Link href="/login">
             <a className={styles.loginButton}>
               Log In <img src="/images/arrow_right.svg" alt="log in" />

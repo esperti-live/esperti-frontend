@@ -19,6 +19,7 @@ const getProfileData = async (token) => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [userLoading, setUserLoading] = useState(false);
 
   const login = (email: string) => {
     console.log("logging in");
@@ -58,6 +59,7 @@ export default function AuthProvider({ children }) {
         console.log(tokenId);
         setUser({ email, tokenId, ...data });
         resolve({ email, tokenId, ...data });
+        setUserLoading(false);
       } catch (err) {
         console.log(err);
         reject(err);
@@ -74,6 +76,7 @@ export default function AuthProvider({ children }) {
         console.log("User is loggedin", await m.user);
 
         if (isLoggedIn) {
+          setUserLoading(true);
           persistUser();
         }
       } catch (error) {
@@ -83,7 +86,9 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, persistUser }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, persistUser, userLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

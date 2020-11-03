@@ -4,11 +4,13 @@ interface User {
   email: string;
   tokenId: string;
   slug?: string;
+  id: number;
 }
 
 interface Auth {
   login: (email: string) => Promise<any>;
   logout: () => {};
+  persistUser: () => Promise<any>;
   user: User;
 }
 

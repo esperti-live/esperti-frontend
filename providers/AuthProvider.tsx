@@ -2,31 +2,23 @@ import { useState, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Magic } from "magic-sdk";
 import axios from "axios";
-import { Expert } from "../ts/interfaces";
 
 let m: Magic;
-
-interface User {
-  email: string;
-  tokenId: string;
-  slug?: string;
-}
-
-
-const getProfileSlug = async (token) => {
-  try{
+const getProfileData = async (token) => {
+  try {
     const req = await axios.get(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    return req.data.slug
-  } catch (err){
-    return ''
+    console.log(req);
+    return { slug: req.data.slug, id: req.data.id };
+  } catch (err) {
+    return "";
   }
-}
+};
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
 
   const login = (email: string) => {
     console.log("logging in");
@@ -34,9 +26,10 @@ export default function AuthProvider({ children }) {
       try {
         const token = await m.auth.loginWithMagicLink({ email, showUI: false });
 
-        const slug = await getProfileSlug(token)
+        console.log("here");
+        const data = await getProfileData(token);
 
-        setUser({ tokenId: token, email, slug });
+        setUser({ tokenId: token, email, ...data });
         resolve({ email, tokenId: token });
       } catch (err) {
         console.log(err);
@@ -56,16 +49,20 @@ export default function AuthProvider({ children }) {
   };
 
   const persistUser = async () => {
-    try {
-      const { email } = await m.user.getMetadata();
-      const tokenId = await m.user.generateIdToken();
-      const slug = await getProfileSlug(tokenId)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { email } = await m.user.getMetadata();
+        const tokenId = await m.user.generateIdToken();
+        const data = await getProfileData(tokenId);
 
-      console.log(tokenId);
-      setUser({ email, tokenId, slug });
-    } catch (err) {
-      console.log(err);
-    }
+        console.log(tokenId);
+        setUser({ email, tokenId, ...data });
+        resolve({ email, tokenId, ...data });
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
   };
 
   useEffect(() => {
@@ -86,7 +83,7 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, persistUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import AuthContext from "../contexts/AuthContext";
 
@@ -22,6 +22,12 @@ const newRequest = () => {
   const [image, setImage] = useState<File | null>(null);
 
   const { login, user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user || user.slug) {
+      router.push("/");
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();

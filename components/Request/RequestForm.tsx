@@ -52,6 +52,8 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
     setButtonClicked(true);
     e.preventDefault();
     formSubmit(request);
+    setRequest(initRequest);
+    setButtonClicked(false);
   };
 
   return (

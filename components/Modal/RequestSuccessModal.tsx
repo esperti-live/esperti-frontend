@@ -2,10 +2,8 @@ import React from "react";
 import Modal from "../Modal";
 import Link from "next/link";
 import styles from "../../styles/Modal.module.scss";
-import { useRouter } from "next/router";
 
 const CheckEmailModal = ({ closeModal }) => {
-  const router = useRouter();
   return (
     <Modal closeModal={closeModal}>
       <img src="/images/request_success.svg" alt="Request successfully added" />
@@ -17,7 +15,7 @@ const CheckEmailModal = ({ closeModal }) => {
 
       <button
         className={styles.btnSecondary}
-        onClick={() => router.reload()}
+        onClick={() => closeModal()}
         type="button"
       >
         Submit Another Request

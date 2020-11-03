@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import slugify from "slugify";
 
 import AuthContext from "../contexts/AuthContext";
@@ -9,6 +9,7 @@ import styles from "../styles/Request.module.scss";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import RequestSuccessModal from "../components/Modal/RequestSuccessModal";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const newRequest = () => {
   const [step, setStep] = useState<number>(1);
@@ -17,7 +18,14 @@ const newRequest = () => {
   const [showRequestSuccess, setShowRequestSuccess] = useState<boolean>(false);
   const [emailInput, setEmailInput] = useState<string>("");
 
-  const { login, user } = useContext(AuthContext);
+  const { login, user, userLoading } = useContext(AuthContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user || (!user && !userLoading)) {
+      router.replace("/");
+    }
+  }, []);
 
   const submitHandler = (request: NewRequest) => {
     if (!user) {
@@ -44,6 +52,7 @@ const newRequest = () => {
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`, data, {
         headers: { Authorization: `Bearer ${user.tokenId}` },
       });
+
       setShowRequestSuccess(true);
     } catch (err) {
       console.log(err);

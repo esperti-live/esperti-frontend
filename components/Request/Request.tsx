@@ -6,7 +6,7 @@ import Link from "next/link";
 const Request = ({ request }: RequestProp) => {
   return (
     <li className={styles.requestItem}>
-      <Link href={`/requests/${request.id}`}>
+      <Link href={`/requests/${request.slug}`}>
         <a>
           {/* <div className={styles.top}>
             <img src={request.user.image_url} alt={request.user.name} />

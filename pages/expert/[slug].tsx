@@ -5,7 +5,6 @@ import Avatar from "../../components/Expert/Avatar";
 import SkillsList from "../../components/Expert/SkillsList";
 import Video from "../../components/Expert/Video";
 import FloatingButton from "../../components/Expert/FloatingButton";
-import { FAKE_EXPERT } from "../../constants/placeholder";
 import Head from "next/head";
 
 export default function expert({ profile }) {

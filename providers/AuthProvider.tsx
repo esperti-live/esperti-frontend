@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Magic } from "magic-sdk";
 import axios from "axios";
+import { Expert } from "../ts/interfaces";
 
 let m: Magic;
 
@@ -11,6 +12,19 @@ interface User {
   slug?: string;
 }
 
+
+const getProfileSlug = async (token) => {
+  try{
+    const req = await axios.get(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return req.data.slug
+  } catch (err){
+    return ''
+  }
+}
+
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
 
@@ -18,14 +32,12 @@ export default function AuthProvider({ children }) {
     console.log("logging in");
     return new Promise(async (resolve, reject) => {
       try {
-        const res = await m.auth.loginWithMagicLink({ email, showUI: false });
-        console.log(res);
-        // const slug = await axios.get(
-        //   `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
-        //   { headers: { Authorization: `Bearer ${user.tokenId}` } }
-        // );
-        setUser({ tokenId: res, email });
-        resolve({ email, tokenId: res });
+        const token = await m.auth.loginWithMagicLink({ email, showUI: false });
+
+        const slug = await getProfileSlug(token)
+
+        setUser({ tokenId: token, email, slug });
+        resolve({ email, tokenId: token });
       } catch (err) {
         console.log(err);
         reject();
@@ -47,12 +59,10 @@ export default function AuthProvider({ children }) {
     try {
       const { email } = await m.user.getMetadata();
       const tokenId = await m.user.generateIdToken();
-      // const slug = await axios.get(
-      //   `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
-      // { headers: { Authorization: `Bearer ${user.tokenId}` } } { headers: { Authorization: `Bearer ${user.tokenId}` } }
-      // );
+      const slug = await getProfileSlug(tokenId)
+
       console.log(tokenId);
-      setUser({ email, tokenId });
+      setUser({ email, tokenId, slug });
     } catch (err) {
       console.log(err);
     }
@@ -64,7 +74,7 @@ export default function AuthProvider({ children }) {
     (async () => {
       try {
         const isLoggedIn = await m.user.isLoggedIn();
-        console.log(await m.user);
+        console.log("User is loggedin", await m.user);
 
         if (isLoggedIn) {
           persistUser();

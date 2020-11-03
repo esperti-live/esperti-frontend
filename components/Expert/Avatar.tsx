@@ -1,4 +1,4 @@
-import { Profiler, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 import ExpertRating from "./ExpertRating";

@@ -26,6 +26,11 @@ export default function login() {
           <a>Create profile</a>
         </Link>
       )}
+      {user && user.id && (
+        <Link href="/my-requests">
+          <a>My Requests</a>
+        </Link>
+      )}
       <button type="button" onClick={logoutHandler}>
         Logout
       </button>

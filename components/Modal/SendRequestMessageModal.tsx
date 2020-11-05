@@ -10,6 +10,7 @@ const CheckEmailModal = ({ closeModal, request }) => {
   const [disabled, setDisabled] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { user } = useContext(AuthContext);
 
@@ -34,7 +35,7 @@ const CheckEmailModal = ({ closeModal, request }) => {
 
       setSuccess(true);
     } catch (err) {
-      console.log(err);
+      setError(`Something went wrong, please try again: ${err.message ? err.message : err}`);
     } finally {
       setLoading(false);
     }
@@ -54,6 +55,7 @@ const CheckEmailModal = ({ closeModal, request }) => {
         <>
           <h5>Send your message to user</h5>
           <p>Help a user by reaching out!</p>
+          {error && <p className={styles.error}>{error}</p>}
           <form onSubmit={submitHandler}>
             <textarea
               className={styles.inputPrimary}

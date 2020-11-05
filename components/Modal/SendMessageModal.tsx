@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import Modal from "../Modal";
 import styles from "../../styles/Modal.module.scss";
-import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
 import { getToken } from "../../utils/magic";
@@ -11,8 +10,7 @@ const CheckEmailModal = ({ closeModal, profile }) => {
   const [disabled, setDisabled] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const { user } = useContext(AuthContext);
+  const [error, setError] = useState("");
 
   const submitHandler = async (e) => {
     setLoading(true);
@@ -34,7 +32,7 @@ const CheckEmailModal = ({ closeModal, profile }) => {
 
       setSuccess(true);
     } catch (err) {
-      console.log(err);
+      setError(`Something went wrong, please try again: ${err.message ? err.message : err}`);
     } finally {
       setLoading(false);
     }
@@ -54,7 +52,7 @@ const CheckEmailModal = ({ closeModal, profile }) => {
         <>
           <h5>Send your message to our expert</h5>
           <p>You'll get an email once our expert answers your question</p>
-
+          {error && <p className={styles.error}>{error}</p>}
           <form onSubmit={submitHandler}>
             <textarea
               className={styles.inputPrimary}

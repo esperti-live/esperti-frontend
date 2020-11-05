@@ -4,6 +4,7 @@ import styles from "../../styles/Modal.module.scss";
 import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
+import { getToken } from "../../utils/magic";
 
 const CheckEmailModal = ({ closeModal, profile }) => {
   const [message, setMessage] = useState("");
@@ -20,13 +21,15 @@ const CheckEmailModal = ({ closeModal, profile }) => {
     e.preventDefault();
 
     try {
+      const token = await getToken();
+
       const data = {
         message,
         profile: profile.id,
       };
 
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/messages`, data, {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setSuccess(true);

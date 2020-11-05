@@ -7,6 +7,7 @@ import CheckEmailModal from "../components/Modal/CheckEmailModal";
 // import ProfileCreatedModal from "../components/Modal/ProfileCreatedModal";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { getToken } from "../utils/magic";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const newRequest = () => {
@@ -42,8 +43,10 @@ const newRequest = () => {
         name,
         image,
       };
+      const token = await getToken();
+
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles`, data, {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       await persistUser();
       setLoading(false);

@@ -10,6 +10,7 @@ import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import RequestSuccessModal from "../components/Modal/RequestSuccessModal";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { getToken } from "../utils/magic";
 
 const newRequest = () => {
   const [step, setStep] = useState<number>(1);
@@ -49,8 +50,9 @@ const newRequest = () => {
 
     try {
       console.log(user);
+      const token = await getToken();
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`, data, {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setShowRequestSuccess(true);

@@ -29,6 +29,7 @@ export interface AvatarProps {
   editMode: boolean;
   rate: number;
   experience: string;
+  id: number
 }
 
 export interface SkillsProp {

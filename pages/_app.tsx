@@ -1,15 +1,34 @@
-import '../styles/globals.css'
-import AuthProvider from '../providers/AuthProvider';
-import Layout from '../components/Partials/Layout';
+import "../styles/globals.css";
+import AuthProvider from "../providers/AuthProvider";
+import Layout from "../components/Partials/Layout";
+import PubNub from "pubnub";
+import { PubNubProvider } from "pubnub-react";
+import { useEffect } from "react";
+
+const pubnub = new PubNub({
+  publishKey: process.env.NEXT_PUBLIC_PUBNUM_PK,
+  subscribeKey: process.env.NEXT_PUBLIC_PUBNUM_SK,
+});
 
 function MyApp({ Component, pageProps }) {
+  const leaveApplication = () => {
+    pubnub.unsubscribeAll();
+  };
+
+  useEffect(() => {
+    console.log("unload listener");
+    window.addEventListener("beforeunload", leaveApplication);
+  }, []);
+
   return (
-    <AuthProvider>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-    </AuthProvider>
-  )
+    <PubNubProvider client={pubnub}>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
+    </PubNubProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

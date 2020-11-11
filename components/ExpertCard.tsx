@@ -1,10 +1,18 @@
 import Link from "next/link";
 import styles from "../styles/Expert.module.scss";
+import { usePubNub } from "pubnub-react";
 
-export default function Card({ image_url, name, title, skills, slug }) {
+export default function Card({ image_url, name, title, skills, slug, active }) {
+  const pubnub = usePubNub();
+
   return (
     <article className={styles.expertCard}>
-      <img src={image_url} alt={name} />
+      <div className={styles.expertAvatar}>
+        <img src={image_url} alt={name} />
+        <div className={styles.onlineBadge}>
+          <div style={{ backgroundColor: active ? "#1ddc76" : "gray" }}></div>
+        </div>
+      </div>
       <h5 className={styles.name}>{name}</h5>
       <span className={styles.title}>{title}</span>
       {/* <div className={styles.tags}>

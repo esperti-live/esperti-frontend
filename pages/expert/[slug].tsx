@@ -26,6 +26,7 @@ export default function expert({ profile }) {
           editMode={editMode}
           rate={profile.rate}
           experience={profile.experience}
+          id={profile.id}
         />
 
         <div className={styles.about}>
@@ -95,7 +96,9 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/${params.slug}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/${params.slug}`
+  );
   const profile = await res.json();
 
   return {

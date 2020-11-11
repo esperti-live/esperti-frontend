@@ -8,13 +8,15 @@ import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import Link from "next/link";
 import axios from "axios";
 import { Expert } from "../ts/interfaces";
-
+import { usePresence } from "../components/Hooks/usePresence";
 import { getExpertImage } from "../utils/format";
 
 export default function Home({ profiles }) {
   const [emailInput, setEmailInput] = useState("");
   const { user, login } = useContext(AuthContext);
   const [viewModal, setViewModal] = useState(false);
+
+  const [onlineUsers] = usePresence("global");
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -101,6 +103,7 @@ export default function Home({ profiles }) {
           <div className={styles.expertContainer}>
             {profiles.map((expert: Expert) => (
               <ExpertCard
+                active={onlineUsers.includes(String(expert.id))}
                 slug={expert.slug}
                 key={expert.id}
                 image_url={getExpertImage(expert)}
@@ -112,7 +115,6 @@ export default function Home({ profiles }) {
           </div>
         </section>
       </main>
-
       {viewModal && <CheckEmailModal closeModal={() => setViewModal(false)} />}
     </>
   );

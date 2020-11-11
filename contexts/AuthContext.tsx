@@ -9,7 +9,7 @@ interface User {
 
 interface Auth {
   login: (email: string) => Promise<any>;
-  logout: () => {};
+  logout: () => void;
   persistUser: () => Promise<any>;
   userLoading: boolean;
   user: User;

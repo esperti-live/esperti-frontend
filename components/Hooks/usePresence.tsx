@@ -12,27 +12,30 @@ export const usePresence = (channel: string) => {
    */
 
   useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      pubnub.hereNow(
-        {
-          channels: [channel],
-          includeUUIDs: true,
-        },
-        (_, response) => {
-          if (response !== null) {
-            const onlineUserIds = response.channels[channel].occupants.map(
-              (onlineUser) => onlineUser.uuid
-            );
-            setOnlineUsers(onlineUserIds);
-          }
-        }
-      );
-    }, 10000);
+    fetchOnlineUsers();
+    const refreshInterval = setInterval(fetchOnlineUsers, 10000);
 
     return () => {
       clearInterval(refreshInterval);
     };
   }, []);
+
+  const fetchOnlineUsers = () => {
+    pubnub.hereNow(
+      {
+        channels: [channel],
+        includeUUIDs: true,
+      },
+      (_, response) => {
+        if (response !== null) {
+          const onlineUserIds = response.channels[channel].occupants.map(
+            (onlineUser) => onlineUser.uuid
+          );
+          setOnlineUsers(onlineUserIds);
+        }
+      }
+    );
+  };
 
   return [onlineUsers];
 };

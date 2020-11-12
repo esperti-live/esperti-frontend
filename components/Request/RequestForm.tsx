@@ -2,9 +2,11 @@ import { useState } from "react";
 import styles from "../../styles/Request.module.scss";
 import { NewRequest, Tag } from "../../ts/interfaces";
 import Autocomplete from "../Autocomplete";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface RequestFormProps {
   formSubmit: (request: NewRequest) => void;
+  loading: boolean;
 }
 
 const initRequest: NewRequest = {
@@ -13,7 +15,7 @@ const initRequest: NewRequest = {
   tags: [],
 };
 
-export default function RequestForm({ formSubmit }: RequestFormProps) {
+export default function RequestForm({ formSubmit, loading }: RequestFormProps) {
   const [request, setRequest] = useState<NewRequest>(initRequest);
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
 
@@ -53,6 +55,7 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
     setButtonClicked(false);
   };
 
+  console.log(loading);
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="title">Add a title</label>
@@ -91,12 +94,10 @@ export default function RequestForm({ formSubmit }: RequestFormProps) {
         type="submit"
         className={styles.submit}
         disabled={
-          !request.description ||
-          !request.title ||
-          buttonClicked
+          !request.description || !request.title || buttonClicked || loading
         }
       >
-        Confirm
+        {!loading ? "Confirm" : <LoadingSpinner />}
       </button>
     </form>
   );

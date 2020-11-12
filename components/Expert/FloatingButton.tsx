@@ -32,7 +32,7 @@ const FloatingButton = ({
   } else if (user && user.slug == profile.slug) {
     //Show noting if it's your profile for now
     return <></>;
-  } else if (user) {
+  } else if (user && user.id) {
     return (
       <>
         {showModal && (

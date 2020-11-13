@@ -122,7 +122,7 @@ export default function Home({ profiles }) {
 
 export const getStaticProps = async () => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles?_limit=5`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles?_limit=5&type=expert`
   );
 
   return {

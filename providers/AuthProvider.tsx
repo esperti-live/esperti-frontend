@@ -9,14 +9,11 @@ import {
 } from "../utils/authentication";
 import { Magic } from "magic-sdk";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
-import axios from "axios";
-import { useRouter } from "next/router";
 
 let m: Magic;
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const pubnub = usePubNub();
-  const router = useRouter();
 
   const { setItemToLS, getItemFromLS, removeItemFromLS } = useLocalStorage(
     "user"
@@ -39,7 +36,7 @@ export default function AuthProvider({ children }) {
   };
 
   const setUserAndData = (data) => {
-    pubnub.setUUID(data.id);
+    pubnub.setUUID(data.name);
     pubnub.subscribe({
       channels: ["global"],
     });

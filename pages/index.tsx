@@ -103,7 +103,7 @@ export default function Home({ profiles }) {
           <div className={styles.expertContainer}>
             {profiles.map((expert: Expert) => (
               <ExpertCard
-                active={onlineUsers.includes(String(expert.id))}
+                active={onlineUsers.includes(expert.name)}
                 slug={expert.slug}
                 key={expert.id}
                 image_url={getExpertImage(expert)}

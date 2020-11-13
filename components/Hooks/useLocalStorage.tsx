@@ -4,7 +4,14 @@ export const useLocalStorage = (key: string) => {
   };
 
   const getItemFromLS = (): any => {
-    return JSON.parse(localStorage.getItem(key));
+    let item: any;
+    try {
+      item = JSON.parse(localStorage.getItem(key));
+    } catch (_) {
+      item = "";
+    } finally {
+      return item;
+    }
   };
 
   const removeItemFromLS = (): void => {

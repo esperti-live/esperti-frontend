@@ -23,6 +23,7 @@ export const authenticateUser = (m, email: string): Promise<UserData> => {
       try {
         const tokenId = await m.auth.loginWithMagicLink({ email, showUI: false });
         const profileData = await getProfileData(tokenId);
+        console.log('token', tokenId);
         console.log('profile data', profileData);
         const userData = {
           email,

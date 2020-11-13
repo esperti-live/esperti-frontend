@@ -50,7 +50,6 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const name = getItemFromLS();
     if (name) {
-      console.log("here");
       setUser({ name });
     }
 

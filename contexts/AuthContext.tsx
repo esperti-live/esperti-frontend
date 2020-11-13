@@ -5,6 +5,7 @@ interface User {
   tokenId: string;
   slug?: string;
   id: number;
+  name?: string;
 }
 
 interface Auth {

@@ -9,18 +9,21 @@ import {
 } from "../utils/authentication";
 import { Magic } from "magic-sdk";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 let m: Magic;
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const pubnub = usePubNub();
+  const router = useRouter();
 
   const { setItemToLS, getItemFromLS, removeItemFromLS } = useLocalStorage(
     "user"
   );
 
   const login = async (email: string) => {
-    const userData = await authenticateUser(m, email);
+    let userData = await authenticateUser(m, email);
     setUserAndData(userData);
   };
 
@@ -41,21 +44,25 @@ export default function AuthProvider({ children }) {
       channels: ["global"],
     });
 
-    // save email to local storage
-    setItemToLS(data.email);
+    // save user name to local storage
+    console.log(data);
+    setItemToLS(data.name);
     setUser({ ...data });
   };
 
   useEffect(() => {
-    const email = getItemFromLS();
-    if (email) {
-      setUser({ email });
+    const name = getItemFromLS();
+    if (name) {
+      console.log("here");
+      setUser({ name });
     }
 
     m = new Magic(process.env.NEXT_PUBLIC_MAGIC_PK);
     (async () => {
       if (await checkIfAuthenticated(m)) {
         persistUser();
+      } else {
+        removeItemFromLS();
       }
     })();
   }, []);

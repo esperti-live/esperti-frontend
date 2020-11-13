@@ -1,10 +1,13 @@
 
 import axios from 'axios';
+import { resolve } from 'path';
 import slugify from 'slugify';
 
 interface UserData {
   id: string;
   slug: string;
+  tokenId: string;
+  name: string;
 }
 
 /**
@@ -12,7 +15,7 @@ interface UserData {
  * @param m  (magic link)
  * @param email (user entered email address)
  * @description Starts the magic authentication process with provided email address
- * @returns {id, slug, tokenId, email}
+ * @returns {id, slug, tokenId, email, name}
  */
 
 export const authenticateUser = (m, email: string): Promise<UserData> => {
@@ -20,7 +23,7 @@ export const authenticateUser = (m, email: string): Promise<UserData> => {
       try {
         const tokenId = await m.auth.loginWithMagicLink({ email, showUI: false });
         const profileData = await getProfileData(tokenId);
-        console.log(tokenId)
+        console.log('profile data', profileData);
         const userData = {
           email,
           tokenId,
@@ -81,16 +84,17 @@ export const persistAuthentication =  (m): Promise<UserData> => {
  * @description Fetches user profile from backend
  * @returns {slug, id}
  */
-const getProfileData = async (token) => {
+export const getProfileData = async (token) => {
   try {
     const req = await axios.get(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     console.log(req);
-    return { slug: req.data.slug, id: req.data.id };
+    return { slug: req.data.slug, id: req.data.id, name: req.data.name };
   } catch (err) {
     console.log(err);
+    resolve();
   }
 };
 

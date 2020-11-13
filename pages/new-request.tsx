@@ -20,11 +20,11 @@ const newRequest = () => {
   const [emailInput, setEmailInput] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const { login, user, userLoading } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || (!user && !userLoading)) {
+    if (!user) {
       router.replace("/");
     }
   }, []);

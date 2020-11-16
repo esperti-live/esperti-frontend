@@ -1,0 +1,19 @@
+.sessions {
+  height: calc(100vh - 150px);
+  .startBtn, .stopBtn {
+    padding: 5px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 29px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    color: #fff;
+  }
+
+
+  .startBtn {
+    background-color: #000000;
+  }
+  .stopBtn {
+   background-color: #1652f0;
+  }
+}

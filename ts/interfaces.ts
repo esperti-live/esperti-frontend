@@ -5,7 +5,7 @@
 }
 
 export interface Expert {
-  id: string;
+  id: number;
   name: string;
   title: string;
   video_url?: string;

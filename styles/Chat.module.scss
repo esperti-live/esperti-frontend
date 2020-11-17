@@ -8,12 +8,11 @@
     width: 100% !important;
     overflow: auto;
     height: 250px;
+    
   }
 
   form {
-    position: absolute;
     bottom: 40px;
-    left: 50%;
     display: flex;
     transform: translateX(-50%);
 

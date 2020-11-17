@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import styles from "../../styles/Button.module.scss";
 import AuthContext from "../../contexts/AuthContext";
 import { Expert } from "../../ts/interfaces";
+import { getChannel } from "../../utils/chat";
 import SendMessageModal from "../Modal/SendMessageModal";
 import ChatModal from "../../components/Modal/ChatModal";
 
@@ -18,6 +19,9 @@ const FloatingButton = ({
 }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
+
+  console.log("FloatingButton profile", profile)
+  console.log("FloatingButton user", user)
 
   if (user && user.slug == profile.slug && editMode) {
     return (
@@ -42,7 +46,7 @@ const FloatingButton = ({
           // />
           <ChatModal
             closeModal={() => setShowModal(false)}
-            channel={`${user.id}-${profile.id}`}
+            channel={getChannel(user.id, profile.id)}
           />
         )}
         <button

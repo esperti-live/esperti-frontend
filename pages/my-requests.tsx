@@ -29,7 +29,7 @@ export default function requests() {
       if (user && user.id) {
         try {
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?user=${user.id}&_sort=created_at:DESC`
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?profile=${user.id}&_sort=created_at:DESC`
           );
 
           console.log(res.data);

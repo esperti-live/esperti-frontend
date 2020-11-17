@@ -3,10 +3,21 @@ import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
 import ExpertRating from "./ExpertRating";
 import { getImageUrl } from "../../utils/format";
+import { usePresence } from "../Hooks/usePresence";
 
-const Avatar = ({ image, title, name, rate, experience, editMode }: AvatarProps) => {
+const Avatar = ({
+  image,
+  title,
+  name,
+  rate,
+  experience,
+  editMode,
+  id,
+}: AvatarProps) => {
   const [localImage, setLocalImage] = useState<string | File>(image);
   const [userName, setUserName] = useState<string>(name);
+
+  const [onlineUsers] = usePresence("global");
 
   const onFileHandler = (e) => {
     console.log("file", e.target.files[0]);
@@ -59,11 +70,22 @@ const Avatar = ({ image, title, name, rate, experience, editMode }: AvatarProps)
   } else {
     return (
       <div className={styles.head}>
-        <img
-          src={getImageUrl(localImage)}
-          alt={userName}
-          className={styles.avatar}
-        />
+        <div className={styles.avatar}>
+          <img
+            src={getImageUrl(localImage)}
+            alt={userName}
+            className={styles.avatar}
+          />
+          <div className={styles.onlineBadge}>
+            <div
+              style={{
+                backgroundColor: onlineUsers.includes(name)
+                  ? "#1ddc76"
+                  : "gray",
+              }}
+            ></div>
+          </div>
+        </div>
         <h4>{userName}</h4>
         <span className={styles.title}>{title}</span>
         {/* <ExpertRating /> */}

@@ -18,12 +18,13 @@ const newRequest = () => {
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   const [showRequestSuccess, setShowRequestSuccess] = useState<boolean>(false);
   const [emailInput, setEmailInput] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
-  const { login, user, userLoading } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || (!user && !userLoading)) {
+    if (!user) {
       router.replace("/");
     }
   }, []);
@@ -38,6 +39,7 @@ const newRequest = () => {
   };
 
   const postRequest = async (request: NewRequest, user) => {
+    setLoading(true);
     const data = {
       title: request.title,
       description: request.description,
@@ -58,6 +60,8 @@ const newRequest = () => {
       setShowRequestSuccess(true);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,7 +83,10 @@ const newRequest = () => {
       {/* {!user && step == 1 && <span>Step 1</span>}
       {!user && step == 2 && <span>Step 2</span>} */}
       {step == 1 && (
-        <RequestForm formSubmit={(request) => submitHandler(request)} />
+        <RequestForm
+          formSubmit={(request) => submitHandler(request)}
+          loading={loading}
+        />
       )}
       {step == 2 && (
         <form onSubmit={loginHandler}>

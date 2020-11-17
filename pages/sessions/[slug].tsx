@@ -84,6 +84,9 @@ export default function sessions() {
     console.log("ending session", res.data);
   };
 
+  console.log("slug session", session)
+  console.log("slug user", user)
+
   if (!validSession) {
     return (
       <section className={styles.sessions}>
@@ -91,7 +94,9 @@ export default function sessions() {
       </section>
     );
   } else if (
+    !session ||
     !Object.keys(session).length ||
+    !user ||
     !Object.keys(user).length ||
     !user.id
   ) {

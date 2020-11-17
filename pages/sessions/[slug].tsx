@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState, useEffect, useContext } from "react";
-import { Context } from "vm";
-import LoadingSpinner from "../../components/LoadingSpinner";
+
 import AuthContext from "../../contexts/AuthContext";
+import SessionContext from "../../contexts/SessionContext";
+
 import styles from "../../styles/Sessions.module.scss";
 
 export default function sessions() {
@@ -11,10 +12,7 @@ export default function sessions() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [displayTime, setDisplayTime] = useState(`0`);
   const [validSession, setValidSession] = useState(true);
-  const [session, setSession] = useState({
-    user_profile: -1,
-    completed: false,
-  }); //-1 will never be a valid id, while null may be
+  const { session, setCurrentSession } = useContext(SessionContext);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -43,7 +41,7 @@ export default function sessions() {
         if (!res.data.validSession) {
           setValidSession(false);
         } else {
-          setSession(res.data);
+          setCurrentSession(res.data);
           setValidSession(true);
         }
       } catch (err) {
@@ -86,7 +84,7 @@ export default function sessions() {
         }
       );
       console.log(res.data);
-      setSession(res.data.entity);
+      setCurrentSession(res.data.entity);
     } catch (err) {
       console.log(err);
     }

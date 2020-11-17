@@ -70,3 +70,11 @@ export interface NewRequest {
   description: string;
   tags: Tag[];
 }
+
+export interface Session {
+  user_profile: number;
+  expert_profile: number;
+  completed: boolean;
+  time: number;
+  slug: string;
+}

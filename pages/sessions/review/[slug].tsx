@@ -5,12 +5,13 @@ import axios from "axios";
 import AuthContext from "../../../contexts/AuthContext";
 
 import styles from "../../../styles/Review.module.scss";
+import SessionContext from "../../../contexts/SessionContext";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
   const [rating, setRating] = useState(1);
-  const [session, setSession] = useState(null);
   const { user } = useContext(AuthContext);
+  const { session } = useContext(SessionContext);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -31,6 +32,10 @@ const ReviewAndPay = () => {
   if (!user.tokenId || !session) {
     return <p>Loading...</p>;
   }
+
+  useEffect(() => {
+    console.log(session);
+  }, []);
 
   return (
     <section className={styles.review}>

@@ -6,6 +6,7 @@ import Link from "next/link";
 const Navigation = () => {
   const { user } = useContext(AuthContext);
 
+  console.log(user);
   return (
     <nav className={styles.navigation}>
       <div className={styles.innerNavigation}>
@@ -18,7 +19,7 @@ const Navigation = () => {
           <Link href="/settings">
             <div className={styles.user}>
               <img src="/images/user_profile.svg" alt="Avatar" />
-              <span>{user.email.split("@")[0]}</span>
+              <span>{user.name}</span>
             </div>
           </Link>
         )}

@@ -103,7 +103,7 @@ export default function Home({ profiles }) {
           <div className={styles.expertContainer}>
             {profiles.map((expert: Expert) => (
               <ExpertCard
-                active={onlineUsers.includes(String(expert.id))}
+                active={onlineUsers.includes(expert.name)}
                 slug={expert.slug}
                 key={expert.id}
                 image_url={getExpertImage(expert)}
@@ -122,7 +122,7 @@ export default function Home({ profiles }) {
 
 export const getStaticProps = async () => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles?_limit=5`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles?_limit=5&type=expert`
   );
 
   return {

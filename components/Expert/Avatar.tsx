@@ -79,7 +79,7 @@ const Avatar = ({
           <div className={styles.onlineBadge}>
             <div
               style={{
-                backgroundColor: onlineUsers.includes(String(id))
+                backgroundColor: onlineUsers.includes(name)
                   ? "#1ddc76"
                   : "gray",
               }}

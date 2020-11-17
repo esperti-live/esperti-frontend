@@ -31,9 +31,11 @@ const ChatModal = ({ closeModal, channel, user, expert }) => {
   */
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    sendMessage(input);
-    setInput("");
-    BottomDivRef.current.scrollIntoView();
+    if (input) {
+      sendMessage(input);
+      setInput("");
+      BottomDivRef.current.scrollIntoView();
+    }
   };
 
   /*
@@ -74,9 +76,12 @@ const ChatModal = ({ closeModal, channel, user, expert }) => {
             <div key={msg.time}>
               <strong>{msg.publisher}:</strong>
               {msg.message.includes('<a href="/sessions') ? (
-                <span dangerouslySetInnerHTML={{ __html: msg.message }} />
+                <span
+                  className={styles.message}
+                  dangerouslySetInnerHTML={{ __html: msg.message }}
+                />
               ) : (
-                <span> {msg.message}</span>
+                <p className={styles.message}> {msg.message}</p>
               )}
             </div>
           ))}

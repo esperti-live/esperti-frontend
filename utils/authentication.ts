@@ -84,10 +84,12 @@ export const persistAuthentication =  (m): Promise<UserData> => {
 const getProfileData = async (token) => {
   try {
     const req = await axios.get(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    console.log(req);
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/my`, { 
+        headers: { 
+          Authorization: `Bearer ${token}` 
+      }});
+
+    console.log("getProfileData req", req);
     return { slug: req.data.slug, id: req.data.id };
   } catch (err) {
     console.log(err);

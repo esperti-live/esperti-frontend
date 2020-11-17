@@ -11,7 +11,7 @@ export default function sessions() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [displayTime, setDisplayTime] = useState(`0`);
   const [validSession, setValidSession] = useState(true);
-  const [session, setSession] = useState({});
+  const [session, setSession] = useState({user_profile: -1}); //-1 will never be a valid id, while null may be
 
   const router = useRouter();
   const { slug } = router.query;

@@ -57,8 +57,6 @@ export default function sessions() {
     timer.current = setInterval(() => {
       setTime((oldTime) => oldTime + 1);
     }, 1000);
-
-    console.log(user);
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/start`,
@@ -87,7 +85,6 @@ export default function sessions() {
           headers: { Authorization: `Bearer ${user.tokenId}` },
         }
       );
-      console.log("ending session", res.data.entity);
       setSession(res.data.entity);
     } catch (err) {
       console.log(err);
@@ -97,9 +94,6 @@ export default function sessions() {
   const payReviewHandler = () => {
     console.log("paying now....");
   };
-
-  console.log("slug session", session);
-  console.log("slug user", user);
 
   if (session && session.completed) {
     return (

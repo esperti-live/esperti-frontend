@@ -43,6 +43,8 @@ const FloatingButton = ({
           <ChatModal
             closeModal={() => setShowModal(false)}
             channel={`${user.id}-${profile.id}`}
+            user={user}
+            expert={profile}
           />
         )}
         <button

@@ -88,8 +88,6 @@ const getProfileData = async (token) => {
         headers: { 
           Authorization: `Bearer ${token}` 
       }});
-
-    console.log("getProfileData req", req);
     return { slug: req.data.slug, id: req.data.id };
   } catch (err) {
     console.log(err);

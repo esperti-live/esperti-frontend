@@ -11,7 +11,10 @@ export default function sessions() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [displayTime, setDisplayTime] = useState(`0`);
   const [validSession, setValidSession] = useState(true);
-  const [session, setSession] = useState({user_profile: -1}); //-1 will never be a valid id, while null may be
+  const [session, setSession] = useState({
+    user_profile: -1,
+    completed: false,
+  }); //-1 will never be a valid id, while null may be
 
   const router = useRouter();
   const { slug } = router.query;
@@ -69,25 +72,45 @@ export default function sessions() {
     }
   };
 
-  const endTimer = async () => {
+  const endTimer = () => {
     clearInterval(timer.current);
     setTimerRunning(false);
-
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/complete`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
-      }
-    );
-
-    console.log("ending session", res.data);
+    endSession();
   };
 
-  console.log("slug session", session)
-  console.log("slug user", user)
+  const endSession = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/complete`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${user.tokenId}` },
+        }
+      );
+      console.log("ending session", res.data.entity);
+      setSession(res.data.entity);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  if (!validSession) {
+  const payReviewHandler = () => {
+    console.log("paying now....");
+  };
+
+  console.log("slug session", session);
+  console.log("slug user", user);
+
+  if (session && session.completed) {
+    return (
+      <section className={styles.sessions}>
+        <h1>Session Ended</h1>
+        <button onClick={payReviewHandler} className={styles.stopBtn}>
+          Review &amp; Pay
+        </button>
+      </section>
+    );
+  } else if (!validSession) {
     return (
       <section className={styles.sessions}>
         <p>This session is completed or invalid</p>

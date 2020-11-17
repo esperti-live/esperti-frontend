@@ -1,0 +1,32 @@
+.review {
+  height: calc(100vh - 150px);
+  padding: 50px 25px;
+  h1 {
+    text-align: center;
+  }
+
+  .info {
+    p {
+      margin: 5px;
+    }
+  }
+
+  .reviewButton {
+    margin-top: 30px;
+    width :100%;
+    border-radius: 29px;
+    padding: 15px 0;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+
+  .starRating {
+    margin: 25px 0 10px 0;
+  }
+}

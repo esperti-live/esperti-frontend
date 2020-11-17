@@ -1,0 +1,10 @@
+.starRating {
+  transition: all .3s ease-in;
+  svg {
+    transition: all .3s ease-in;
+    cursor: pointer;
+    &:not(:last-of-type) {
+      margin-right: 5px;
+    }
+  }
+}

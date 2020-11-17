@@ -85,6 +85,7 @@ export default function sessions() {
           headers: { Authorization: `Bearer ${user.tokenId}` },
         }
       );
+      console.log(res.data);
       setSession(res.data.entity);
     } catch (err) {
       console.log(err);

@@ -73,8 +73,12 @@ export interface NewRequest {
 
 export interface Session {
   user_profile: number;
-  expert_profile: number;
+  expertName: string;
+  expertSlug: string;
   completed: boolean;
   time: number;
   slug: string;
+  id: number;
+  paymentTotal: number;
+  totalTime: number;
 }

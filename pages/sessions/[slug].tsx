@@ -83,8 +83,8 @@ export default function sessions() {
           headers: { Authorization: `Bearer ${user.tokenId}` },
         }
       );
-      console.log(res.data);
-      setCurrentSession(res.data.entity);
+      setCurrentSession(res.data);
+      router.push(`/sessions/review/${session.slug}`);
     } catch (err) {
       console.log(err);
     }

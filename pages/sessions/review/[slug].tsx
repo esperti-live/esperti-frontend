@@ -18,6 +18,7 @@ const ReviewAndPay = () => {
     const data = {
       rating,
       comment: textarea,
+      session_id: session.id,
     };
 
     axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/reviews`, data, {
@@ -26,24 +27,22 @@ const ReviewAndPay = () => {
   };
 
   useEffect(() => {
-    axios.get("/");
-  }, []);
-
-  if (!user.tokenId || !session) {
-    return <p>Loading...</p>;
-  }
-
-  useEffect(() => {
     console.log(session);
   }, []);
+
+  if (!user.tokenId) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <section className={styles.review}>
       <h1>Review and Pay</h1>
       <div className={styles.info}>
-        <p>Mentor Name</p>
-        <p>32 minutes</p>
-        <p>$438</p>
+        <p>{session.expertName}</p>
+        <p>{session.totalTime} minutes</p>
+        <p>
+          <strong>${session.paymentTotal}</strong>
+        </p>
       </div>
       <div className={styles.rate}>
         <div className={styles.starRating}>

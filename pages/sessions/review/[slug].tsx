@@ -53,10 +53,10 @@ const ReviewAndPay = () => {
     })();
   }, [slug]);
 
-  if (!session) {
-    return <p>Session could not be found or is already completed</p>;
-  } else if (!user || !user.tokenId) {
+  if (!user || !user.tokenId) {
     return <p>Loading...</p>;
+  } else if (!session) {
+    return <p>Session could not be found or is already completed</p>;
   } else {
     return (
       <section className={styles.review}>

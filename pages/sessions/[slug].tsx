@@ -27,6 +27,7 @@ export default function sessions() {
       try {
         if (slug && user.id) {
           const session = await getFreshSession();
+          console.log(session);
 
           if (!session.validSession || session.end_time) {
             // in case slug is wrong or session is already completed
@@ -35,6 +36,11 @@ export default function sessions() {
             // this means session started, but never ended
             continueSession(session);
             setValidSession(true);
+          } else if (
+            user.id !== session.user_profile &&
+            user.id !== session.expert_profile
+          ) {
+            router.push("/");
           } else {
             // if everything is ok ( session is brand new)
             setValidSession(true);

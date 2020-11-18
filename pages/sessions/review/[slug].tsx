@@ -6,12 +6,17 @@ import AuthContext from "../../../contexts/AuthContext";
 
 import styles from "../../../styles/Review.module.scss";
 import SessionContext from "../../../contexts/SessionContext";
+import { useRouter } from "next/router";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
   const [rating, setRating] = useState(1);
+  const [validSession, setValidSession] = useState(false);
   const { user } = useContext(AuthContext);
   const { session, setCurrentSession } = useContext(SessionContext);
+
+  const router = useRouter();
+  const { slug } = router.query;
 
   const formSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,9 +32,26 @@ const ReviewAndPay = () => {
   };
 
   useEffect(() => {
-    if (!session) {
-    }
-  }, []);
+    (async () => {
+      try {
+        if (slug && !session) {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
+          );
+
+          if (!res.data.validSession) {
+            setValidSession(false);
+          } else {
+            console.log(res);
+            setValidSession(true);
+            setCurrentSession(res.data);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [slug]);
 
   if (!session) {
     return <p>Session could not be found or is already completed</p>;

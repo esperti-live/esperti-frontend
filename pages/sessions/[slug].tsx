@@ -1,89 +1,72 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useRef, useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import AuthContext from "../../contexts/AuthContext";
-import SessionContext from "../../contexts/SessionContext";
 import { Session } from "../../ts/interfaces";
+
+import SessionStatus from "../../components/Session/SessionStatus";
+import SessionTimer from "../../components/Session/SessionTimer";
+import SessionControls from "../../components/Session/SessionControls";
+
 import styles from "../../styles/Sessions.module.scss";
 
 export default function sessions() {
-  const [time, setTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [displayTime, setDisplayTime] = useState(`0`);
+  const [persistTime, setPersistTime] = useState(0);
   const [validSession, setValidSession] = useState(true);
-  const { session, setCurrentSession } = useContext(SessionContext);
+  const [session, setSession] = useState<Session | null>(null);
 
   const router = useRouter();
   const { slug } = router.query;
-
   const { user } = useContext(AuthContext);
 
-  const timer = useRef(null);
-
-  const formatTime = () => {
-    const getSeconds = `0${time % 60}`.slice(-2);
-    const getMinutes = `0${Math.floor(time / 60) % 60}`.slice(-2);
-    const getHours = `0${Math.floor(time / 3600)}`.slice(-2);
-
-    return `${getHours} : ${getMinutes} : ${getSeconds}`;
-  };
-
-  useEffect(() => setDisplayTime(formatTime()), [time]);
-
   useEffect(() => {
+    let checkInterval: any;
     (async () => {
       try {
-        if (slug) {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
-          );
+        if (slug && user.id) {
+          const session = await getFreshSession();
 
-          if (!res.data.validSession || res.data.end_time) {
+          if (!session.validSession || session.end_time) {
             // in case slug is wrong or session is already completed
             setValidSession(false);
-          } else if (res.data.start_time !== null) {
+          } else if (session.start_time !== null) {
             // this means session started, but never ended
-            continueSession(res.data);
+            continueSession(session);
             setValidSession(true);
           } else {
             // if everything is ok ( session is brand new)
-            setCurrentSession(res.data);
             setValidSession(true);
+            clearInterval(checkInterval);
+          }
+
+          // checks if the person is an expert and add a ping to backend for
+          // status of session (started / finished).
+          if (session.expert_profile === user.id) {
+            checkInterval = setInterval(getFreshSession, 5000);
           }
         }
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [slug]);
 
-  const startTimer = () => {
-    setTimerRunning(true);
-    timer.current = setInterval(() => {
-      setTime((oldTime) => oldTime + 1);
-    }, 1000);
-  };
+    return () => clearInterval(checkInterval);
+  }, [slug, user]);
 
-  const endTimer = () => {
-    clearInterval(timer.current);
-    setTimerRunning(false);
-    endSession();
-  };
-
-  const startSession = async () => {
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/start`,
-        { start_time: new Date() },
-        {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
-        }
-      );
-      startTimer();
-    } catch (err) {
-      console.log(err);
-    }
+  const getFreshSession = (): Promise<Session> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
+        );
+        setSession(res.data);
+        resolve(res.data);
+      } catch (err) {
+        reject(err);
+      }
+    });
   };
 
   const continueSession = (session: Session) => {
@@ -92,25 +75,9 @@ export default function sessions() {
     // Calculate time from session start to current time
     const totalTime = Math.ceil(timeNow - startTime);
 
-    setTime(totalTime);
-    setCurrentSession(session);
-    startTimer();
-  };
-
-  const endSession = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/finish`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
-        }
-      );
-      setCurrentSession(res.data);
-      router.push(`/sessions/review/${session.slug}`);
-    } catch (err) {
-      console.log(err);
-    }
+    setPersistTime(totalTime);
+    setSession(session);
+    setTimerRunning(true);
   };
 
   if (!validSession) {
@@ -139,23 +106,26 @@ export default function sessions() {
         {session.user_profile == user.id && (
           <>
             <h1>Live Session: {slug}</h1>
-            <h4>Current Session: {displayTime}</h4>
-
-            {!timerRunning && (
-              <button onClick={startSession} className={styles.startBtn}>
-                Start Session
-              </button>
-            )}
-
-            {timerRunning && (
-              <button onClick={endTimer} className={styles.stopBtn}>
-                End Session
-              </button>
-            )}
+            <SessionTimer
+              timerRunning={timerRunning}
+              persistTime={persistTime}
+            />
+            <SessionControls
+              session={session}
+              setSession={(session: Session) => setSession(session)}
+              setTimerRunning={() => setTimerRunning(true)}
+              slug={slug}
+              isUser={session.user_profile == user.id}
+              timerRunning={timerRunning}
+            />
             <hr />
           </>
         )}
         <div>
+          <SessionStatus
+            isExpert={session.expert_profile == user.id}
+            session={session}
+          />
           <h2>Chat</h2>
           <p>chat here...</p>
         </div>

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, FormEvent } from "react";
 import StarRating from "../../../components/StarRating";
 
 import axios from "axios";
@@ -11,9 +11,9 @@ const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
   const [rating, setRating] = useState(1);
   const { user } = useContext(AuthContext);
-  const { session } = useContext(SessionContext);
+  const { session, setCurrentSession } = useContext(SessionContext);
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
       rating,
@@ -26,8 +26,13 @@ const ReviewAndPay = () => {
     });
   };
 
+  useEffect(() => {
+    if (!session) {
+    }
+  }, []);
+
   if (!session) {
-    return <p>Session could not be found</p>;
+    return <p>Session could not be found or is already completed</p>;
   } else if (!user || !user.tokenId) {
     return <p>Loading...</p>;
   } else {

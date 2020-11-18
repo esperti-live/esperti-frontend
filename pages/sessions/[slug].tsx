@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 
 import AuthContext from "../../contexts/AuthContext";
 import SessionContext from "../../contexts/SessionContext";
-
+import { Session } from "../../ts/interfaces";
 import styles from "../../styles/Sessions.module.scss";
 
 export default function sessions() {
@@ -34,15 +34,23 @@ export default function sessions() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
-        );
+        if (slug) {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
+          );
 
-        if (!res.data.validSession) {
-          setValidSession(false);
-        } else {
-          setCurrentSession(res.data);
-          setValidSession(true);
+          if (!res.data.validSession) {
+            // in case slug is wrong or session is already completed
+            setValidSession(false);
+          } else if (res.data.start_time !== null) {
+            // this means session started, but never ended
+            continueSession(res.data);
+            setValidSession(true);
+          } else {
+            // if everything is ok ( session is brand new)
+            setCurrentSession(res.data);
+            setValidSession(true);
+          }
         }
       } catch (err) {
         console.log(err);
@@ -50,22 +58,11 @@ export default function sessions() {
     })();
   }, [slug]);
 
-  const startTimer = async () => {
+  const startTimer = () => {
     setTimerRunning(true);
     timer.current = setInterval(() => {
       setTime((oldTime) => oldTime + 1);
     }, 1000);
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/start`,
-        { start_time: new Date() },
-        {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const endTimer = () => {
@@ -74,10 +71,36 @@ export default function sessions() {
     endSession();
   };
 
+  const startSession = async () => {
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/start`,
+        { start_time: new Date() },
+        {
+          headers: { Authorization: `Bearer ${user.tokenId}` },
+        }
+      );
+      startTimer();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const continueSession = (session: Session) => {
+    const timeNow = new Date().getTime() / 1000;
+    const startTime = new Date(session.start_time).getTime() / 1000;
+    // Calculate time from session start to current time
+    const totalTime = Math.ceil(timeNow - startTime);
+
+    setTime(totalTime);
+    setCurrentSession(session);
+    startTimer();
+  };
+
   const endSession = async () => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/complete`,
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/finish`,
         {},
         {
           headers: { Authorization: `Bearer ${user.tokenId}` },
@@ -90,20 +113,7 @@ export default function sessions() {
     }
   };
 
-  const payReviewHandler = () => {
-    console.log("paying now....");
-  };
-
-  if (session && session.completed) {
-    return (
-      <section className={styles.sessions}>
-        <h1>Session Ended</h1>
-        <button onClick={payReviewHandler} className={styles.stopBtn}>
-          Review &amp; Pay
-        </button>
-      </section>
-    );
-  } else if (!validSession) {
+  if (!validSession) {
     return (
       <section className={styles.sessions}>
         <p>This session is completed or invalid</p>
@@ -132,7 +142,7 @@ export default function sessions() {
             <h4>Current Session: {displayTime}</h4>
 
             {!timerRunning && (
-              <button onClick={startTimer} className={styles.startBtn}>
+              <button onClick={startSession} className={styles.startBtn}>
                 Start Session
               </button>
             )}

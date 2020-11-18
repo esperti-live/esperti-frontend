@@ -39,7 +39,7 @@ export default function sessions() {
             `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
           );
 
-          if (!res.data.validSession) {
+          if (!res.data.validSession || res.data.end_time) {
             // in case slug is wrong or session is already completed
             setValidSession(false);
           } else if (res.data.start_time !== null) {

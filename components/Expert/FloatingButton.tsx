@@ -3,7 +3,6 @@ import styles from "../../styles/Button.module.scss";
 import AuthContext from "../../contexts/AuthContext";
 import { Expert } from "../../ts/interfaces";
 import { getChannel } from "../../utils/chat";
-import SendMessageModal from "../Modal/SendMessageModal";
 import ChatModal from "../../components/Modal/ChatModal";
 
 interface FloatingButtonProps {

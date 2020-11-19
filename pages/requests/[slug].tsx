@@ -3,7 +3,8 @@ import styles from "../../styles/Request.module.scss";
 import button from "../../styles/Button.module.scss";
 import { useContext, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
-import SendRequestMessageModal from "../../components/Modal/SendRequestMessageModal";
+import { getChannel } from "../../utils/chat";
+import ChatModal from "../../components/Modal/ChatModal";
 
 export default function request({ request }) {
   const [showModal, setShowModal] = useState(false);
@@ -37,9 +38,11 @@ export default function request({ request }) {
         </button>
       )}
       {showModal && (
-        <SendRequestMessageModal
+        <ChatModal
           closeModal={() => setShowModal(false)}
-          request={request}
+          channel={getChannel(user.id, request.profile)}
+          user={user}
+          expert={user}
         />
       )}
     </>

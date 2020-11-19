@@ -20,6 +20,7 @@ const Navigation = () => {
 
   useEffect(() => {
     if (user && user.id) {
+      console.log("refreshing notifications");
       refreshNotifications();
     }
   }, [user]);
@@ -35,14 +36,20 @@ const Navigation = () => {
               <img src="/images/logo.svg" alt="Esperti" />
             </a>
           </Link>
-          <button onClick={() => setViewMessagesModal(true)}>Messages</button>
           {user && (
-            <Link href="/settings">
-              <div className={styles.user}>
-                <img src="/images/user_profile.svg" alt="Avatar" />
-                <span>{user.name}</span>
-              </div>
-            </Link>
+            <div className={styles.userContainer}>
+              <Link href="/settings">
+                <div className={styles.user}>
+                  <img src="/images/user_profile.svg" alt="Avatar" />
+                  <span>{user.name}</span>
+                </div>
+              </Link>
+              {notifications.length > 0 && (
+                <button onClick={() => setViewMessagesModal(true)}>
+                  {notifications.length}
+                </button>
+              )}
+            </div>
           )}
           {!user && (
             <Link href="/login">

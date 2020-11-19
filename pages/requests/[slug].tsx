@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true, //Ensures people don't get weird 404s
   };
 }
 

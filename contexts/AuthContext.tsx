@@ -6,6 +6,7 @@ interface User {
   slug?: string;
   id: number;
   name?: string;
+  type: string;
 }
 
 interface Auth {

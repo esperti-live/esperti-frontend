@@ -5,14 +5,14 @@ import styles from "../../styles/Footer.module.scss";
 
 const Footer = () => {
   const { user } = useContext(AuthContext);
-  console.log("user", user)
-  
-  //Todo if expert, show all
-  //If ! expert show only mine
 
   return (
     <footer className={styles.footer}>
-      <Link href="/requests">View Requests</Link>
+      {user && user.type === 'expert' 
+        ? <Link href="/requests">View Requests</Link>
+        : <Link href="/my-requests">View Requests</Link>
+      }
+      
       <img src="/images/logo.svg" alt="Esperti.live" />
     </footer>
   );

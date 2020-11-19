@@ -9,17 +9,17 @@ const CheckEmailModal = ({ closeModal }) => {
       <img src="/images/request_success.svg" alt="Request successfully added" />
       <h5>Your Request Submitted</h5>
       <p>You'll get an email once our experts answer on your question</p>
-      <Link href="/requests">
+      <Link href="/my-requests">
         <a className={styles.btnPrimary}>Show All Requests</a>
       </Link>
 
-      <button
+      {/* <button
         className={styles.btnSecondary}
         onClick={() => closeModal()}
         type="button"
       >
         Submit Another Request
-      </button>
+      </button> */}
     </Modal>
   );
 };

@@ -10,10 +10,19 @@ export const useChat = (channel) => {
     fetchMessages();
   }, []);
 
-  const sendMessage = (message: string) => {
+  const sendMessage = (message: string, receiverChannel: string) => {
     pubnub.publish({
       message,
       channel,
+    });
+
+    pubnub.addMessageAction({
+      channel: receiverChannel,
+      messageTimetoken: new Date().getTime().toString(),
+      action: {
+        type: "new_message",
+        value: channel,
+      },
     });
   };
 
@@ -31,6 +40,7 @@ export const useChat = (channel) => {
   const addListener = () => {
     pubnub.addListener({
       message: (message) => {
+        console.log(message);
         const formattedMessage = {
           message: message.message,
           time: message.timetoken,

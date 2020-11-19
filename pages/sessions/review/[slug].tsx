@@ -55,7 +55,7 @@ const ReviewAndPay = () => {
 
   if (!user || !user.tokenId) {
     return <p>Loading...</p>;
-  } else if (!session) {
+  } else if (!session || !validSession) {
     return <p>Session could not be found or is already completed</p>;
   } else {
     return (

@@ -154,14 +154,11 @@ export default function sessions() {
               https://codeshare.io/new
             </a>
           </p>
-          <div>
-          <Chat 
-              channel={getChannel(session.user_profile, session.expert_profile)}
-              user={user}
-              expert={{id: session.expert_profile}}
-            />
-          </div>
-
+            <Chat 
+                channel={getChannel(session.user_profile, session.expert_profile)}
+                user={user}
+                expert={{id: session.expert_profile}}
+              />
         </div>
       </section>
     );

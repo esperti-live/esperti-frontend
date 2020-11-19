@@ -11,6 +11,18 @@ export default function request({ request }) {
 
   const { user } = useContext(AuthContext);
 
+  if(!request){
+    return (
+      <>
+        <Head>
+          <title>Esperti.live | Request</title>
+        </Head>
+        <div>Loading</div>
+      </>
+    )
+  }
+  
+
   return (
     <>
       <Head>
@@ -53,8 +65,6 @@ export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`);
   const requests = await res.json();
 
-  console.log(requests);
-
   const paths = requests.map((requests) => ({
     params: { slug: requests.slug },
   }));
@@ -76,5 +86,8 @@ export const getStaticProps = async ({ params }) => {
     props: {
       request,
     },
+    // Re-generate the post at most once per second
+    // if a request comes in
+    revalidate: 1,
   };
 };

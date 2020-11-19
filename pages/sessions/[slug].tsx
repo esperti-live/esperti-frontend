@@ -2,9 +2,11 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 
+import { getChannel } from "../../utils/chat";
 import AuthContext from "../../contexts/AuthContext";
 import { Session } from "../../ts/interfaces";
 
+import Chat from "../../components/Chat/";
 import SessionStatus from "../../components/Session/SessionStatus";
 import SessionTimer from "../../components/Session/SessionTimer";
 import SessionControls from "../../components/Session/SessionControls";
@@ -153,7 +155,11 @@ export default function sessions() {
             </a>
           </p>
           <div>
-            
+          <Chat 
+              channel={getChannel(session.user_profile, session.expert_profile)}
+              user={user}
+              expert={{id: session.expert_profile}}
+            />
           </div>
 
         </div>

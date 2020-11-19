@@ -61,7 +61,7 @@ const ChatModal = ({ channel, user, expert }) => {
   return (
       <div className={styles.chat}>
         <div className={styles.chatHead}>
-          <h2>Chat</h2>
+          <h2>Chat {channel}</h2>
           {user.id !== expert.id && (
             <button onClick={createSessionHandler}>Create Session</button>
           )}

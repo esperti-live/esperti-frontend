@@ -107,6 +107,8 @@ export default function sessions() {
       </>
     );
   } else if (validSession) {
+
+    console.log("session", session)
     return (
       <section className={styles.sessions}>
         {session.user_profile == user.id && (
@@ -132,8 +134,28 @@ export default function sessions() {
             isExpert={session.expert_profile == user.id}
             session={session}
           />
-          <h2>Chat</h2>
-          <p>chat here...</p>
+          <p>Screen Share on Google Meet: 
+            <a 
+              target="_blank" 
+              rel="noreferrer noopener"
+              href="https://meet.google.com/new"
+            >
+              https://meet.google.com/new
+            </a>
+          </p>
+          <p>Share Code on Code Share: 
+            <a 
+                target="_blank" 
+                rel="noreferrer noopener"
+                href="https://codeshare.io/new"
+            >
+              https://codeshare.io/new
+            </a>
+          </p>
+          <div>
+            
+          </div>
+
         </div>
       </section>
     );

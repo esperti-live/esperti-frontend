@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Notification } from "../ts/interfaces";
 import NotificationContext from "../contexts/NotificationContext";
 import { usePubNub } from "pubnub-react";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
 import AuthContext from "../contexts/AuthContext";
-import { MessageActionEvent } from "pubnub";
+import { MessageAction } from "../ts/interfaces";
 
 export default function AuthProvider({ children }) {
   const [notifications, setNotifications] = useState<Notification[] | []>([]);
@@ -48,14 +48,14 @@ export default function AuthProvider({ children }) {
 
   const addNotificationListener = () => {
     pubnub.addListener({
-      messageAction: (ma: MessageActionEvent) => {
+      messageAction: (ma: MessageAction) => {
         const notification = {
           messageTime: ma.data.timetoken,
           from: ma.publisher,
           fromChannel: ma.data.value,
         };
 
-        setNotifications((oldNotifications) => {
+        setNotifications((oldNotifications: Notification[]) => {
           const indexOfOldNotification = oldNotifications.findIndex(
             (oldNotif) => oldNotif.from == ma.publisher
           );

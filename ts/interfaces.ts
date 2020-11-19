@@ -1,3 +1,5 @@
+import { MessageActionEvent } from "pubnub";
+
  export interface Skill {
   name: string;
   description: string;
@@ -92,3 +94,11 @@ export interface Notification {
   from: string;
   fromChannel: string;
 }
+
+
+export   interface MessageAction extends MessageActionEvent {
+    data: {
+      timetoken: Date;
+      value: string;
+    };
+  }

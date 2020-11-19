@@ -94,7 +94,9 @@ export const getProfileData = async (token) => {
         } 
       }
     );
-    return { slug: req.data.slug, id: req.data.id, name: req.data.name };
+
+    console.log("getProfileData req", req)
+    return { slug: req.data.slug, id: req.data.id, name: req.data.name, type: req.data.type };
   } catch (err) {
     console.log(err);
     resolve();

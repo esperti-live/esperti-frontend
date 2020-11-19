@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
       },
       (_, res) => {
         const formatedNotificationList = res.data.map((notification) => ({
-          messageTime: notification.actionTimetoken,
+          messageTime: notification.messageTimetoken,
           from: notification.uuid,
           fromChannel: notification.value,
         }));
@@ -34,9 +34,7 @@ export default function AuthProvider({ children }) {
             );
 
             const lastCheckTime = new Date(getItemFromLS()).getTime();
-            const messageSentTime = new Date(
-              formatedNotif.messageTime
-            ).getTime();
+            const messageSentTime = Number(formatedNotif.messageTime);
             if (notifIndex == -1 && messageSentTime > lastCheckTime) {
               cleanNotifications.push(formatedNotif);
             }
@@ -52,7 +50,7 @@ export default function AuthProvider({ children }) {
     pubnub.addListener({
       messageAction: (ma: MessageActionEvent) => {
         const notification = {
-          messageTime: ma.data.actionTimetoken,
+          messageTime: ma.data.timetoken,
           from: ma.publisher,
           fromChannel: ma.data.value,
         };

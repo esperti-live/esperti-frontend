@@ -1,0 +1,23 @@
+
+.notificationContainer {
+  overflow: auto;
+  height: 365px;
+  width: 100%;
+}
+.notification {
+  text-align: left;
+  padding: 10px 15px;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  background: none;
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  p {
+    margin: 0 0 0 15px;
+  }
+}

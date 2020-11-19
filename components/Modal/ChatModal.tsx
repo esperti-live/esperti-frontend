@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import Modal from "../Modal";
-import styles from "../../styles/Chat.module.scss";
 import { useChat } from "../Hooks/useChat";
 
-const ChatModal = ({ closeModal, channel }) => {
+import Modal from "../Modal";
+
+import axios from "axios";
+
+import styles from "../../styles/Chat.module.scss";
+import { useRouter } from "next/router";
+
+const ChatModal = ({ closeModal, channel, user, expert }) => {
   const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
 
   const { messages, subscribe, sendMessage } = useChat(channel);
+  const router = useRouter();
 
   useEffect(() => {
     if (messages.length == 0) {
@@ -25,22 +31,58 @@ const ChatModal = ({ closeModal, channel }) => {
   */
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    sendMessage(input);
-    setInput("");
-    BottomDivRef.current.scrollIntoView();
+    if (input) {
+      sendMessage(input);
+      setInput("");
+      BottomDivRef.current.scrollIntoView();
+    }
   };
 
-  console.log(messages);
+  /*
+      Creates a session, sends a link in chat & redirects user to session
+  */
+
+  const createSessionHandler = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions`,
+        { expert_id: expert.id },
+        {
+          headers: { Authorization: `Bearer ${user.tokenId}` },
+        }
+      );
+
+      const url = `/sessions/${res.data.slug}`;
+
+      sendMessage(`<a href="${url}">SESSION CREATED: ${res.data.slug}</a>`);
+      router.push(url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Modal closeModal={closeModal}>
       <div className={styles.chat}>
-        <h2>Chat</h2>
+        <div className={styles.chatHead}>
+          <h2>Chat</h2>
+          {user.id !== expert.id && (
+            <button onClick={createSessionHandler}>Create Session</button>
+          )}
+        </div>
 
         <div className={styles.messages}>
           {messages.map((msg) => (
             <div key={msg.time}>
-              <strong>{msg.publisher}:</strong> {msg.message}
+              <strong>{msg.publisher}:</strong>
+              {msg.message.includes('<a href="/sessions') ? (
+                <span
+                  className={styles.message}
+                  dangerouslySetInnerHTML={{ __html: msg.message }}
+                />
+              ) : (
+                <p className={styles.message}> {msg.message}</p>
+              )}
             </div>
           ))}
           <div ref={BottomDivRef}></div>

@@ -4,17 +4,39 @@
   text-align: left;
   width: 100%;
 
+  .chatHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+       padding: 5px 8px;
+       cursor: pointer;
+       border: none;
+       font-size: 12px;
+       border-radius: 5px;
+       box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+       background-color: black;
+       color: #fff;
+    }
+  }
+
   .messages {
     width: 100% !important;
     overflow: auto;
     height: 250px;
-    
+
+    .message {
+      margin-bottom: 8px;
+    }
   }
 
   form {
     bottom: 40px;
     display: flex;
     padding-top: 24px;
+    width: 100%;
+    display: flex;
 
     input {
        padding: 10px 10px;
@@ -25,7 +47,7 @@
        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.07);
        border: solid 1px #a1abc4;
        background-color: #ffffff;
-       flex: 1;
+       width: 60%;
     }
 
     button {

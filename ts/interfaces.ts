@@ -70,3 +70,19 @@ export interface NewRequest {
   description: string;
   tags: Tag[];
 }
+
+export interface Session {
+  user_profile: number;
+  expert_profile: number;
+  start_time: Date;
+  end_time: Date;
+  validSession: boolean;
+  expertName: string;
+  expertSlug: string;
+  completed: boolean;
+  time: number;
+  slug: string;
+  id: number;
+  paymentTotal: number;
+  totalTime: number;
+}

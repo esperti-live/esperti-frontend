@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import AuthProvider from "../providers/AuthProvider";
+import SessionProvider from "../providers/SessionProvider";
 import Layout from "../components/Partials/Layout";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
@@ -23,9 +24,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <PubNubProvider client={pubnub}>
       <AuthProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SessionProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SessionProvider>
       </AuthProvider>
     </PubNubProvider>
   );

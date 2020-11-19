@@ -40,13 +40,11 @@ const FloatingButton = ({
     return (
       <>
         {showModal && (
-          // <SendMessageModal
-          //   closeModal={() => setShowModal(false)}
-          //   profile={profile}
-          // />
           <ChatModal
             closeModal={() => setShowModal(false)}
             channel={getChannel(user.id, profile.id)}
+            user={user}
+            expert={profile}
           />
         )}
         <button

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { usePubNub } from "pubnub-react";
+import NotificationContext from "../../contexts/NotificationContext";
 
 export const useChat = (channel) => {
   const [messages, setMessages] = useState([]);
-
+  const { addNotification } = useContext(NotificationContext);
   const pubnub = usePubNub();
 
   useEffect(() => {
@@ -16,14 +17,7 @@ export const useChat = (channel) => {
       channel,
     });
 
-    pubnub.addMessageAction({
-      channel: receiverChannel,
-      messageTimetoken: new Date().getTime().toString(),
-      action: {
-        type: "new_message",
-        value: channel,
-      },
-    });
+    addNotification(receiverChannel, channel);
   };
 
   /*

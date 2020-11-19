@@ -3,17 +3,21 @@ import { useLocalStorage } from "../Hooks/useLocalStorage";
 import Modal from "../Modal";
 import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
-import expert from "../../pages/expert/[slug]";
+import NotificationContext from "../../contexts/NotificationContext";
 
 const ChatModal = ({ closeModal, notifications }) => {
   const [displayModal, setDisplayModal] = useState("unread_messages");
   const [chatChannel, setChatChannel] = useState("");
   const { setItemToLS } = useLocalStorage("notif_last_check");
   const { user } = useContext(AuthContext);
+  const { refreshNotifications } = useContext(NotificationContext);
 
-  useEffect(() => {
-    setItemToLS(new Date().getTime());
-  }, []);
+  useEffect(() => setItemToLS(new Date().getTime()), []);
+
+  const closeModalHandler = () => {
+    closeModal();
+    refreshNotifications();
+  };
 
   const openChatHandler = (channel: string) => {
     setDisplayModal("chat");
@@ -31,7 +35,7 @@ const ChatModal = ({ closeModal, notifications }) => {
 
   return (
     <>
-      <Modal closeModal={closeModal}>
+      <Modal closeModal={closeModalHandler}>
         {displayModal == "unread_messages" && (
           <div style={{ overflowY: "scroll", height: "350px" }}>
             {notifications.reverse().map((notification) => (

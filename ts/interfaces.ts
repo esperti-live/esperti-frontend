@@ -86,3 +86,9 @@ export interface Session {
   paymentTotal: number;
   totalTime: number;
 }
+
+export interface Notification {
+  messageTime: Date;
+  from: string;
+  fromChannel: string;
+}

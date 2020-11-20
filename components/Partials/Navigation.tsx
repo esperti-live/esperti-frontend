@@ -44,11 +44,10 @@ const Navigation = () => {
                   <span>{user.name}</span>
                 </div>
               </Link>
-              {notifications.length > 0 && (
-                <button onClick={() => setViewMessagesModal(true)}>
-                  {notifications.length}
-                </button>
-              )}
+
+              <button onClick={() => setViewMessagesModal(true)}>
+                {notifications.length}
+              </button>
             </div>
           )}
           {!user && (

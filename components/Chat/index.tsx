@@ -75,7 +75,7 @@ const ChatModal = ({ channel, user, expert }) => {
 
       <div className={styles.messages}>
         {messages.map((msg) => (
-          <div key={msg.time}>
+          <div key={msg.time + Math.random()}>
             <strong>{msg.publisher}:</strong>
             {msg.message.includes('<a href="/sessions') ? (
               <span

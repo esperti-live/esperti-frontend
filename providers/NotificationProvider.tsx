@@ -35,8 +35,13 @@ export default function AuthProvider({ children }) {
 
             const lastCheckTime = new Date(getItemFromLS()).getTime();
             const messageSentTime = Number(formatedNotif.messageTime);
-            if (notifIndex == -1 && messageSentTime > lastCheckTime) {
-              cleanNotifications.push(formatedNotif);
+
+            console.log(messageSentTime, lastCheckTime);
+            if (notifIndex == -1) {
+              cleanNotifications.push({
+                ...formatedNotif,
+                newMsg: messageSentTime > lastCheckTime,
+              });
             }
           });
 
@@ -73,16 +78,35 @@ export default function AuthProvider({ children }) {
   };
 
   const addNotification = (receiverChannel: string, channel: string) => {
-    pubnub.addMessageAction({
-      channel: receiverChannel,
-      messageTimetoken: new Date().getTime().toString(),
-      action: {
-        type: "new_message",
-        value: channel,
+    pubnub.getMessageActions(
+      {
+        channel: `inbox-${receiverChannel.split("-")[1]}`,
+        limit: 100,
       },
-    });
-  };
+      (_, res) => {
+        const oldNotificationIndex = res.data.findIndex(
+          (notif) => notif.value == channel
+        );
 
+        if (oldNotificationIndex !== -1) {
+          pubnub.removeMessageAction({
+            channel: `inbox-${receiverChannel.split("-")[1]}`,
+            actionTimetoken: res.data[oldNotificationIndex].actionTimetoken,
+            messageTimetoken: res.data[oldNotificationIndex].messageTimetoken,
+          });
+        }
+
+        pubnub.addMessageAction({
+          channel: receiverChannel,
+          messageTimetoken: new Date().getTime().toString(),
+          action: {
+            type: "new_message",
+            value: channel,
+          },
+        });
+      }
+    );
+  };
   return (
     <NotificationContext.Provider
       value={{

@@ -11,7 +11,7 @@ export default function request({ request }) {
 
   const { user } = useContext(AuthContext);
 
-  if(!request){
+  if (!request) {
     return (
       <>
         <Head>
@@ -19,9 +19,8 @@ export default function request({ request }) {
         </Head>
         <div>Loading</div>
       </>
-    )
+    );
   }
-  
 
   return (
     <>
@@ -80,8 +79,6 @@ export const getStaticProps = async ({ params }) => {
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests/${params.slug}`
   );
   const request = await res.json();
-
-  console.log(request);
   return {
     props: {
       request,

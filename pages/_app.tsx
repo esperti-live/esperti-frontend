@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    console.log("unload listener");
     window.addEventListener("beforeunload", leaveApplication);
   }, []);
 

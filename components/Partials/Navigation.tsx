@@ -20,7 +20,6 @@ const Navigation = () => {
 
   useEffect(() => {
     if (user && user.id) {
-      console.log("refreshing notifications");
       refreshNotifications();
     }
   }, [user]);

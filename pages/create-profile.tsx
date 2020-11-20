@@ -36,8 +36,6 @@ const newRequest = () => {
   const submitHandler = async (e) => {
     setLoading(true);
     e.preventDefault();
-
-    console.log({ name, image });
     try {
       const data = {
         name,

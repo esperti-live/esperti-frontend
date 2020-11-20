@@ -42,7 +42,6 @@ const ReviewAndPay = () => {
           if (!res.data.validSession) {
             setValidSession(false);
           } else {
-            console.log(res);
             setValidSession(true);
             setCurrentSession(res.data);
           }

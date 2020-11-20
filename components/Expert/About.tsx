@@ -11,7 +11,6 @@ export default function About({ bio, editMode, userId }: AboutProps) {
   const { user } = useContext(AuthContext);
 
   const saveHandler = () => {
-    console.log("upading backend");
     axios.put(`${process.env.NEXT_PUBLIC_STRAPI_URL}/profiles/${userId}`, {
       bio: bioInput,
       headers: { Authorization: `Bearer ${user.tokenId}` },

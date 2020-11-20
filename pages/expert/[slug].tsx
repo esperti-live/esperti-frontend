@@ -86,7 +86,6 @@ export async function getStaticPaths() {
   );
   const profiles = await res.json();
 
-  console.log(profiles);
   const paths = profiles.map((profile) => ({
     params: { slug: profile.slug },
   }));

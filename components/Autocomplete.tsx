@@ -9,7 +9,6 @@ export default function Autocomplete({ itemClicked }) {
   const [input, setInput] = useState<string>("");
 
   const itemClickHandler = (item: Tag) => {
-    console.log("clicked", item);
     setInput("");
     itemClicked(item);
   };
@@ -18,7 +17,6 @@ export default function Autocomplete({ itemClicked }) {
     if (!input) {
       return setFilteredItems([]);
     }
-    console.log(input);
     const list = tagsList.filter((item: Tag) =>
       item.name.toLowerCase().includes(input)
     );

@@ -25,7 +25,6 @@ export default function requests() {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?_sort=created_at:DESC`
         );
-        console.log(res.data);
         setRequests(res.data);
         setShownRequests(res.data);
       } catch (err) {
@@ -38,7 +37,6 @@ export default function requests() {
     const queriedRequests = requests.filter(
       (request) => request.title.includes(searchQuery) !== false
     );
-    console.log(queriedRequests);
     setShownRequests(queriedRequests);
   }, [searchQuery]);
 

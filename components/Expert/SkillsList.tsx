@@ -9,7 +9,6 @@ const SkillsList = ({ skills, editMode, userId }: SkillsProp) => {
   const [showAddSkill, setShowAddSkill] = useState(false);
 
   const addedSkillHandler = (addedSkill: Skill) => {
-    console.log([...skillsList, addedSkill]);
     setSkillsList((prevSkillsList) => [addedSkill, ...prevSkillsList]);
     setShowAddSkill(false);
   };

@@ -3,7 +3,6 @@ import { SkillProp } from "../../ts/interfaces";
 
 export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
   const removeItemHandler = () => {
-    console.log("Removing Item", skill.name);
     removeItem(skill.name);
   };
 

@@ -20,7 +20,6 @@ const Avatar = ({
   const [onlineUsers] = usePresence("global");
 
   const onFileHandler = (e) => {
-    console.log("file", e.target.files[0]);
     setLocalImage(e.target.files[0]);
   };
 

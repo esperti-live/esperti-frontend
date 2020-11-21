@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { usePubNub } from "pubnub-react";
+import NotificationContext from "../../contexts/NotificationContext";
 
 export const useChat = (channel) => {
   const [messages, setMessages] = useState([]);
-
+  const { addNotification } = useContext(NotificationContext);
   const pubnub = usePubNub();
 
   useEffect(() => {
     fetchMessages();
   }, []);
 
-  const sendMessage = (message: string) => {
+  const sendMessage = (message: string, receiverChannel: string) => {
     pubnub.publish({
       message,
       channel,
     });
+
+    addNotification(receiverChannel, channel);
   };
 
   /*
@@ -53,7 +56,6 @@ export const useChat = (channel) => {
       },
       (_, response: any) => {
         if (Object.keys(response.channels).length > 0) {
-          console.log(response.channels);
           const formattedMessage = response.channels[channel].map((msg) => ({
             message: msg.message,
             time: msg.timetoken,

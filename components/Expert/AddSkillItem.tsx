@@ -21,8 +21,6 @@ export default function AddSkillItem({ skillAdded, userId }) {
       [key]: e.target.value,
     };
 
-    console.log(updatedSkillValues);
-
     setSkillValues(updatedSkillValues);
   };
 
@@ -40,7 +38,6 @@ export default function AddSkillItem({ skillAdded, userId }) {
     setSkillValues(newSkill);
 
     // send to backend
-    console.log("sending to backend", skill);
     axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/skills`, skill, {
       headers: { Authorization: `Bearer ${user.tokenId}` },
     });

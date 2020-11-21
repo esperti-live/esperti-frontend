@@ -1,37 +1,78 @@
-import { useContext } from "react";
-import styles from "../../styles/Navigation.module.scss";
-import AuthContext from "../../contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
-const Navigation = () => {
-  const { user } = useContext(AuthContext);
+import AuthContext from "../../contexts/AuthContext";
 
-  console.log(user);
+import UnreadMessagesModal from "../Modal/UnreadMessagesModal";
+import NotificationContext from "../../contexts/NotificationContext";
+
+import styles from "../../styles/Navigation.module.scss";
+import { clearInterval } from "timers";
+
+const Navigation = () => {
+  const [viewMessagesModal, setViewMessagesModal] = useState(false);
+  const { user } = useContext(AuthContext);
+  const {
+    notifications,
+    refreshNotifications,
+    addNotificationListener,
+    notificationCount,
+  } = useContext(NotificationContext);
+
+  useEffect(() => {
+    // horrible design, but couldnt come up with anything better
+    let refreshNotificatonInterval;
+    if (user && user.id) {
+      refreshNotifications();
+      refreshNotificatonInterval = setInterval(
+        () => refreshNotifications(),
+        10000
+      );
+    }
+    return () => clearInterval(refreshNotificatonInterval);
+  }, [user]);
+
+  useEffect(() => addNotificationListener(), []);
+
   return (
-    <nav className={styles.navigation}>
-      <div className={styles.innerNavigation}>
-        <Link href="/">
-          <a>
-            <img src="/images/logo.svg" alt="Esperti" />
-          </a>
-        </Link>
-        {user && (
-          <Link href="/settings">
-            <div className={styles.user}>
-              <img src="/images/user_profile.svg" alt="Avatar" />
-              <span>{user.name}</span>
-            </div>
-          </Link>
-        )}
-        {!user && (
-          <Link href="/login">
-            <a className={styles.loginButton}>
-              Log In <img src="/images/arrow_right.svg" alt="log in" />
+    <>
+      <nav className={styles.navigation}>
+        <div className={styles.innerNavigation}>
+          <Link href="/">
+            <a>
+              <img src="/images/logo.svg" alt="Esperti" />
             </a>
           </Link>
-        )}
-      </div>
-    </nav>
+          {user && (
+            <div className={styles.userContainer}>
+              <Link href="/settings">
+                <div className={styles.user}>
+                  <img src="/images/user_profile.svg" alt="Avatar" />
+                  <span>{user.name}</span>
+                </div>
+              </Link>
+
+              <button onClick={() => setViewMessagesModal(true)}>
+                {notificationCount}
+              </button>
+            </div>
+          )}
+          {!user && (
+            <Link href="/login">
+              <a className={styles.loginButton}>
+                Log In <img src="/images/arrow_right.svg" alt="log in" />
+              </a>
+            </Link>
+          )}
+        </div>
+      </nav>
+      {viewMessagesModal && (
+        <UnreadMessagesModal
+          closeModal={() => setViewMessagesModal(false)}
+          notifications={notifications}
+        />
+      )}
+    </>
   );
 };
 

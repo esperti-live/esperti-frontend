@@ -19,9 +19,6 @@ const FloatingButton = ({
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
 
-  console.log("FloatingButton profile", profile)
-  console.log("FloatingButton user", user)
-
   if (user && user.slug == profile.slug && editMode) {
     return (
       <button

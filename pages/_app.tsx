@@ -1,8 +1,10 @@
 import "../styles/globals.css";
 import AuthProvider from "../providers/AuthProvider";
 import SessionProvider from "../providers/SessionProvider";
+import NotificationProvider from "../providers/NotificationProvider";
 import Layout from "../components/Partials/Layout";
 import PubNub from "pubnub";
+
 import { PubNubProvider } from "pubnub-react";
 import { useEffect } from "react";
 
@@ -17,7 +19,6 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    console.log("unload listener");
     window.addEventListener("beforeunload", leaveApplication);
   }, []);
 
@@ -25,9 +26,11 @@ function MyApp({ Component, pageProps }) {
     <PubNubProvider client={pubnub}>
       <AuthProvider>
         <SessionProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <NotificationProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </NotificationProvider>
         </SessionProvider>
       </AuthProvider>
     </PubNubProvider>

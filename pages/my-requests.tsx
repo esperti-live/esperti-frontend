@@ -24,15 +24,12 @@ export default function requests() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(user);
     (async () => {
       if (user && user.id) {
         try {
           const res = await axios.get(
             `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?profile=${user.id}&_sort=created_at:DESC`
           );
-
-          console.log(res.data);
           setRequests(res.data);
           setShownRequests(res.data);
           setLoading(false);
@@ -49,7 +46,6 @@ export default function requests() {
     const queriedRequests = requests.filter(
       (request) => request.title.includes(searchQuery) !== false
     );
-    console.log(queriedRequests);
     setShownRequests(queriedRequests);
   }, [searchQuery]);
 

@@ -48,10 +48,7 @@ const newRequest = () => {
       slug: slugify(request.title, { lower: true, strict: true }),
     };
 
-    console.log("sending request", data);
-
     try {
-      console.log(user);
       const token = await getToken();
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/requests`, data, {
         headers: { Authorization: `Bearer ${token}` },

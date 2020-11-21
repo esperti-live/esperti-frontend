@@ -1,3 +1,5 @@
+import { MessageActionEvent } from "pubnub";
+
  export interface Skill {
   name: string;
   description: string;
@@ -86,3 +88,18 @@ export interface Session {
   paymentTotal: number;
   totalTime: number;
 }
+
+export interface Notification {
+  messageTime: Date;
+  from: string;
+  fromChannel: string;
+  newMsg: boolean;
+}
+
+
+export   interface MessageAction extends MessageActionEvent {
+    data: {
+      timetoken: Date;
+      value: string;
+    };
+  }

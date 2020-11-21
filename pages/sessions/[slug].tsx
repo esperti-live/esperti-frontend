@@ -29,7 +29,6 @@ export default function sessions() {
       try {
         if (slug && user.id) {
           const session = await getFreshSession();
-          console.log(session);
 
           if (!session.validSession || session.end_time) {
             // in case slug is wrong or session is already completed
@@ -109,8 +108,6 @@ export default function sessions() {
       </>
     );
   } else if (validSession) {
-
-    console.log("session", session)
     return (
       <section className={styles.sessions}>
         {session.user_profile == user.id && (
@@ -136,29 +133,31 @@ export default function sessions() {
             isExpert={session.expert_profile == user.id}
             session={session}
           />
-          <p>Screen Share on Google Meet: 
-            <a 
-              target="_blank" 
+          <p>
+            Screen Share on Google Meet:
+            <a
+              target="_blank"
               rel="noreferrer noopener"
               href="https://meet.google.com/new"
             >
               https://meet.google.com/new
             </a>
           </p>
-          <p>Share Code on Code Share: 
-            <a 
-                target="_blank" 
-                rel="noreferrer noopener"
-                href="https://codeshare.io/new"
+          <p>
+            Share Code on Code Share:
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://codeshare.io/new"
             >
               https://codeshare.io/new
             </a>
           </p>
-            <Chat 
-                channel={getChannel(session.user_profile, session.expert_profile)}
-                user={user}
-                expert={{id: session.expert_profile}}
-              />
+          <Chat
+            channel={getChannel(session.user_profile, session.expert_profile)}
+            user={user}
+            expert={{ id: session.expert_profile }}
+          />
         </div>
       </section>
     );

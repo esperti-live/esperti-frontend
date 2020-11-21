@@ -17,20 +17,39 @@
     line-height: 1.08;
   }
 
-  .user {
+  .userContainer {
     display: flex;
     align-items: center;
+    // flex-direction: row-reverse;
 
-    cursor: pointer;
+    button {
+      width: 23px;
+      height: 23px;
+      font-weight: bold;
+      font-size: 10px;
+      margin-left : 5px;
+      border: none;
+      background: #000;
+      border-radius: 50%;
+      color: #fff;
+    }
 
-    span {
-    font-size: 12px;
-    font-weight: 600;
-    color: #000000;
-    margin-left: 7px;
+    .user {
+      display: flex;
+      align-items: center;
+  
+      cursor: pointer;
+  
+      span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #000000;
+      margin-left: 7px;
+    }
+  
+    }
   }
 
-  }
 
   .innerNavigation {
     display: flex;

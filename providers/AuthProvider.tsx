@@ -38,11 +38,10 @@ export default function AuthProvider({ children }) {
   const setUserAndData = (data) => {
     pubnub.setUUID(data.name);
     pubnub.subscribe({
-      channels: ["global"],
+      channels: ["global", `inbox-${data.id}`],
     });
 
     // save user name to local storage
-    console.log(data);
     setItemToLS(data.name);
     setUser({ ...data });
   };

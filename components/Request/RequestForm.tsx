@@ -55,7 +55,6 @@ export default function RequestForm({ formSubmit, loading }: RequestFormProps) {
     setButtonClicked(false);
   };
 
-  console.log(loading);
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="title">Add a title</label>

@@ -4,10 +4,10 @@ import NotificationContext from "../contexts/NotificationContext";
 import { usePubNub } from "pubnub-react";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
 import AuthContext from "../contexts/AuthContext";
-import { MessageAction } from "../ts/interfaces";
 
 export default function AuthProvider({ children }) {
   const [notifications, setNotifications] = useState<Notification[] | []>([]);
+  const [notificationCount, setNotificationCount] = useState(0);
   const { getItemFromLS } = useLocalStorage("notif_last_check");
   const pubnub = usePubNub();
 
@@ -26,17 +26,14 @@ export default function AuthProvider({ children }) {
           fromChannel: notification.value,
         }));
 
+        const cleanNotifications = [];
         setNotifications((_) => {
-          const cleanNotifications = [];
           formatedNotificationList.filter((formatedNotif) => {
             const notifIndex = cleanNotifications.findIndex(
               (el) => el.from === formatedNotif.from
             );
-
             const lastCheckTime = new Date(getItemFromLS()).getTime();
             const messageSentTime = Number(formatedNotif.messageTime);
-
-            console.log(messageSentTime, lastCheckTime);
             if (notifIndex == -1) {
               cleanNotifications.push({
                 ...formatedNotif,
@@ -44,35 +41,21 @@ export default function AuthProvider({ children }) {
               });
             }
           });
-
           return cleanNotifications;
         });
+
+        const newNotifCount = cleanNotifications.filter(
+          (notif) => notif.newMsg == true
+        ).length;
+        setNotificationCount(newNotifCount);
       }
     );
   };
 
   const addNotificationListener = () => {
     pubnub.addListener({
-      messageAction: (ma: MessageAction) => {
-        const notification = {
-          messageTime: ma.data.timetoken,
-          from: ma.publisher,
-          fromChannel: ma.data.value,
-        };
-
-        setNotifications((oldNotifications: Notification[]) => {
-          const indexOfOldNotification = oldNotifications.findIndex(
-            (oldNotif) => oldNotif.from == ma.publisher
-          );
-
-          if (indexOfOldNotification !== -1) {
-            const notifications = [...oldNotifications];
-            // updaing old notification (if needed)
-            notifications[indexOfOldNotification] = { ...notification };
-            return notifications;
-          }
-          return [...oldNotifications, notification];
-        });
+      messageAction: function () {
+        this.refreshNotifications();
       },
     });
   };
@@ -114,6 +97,7 @@ export default function AuthProvider({ children }) {
         refreshNotifications,
         addNotificationListener,
         addNotification,
+        notificationCount,
       }}
     >
       {children}

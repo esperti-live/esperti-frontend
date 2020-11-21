@@ -3,7 +3,6 @@ import { useLocalStorage } from "../Hooks/useLocalStorage";
 import Modal from "../Modal";
 import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
-import NotificationContext from "../../contexts/NotificationContext";
 import styles from "../../styles/Notification.module.scss";
 
 const ChatModal = ({ closeModal, notifications }) => {
@@ -11,12 +10,9 @@ const ChatModal = ({ closeModal, notifications }) => {
   const [chatChannel, setChatChannel] = useState("");
   const { setItemToLS } = useLocalStorage("notif_last_check");
   const { user } = useContext(AuthContext);
-  const { refreshNotifications } = useContext(NotificationContext);
 
   useEffect(() => {
-    refreshNotifications();
-
-    return () => setItemToLS(new Date().getTime());
+    setItemToLS(new Date().getTime());
   }, []);
 
   const closeModalHandler = () => closeModal();

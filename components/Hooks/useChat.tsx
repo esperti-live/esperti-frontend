@@ -34,7 +34,6 @@ export const useChat = (channel) => {
   const addListener = () => {
     pubnub.addListener({
       message: (message) => {
-        console.log(message);
         const formattedMessage = {
           message: message.message,
           time: message.timetoken,
@@ -57,7 +56,6 @@ export const useChat = (channel) => {
       },
       (_, response: any) => {
         if (Object.keys(response.channels).length > 0) {
-          console.log(response.channels);
           const formattedMessage = response.channels[channel].map((msg) => ({
             message: msg.message,
             time: msg.timetoken,

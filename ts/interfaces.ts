@@ -93,6 +93,7 @@ export interface Notification {
   messageTime: Date;
   from: string;
   fromChannel: string;
+  newMsg: boolean;
 }
 
 

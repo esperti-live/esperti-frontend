@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 
 import AuthContext from "../../contexts/AuthContext";
@@ -7,32 +7,14 @@ import UnreadMessagesModal from "../Modal/UnreadMessagesModal";
 import NotificationContext from "../../contexts/NotificationContext";
 
 import styles from "../../styles/Navigation.module.scss";
-import { clearInterval } from "timers";
 
 const Navigation = () => {
   const [viewMessagesModal, setViewMessagesModal] = useState(false);
   const { user } = useContext(AuthContext);
   const {
     notifications,
-    refreshNotifications,
-    addNotificationListener,
     notificationCount,
   } = useContext(NotificationContext);
-
-  useEffect(() => {
-    // horrible design, but couldnt come up with anything better
-    let refreshNotificatonInterval;
-    if (user && user.id) {
-      refreshNotifications();
-      refreshNotificatonInterval = setInterval(
-        () => refreshNotifications(),
-        10000
-      );
-    }
-    return () => clearInterval(refreshNotificatonInterval);
-  }, [user]);
-
-  useEffect(() => addNotificationListener(), []);
 
   return (
     <>

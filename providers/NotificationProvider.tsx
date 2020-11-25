@@ -1,101 +1,77 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { Notification } from "../ts/interfaces";
 import NotificationContext from "../contexts/NotificationContext";
 import { usePubNub } from "pubnub-react";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
 import AuthContext from "../contexts/AuthContext";
+import { getOtherUserId, getUserInbox } from "../utils/chat";
 
 export default function AuthProvider({ children }) {
   const [notifications, setNotifications] = useState<Notification[] | []>([]);
   const [notificationCount, setNotificationCount] = useState(0);
+  const lastMessageCount = useRef(notificationCount);
+
+
   const { getItemFromLS } = useLocalStorage("notif_last_check");
   const pubnub = usePubNub();
 
   const { user } = useContext(AuthContext);
 
+  /**
+   * Use ref to keep counter updated, because pubnub is a closure
+   */
+  useEffect(() => {
+    lastMessageCount.current = notificationCount
+  }, [notificationCount])
+
   const refreshNotifications = () => {
-    pubnub.getMessageActions(
-      {
-        channel: `inbox-${user.id}`,
-        limit: 100,
-      },
-      (_, res) => {
-        const formatedNotificationList = res.data.map((notification) => ({
-          messageTime: notification.messageTimetoken,
-          from: notification.uuid,
-          fromChannel: notification.value,
-        }));
-
-        const cleanNotifications = [];
-        setNotifications((_) => {
-          formatedNotificationList.filter((formatedNotif) => {
-            const notifIndex = cleanNotifications.findIndex(
-              (el) => el.from === formatedNotif.from
-            );
-            const lastCheckTime = new Date(getItemFromLS()).getTime();
-            const messageSentTime = Number(formatedNotif.messageTime);
-            if (notifIndex == -1) {
-              cleanNotifications.push({
-                ...formatedNotif,
-                newMsg: messageSentTime > lastCheckTime,
-              });
-            }
-          });
-          return cleanNotifications;
-        });
-
-        const newNotifCount = cleanNotifications.filter(
-          (notif) => notif.newMsg == true
-        ).length;
-        setNotificationCount(newNotifCount);
-      }
-    );
+    console.log("notificationCount", notificationCount)
+    setNotificationCount(lastMessageCount.current + 1)
   };
 
+  
+  
   const addNotificationListener = () => {
+    console.log("NotificationProvider addNotificationListener")
+    const channelId = `inbox-${user.id}`
+    pubnub.subscribe({
+      channels: [channelId, '1-5']
+    })
+    //Debug for subs
+    console.log("pubnub", pubnub.getSubscribedChannels())
+
     pubnub.addListener({
-      messageAction: function () {
-        this.refreshNotifications();
+      message: function (message) {
+        console.log("message", message)
+        if(message.channel === channelId) {
+          refreshNotifications();
+        }        
       },
     });
   };
 
-  const addNotification = (receiverChannel: string, channel: string) => {
-    pubnub.getMessageActions(
-      {
-        channel: `inbox-${receiverChannel.split("-")[1]}`,
-        limit: 100,
-      },
-      (_, res) => {
-        const oldNotificationIndex = res.data.findIndex(
-          (notif) => notif.value == channel
-        );
-
-        if (oldNotificationIndex !== -1) {
-          pubnub.removeMessageAction({
-            channel: `inbox-${receiverChannel.split("-")[1]}`,
-            actionTimetoken: res.data[oldNotificationIndex].actionTimetoken,
-            messageTimetoken: res.data[oldNotificationIndex].messageTimetoken,
-          });
-        }
-
-        pubnub.addMessageAction({
-          channel: receiverChannel,
-          messageTimetoken: new Date().getTime().toString(),
-          action: {
-            type: "new_message",
-            value: channel,
-          },
-        });
-      }
-    );
+  const addNotification = (channel: string) => { 
+    const receiver = getOtherUserId(channel, user)
+    //Send message to inbox-receiver
+    pubnub.publish({
+      message: 'user.id',
+      channel: getUserInbox(receiver),
+    });
   };
+
+  useEffect(() => {
+    if(user) {
+      addNotificationListener()
+    } else {
+      pubnub.unsubscribeAll()
+    }
+  }, [user])
+
+  
   return (
     <NotificationContext.Provider
       value={{
         notifications,
-        refreshNotifications,
-        addNotificationListener,
         addNotification,
         notificationCount,
       }}

@@ -1,13 +1,6 @@
 import { createContext } from "react";
+import { User } from "../ts/interfaces"
 
-interface User {
-  email: string;
-  tokenId: string;
-  slug?: string;
-  id: number;
-  name?: string;
-  type: string;
-}
 
 interface Auth {
   login: (email: string) => Promise<any>;

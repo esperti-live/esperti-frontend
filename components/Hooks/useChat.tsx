@@ -40,11 +40,11 @@ export const useChat = (channel) => {
     pubnub.addListener({
       message: (message) => {
         const channelName = message.channel;
-        console.log("channel", channel)
+        
         if(channelName !== channel){
           return
         }
-        console.log("useChat listener channelName", channelName)
+
         const formattedMessage = {
           message: message.message,
           time: message.timetoken,

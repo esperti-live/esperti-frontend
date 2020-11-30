@@ -28,10 +28,14 @@ export const usePresence = (channel: string) => {
       },
       (_, response) => {
         if (response !== null) {
-          const onlineUserIds = response.channels[channel].occupants.map(
-            (onlineUser) => onlineUser.uuid
-          );
-          setOnlineUsers(onlineUserIds);
+          try{
+            const onlineUserIds = response.channels[channel].occupants.map(
+              (onlineUser) => onlineUser.uuid
+            );
+            setOnlineUsers(onlineUserIds);
+          } catch (err) {
+
+          }
         }
       }
     );

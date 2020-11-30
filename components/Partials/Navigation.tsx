@@ -16,6 +16,9 @@ const Navigation = () => {
     notificationCount,
   } = useContext(NotificationContext);
 
+
+  console.log("notifications", notifications)
+  
   return (
     <>
       <nav className={styles.navigation}>

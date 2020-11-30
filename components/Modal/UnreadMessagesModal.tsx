@@ -5,7 +5,10 @@ import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 
-const ChatModal = ({ closeModal, notifications }) => {
+const UnreadMessagesModal = ({ closeModal, notifications }) => {
+
+  console.log("UnreadMessagesModal notifications", notifications)
+
   const [displayModal, setDisplayModal] = useState("unread_messages");
   const [chatChannel, setChatChannel] = useState("");
   const { setItemToLS } = useLocalStorage("notif_last_check");
@@ -55,9 +58,6 @@ const ChatModal = ({ closeModal, notifications }) => {
                 </svg>
                 <p>
                   {notification.from}
-                  {notification.newMsg && (
-                    <span style={{ marginLeft: "15px" }}>new</span>
-                  )}
                 </p>
               </button>
             ))}
@@ -76,4 +76,4 @@ const ChatModal = ({ closeModal, notifications }) => {
   );
 };
 
-export default ChatModal;
+export default UnreadMessagesModal;

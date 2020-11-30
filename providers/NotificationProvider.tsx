@@ -21,12 +21,18 @@ const uniqueValues = (list) => {
  * @param messages 
  */
 const getUniqueProfiles = (messages) => {
+
+  if(!messages){
+    return []
+  }
+
   //Get the messages, containing the ids we care about
   const values = messages.map(message => message.message)
-  const list = values.filter(message => typeof message !== 'string') //Remove dev string values
-  
+  const list = values.filter(message => message !== 'user.id') //Remove dev string values
+  const integers = list.map(message => Number(message))
+
   //Unique
-  return uniqueValues(list)
+  return uniqueValues(integers)
 }
 
 /**
@@ -55,14 +61,9 @@ export default function AuthProvider({ children }) {
    */
   useEffect(() => {
     lastMessageCount.current = notificationCount
-
-    if(user && user.id) {
-      loadNotifications() //This is an expensive decision, let's monitor usage
-    }
   }, [notificationCount, user])
 
   const refreshNotificationCount = () => {
-
     setNotificationCount(lastMessageCount.current + 1)
   };
 
@@ -76,13 +77,13 @@ export default function AuthProvider({ children }) {
     const messages = data.channels[`inbox-${user.id}`]
     const uniques = getUniqueProfiles(messages)
 
+
     //From unique channels, make them look nice
     setNotifications(fromUniquesToNotifications(uniques, user))
   }
 
   
   const addNotificationListener = () => {
-    console.log("NotificationProvider addNotificationListener")
     const channelId = `inbox-${user.id}`
     pubnub.subscribe({
       channels: [channelId]
@@ -104,8 +105,14 @@ export default function AuthProvider({ children }) {
     const receiver = getOtherUserId(channel, user)
     //Send message to inbox-receiver
     pubnub.publish({
-      message: 'user.id',
+      message: user.id,
       channel: getUserInbox(receiver),
+    });
+
+    //Public your own notification so you can see it. HACK
+    pubnub.publish({
+      message: receiver,
+      channel: getUserInbox(String(user.id)),
     });
   };
 
@@ -124,9 +131,9 @@ export default function AuthProvider({ children }) {
         notifications,
         addNotification,
         notificationCount,
+        loadNotifications
       }}
     >
-      <button onClick={loadNotifications}>Load Messages</button>
       {children}
     </NotificationContext.Provider>
   );

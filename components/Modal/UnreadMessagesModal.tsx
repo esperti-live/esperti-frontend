@@ -5,7 +5,7 @@ import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 
-const UnreadMessagesModal = ({ closeModal, notifications }) => {
+const UnreadMessagesModal = ({ closeModal, notifications, loadNotifications }) => {
 
   console.log("UnreadMessagesModal notifications", notifications)
 
@@ -16,6 +16,7 @@ const UnreadMessagesModal = ({ closeModal, notifications }) => {
 
   useEffect(() => {
     setItemToLS(new Date().getTime());
+    loadNotifications()
   }, []);
 
   const closeModalHandler = () => closeModal();

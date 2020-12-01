@@ -31,7 +31,7 @@ const Navigation = () => {
           {user && (
             <div className={styles.userContainer}>
               <Link href="/settings">
-                <div title={user.id} className={styles.user}>
+                <div title={String(user.id)} className={styles.user}>
                   <img src="/images/user_profile.svg" alt="Avatar" />
                   <span>{user.name}</span>
                 </div>

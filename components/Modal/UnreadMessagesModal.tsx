@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../Hooks/useLocalStorage";
+import { useNotifications } from "../Hooks/useNotifications";
 import Modal from "../Modal";
 import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 
-const UnreadMessagesModal = ({ closeModal, notifications, loadNotifications }) => {
 
-  console.log("UnreadMessagesModal notifications", notifications)
+const UnreadMessagesModal = ({ closeModal }) => {
+
+  
 
   const [displayModal, setDisplayModal] = useState("unread_messages");
   const [chatChannel, setChatChannel] = useState("");
@@ -16,8 +18,10 @@ const UnreadMessagesModal = ({ closeModal, notifications, loadNotifications }) =
 
   useEffect(() => {
     setItemToLS(new Date().getTime());
-    loadNotifications()
   }, []);
+
+  const notifications = useNotifications(user)
+  console.log("UnreadMessagesModal notifications", notifications)
 
   const closeModalHandler = () => closeModal();
 
@@ -43,7 +47,7 @@ const UnreadMessagesModal = ({ closeModal, notifications, loadNotifications }) =
             {notifications.reverse().map((notification) => (
               <button
                 key={notification.from}
-                onClick={() => openChatHandler(notification.fromChannel)}
+                onClick={() => openChatHandler(notification.chatId)}
                 className={styles.notification}
               >
                 <svg
@@ -58,8 +62,11 @@ const UnreadMessagesModal = ({ closeModal, notifications, loadNotifications }) =
                   </g>
                 </svg>
                 <p>
-                  {notification.from}
+                  {notification.chatId}
                 </p>
+                <h3>
+                  {notification.lastMessage}
+                </h3>
               </button>
             ))}
           </div>

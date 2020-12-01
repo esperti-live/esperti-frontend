@@ -129,10 +129,10 @@ export default function AuthProvider({ children }) {
     }
 
     //Public your own notification so you can see it. HACK
-    pubnub.publish({
-      message: receiver,
-      channel: getUserInbox(String(user.id)),
-    });
+    // pubnub.publish({
+    //   message: receiver,
+    //   channel: getUserInbox(String(user.id)),
+    // });
     //Issue with this hack is that it will increase counter on client.
     //You could reduce counter and live with this
     //Then add a context for profiles to attach profile id to name

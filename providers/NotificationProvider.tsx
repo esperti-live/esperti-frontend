@@ -90,8 +90,9 @@ export default function AuthProvider({ children }) {
     pubnub.subscribe({
       channels: [channelId]
     })
+    
     //Debug for subs
-    console.log("pubnub", pubnub.getSubscribedChannels())
+    // console.log("pubnub", pubnub.getSubscribedChannels())
 
     pubnub.addListener({
       message: function (message) {

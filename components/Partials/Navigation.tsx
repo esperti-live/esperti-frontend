@@ -11,10 +11,8 @@ import styles from "../../styles/Navigation.module.scss";
 const Navigation = () => {
   const [viewMessagesModal, setViewMessagesModal] = useState(false);
   const { user } = useContext(AuthContext);
-  const {
-    notificationCount
-  } = useContext(NotificationContext);
-  
+  const { notificationCount } = useContext(NotificationContext);
+
   return (
     <>
       <nav className={styles.navigation}>
@@ -28,13 +26,23 @@ const Navigation = () => {
             <div className={styles.userContainer}>
               <Link href="/settings">
                 <div title={String(user.id)} className={styles.user}>
-                  <img src="/images/user_profile.svg" alt="Avatar" />
-                  <span>{user.name}</span>
+                  <img src="/images/profile-user.svg" alt={user.name} />
                 </div>
               </Link>
 
               <button onClick={() => setViewMessagesModal(true)}>
-                {notificationCount}
+                {notificationCount < 1 && (
+                  <img src="/images/chat-icon.svg" alt={`No notifications`} />
+                )}
+                {notificationCount > 0 && (
+                  <>
+                    <img
+                      src="/images/chat-notification.svg"
+                      alt={`${notificationCount} notifications`}
+                    />
+                    <span className={styles.chatIconNotification}></span>
+                  </>
+                )}
               </button>
             </div>
           )}
@@ -48,9 +56,7 @@ const Navigation = () => {
         </div>
       </nav>
       {viewMessagesModal && (
-        <UnreadMessagesModal
-          closeModal={() => setViewMessagesModal(false)}
-        />
+        <UnreadMessagesModal closeModal={() => setViewMessagesModal(false)} />
       )}
     </>
   );

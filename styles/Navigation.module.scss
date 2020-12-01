@@ -23,15 +23,31 @@
     // flex-direction: row-reverse;
 
     button {
-      width: 23px;
-      height: 23px;
-      font-weight: bold;
-      font-size: 10px;
-      margin-left : 5px;
+      margin-left : 28px;
+      padding: 5px 0;
+      width: 35px;
+      height: 38px;
       border: none;
-      background: #000;
-      border-radius: 50%;
-      color: #fff;
+      background: none;
+      position: relative;
+      
+      img {
+        margin-top: 3px;
+      }
+    }
+
+    .chatIconNotification::after  {
+        content: "";
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        height: 13px;
+        width: 13px;
+        border: solid 2px #fff;
+        background: #ee5b5b;
+        border-radius: 50%;
+        display: block;
+        z-index: 9999;
     }
 
     .user {

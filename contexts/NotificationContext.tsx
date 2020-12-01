@@ -3,7 +3,7 @@ import { Notification } from "../ts/interfaces";
 
 interface NotificationContext {
   notifications: Notification[];
-  addNotification: (channel: string) => void;
+  addNotification: (channel: string, message: string) => void;
   notificationCount: number;
   loadNotifications: () => void;
 }

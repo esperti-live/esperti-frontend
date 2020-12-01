@@ -228,42 +228,115 @@
 }
 
 
-.singleRequest {
-  background: #fff !important;
-  padding: 50px 25px;
+.requestContainer {
+  padding: 36px 13px 35px 17px;
+  border-radius: 12px;
+  box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+  background-color: #f1f3ff;
+
+  padding: 27px 25px;
   min-height: calc(100vh - 130px);
+
   h1 {
-    font-size: 23px;
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+  color: #3c3e48;
+  margin-bottom: 27px;
+  }
+
+  .status {
+    height: 44px;
+    border-radius: 44px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: center;
+
+    .active, .closed {
+      width: 50%;
+      height: 100%;
+      line-height: 44px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #a1abc4;
+      border-radius: 44px;
+
+      &.selected {
+       background-color: #1552f0;
+       color: #fff;
+      }
+    }
+  }
+
+  .singleRequest {
+     padding: 36px 13px 20px 17px;
+     border-radius: 12px;
+     box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+     background-color: #ffffff;
+
+  h1 {
+    font-size: 17px;
     font-weight: bold;
     text-align: left;
     color: #3c3e48;
-    margin-bottom: 30px;
+    margin: 0 0 11px 0;
   }
+
   p {
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
+     font-size: 15px;
+     font-weight: 500;
+     letter-spacing: normal;
+     text-align: left;
+     color: #3c3e48;
+     margin: 0 0 12px 0;
   }
 
   span {
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    opacity: 0.55;
-    border-radius: 29px;
-    background-color: #a1abc4;
-    padding: 3px 10px;
-    margin-top: 10px;
-
-    &:not(:last-of-type) {
-      margin-right: 5px;
-    }
+    font-size: 13px;
+    color: #a1abc4;
   }
+
+  hr {
+      width: 300px;
+      height: 2px;
+      opacity: 0.14;
+      border-radius: 1px;
+      margin: 12px auto;
+      background-color: #a1abc4;
+  }
+
+  button {
+    span {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    margin: 0 auto;
+    display: block;
+    background-color: #fff;
+    padding: 5px 10px;
+    border: none;
+  }
+  // span {
+  //   font-size: 14px;
+  //   font-weight: 500;
+  //   color: #ffffff;
+  //   opacity: 0.55;
+  //   border-radius: 29px;
+  //   background-color: #a1abc4;
+  //   padding: 3px 10px;
+  //   margin-top: 10px;
+
+  //   &:not(:last-of-type) {
+  //     margin-right: 5px;
+  //   }
+  // }
 
   .tagContainer {
     display: flex;
     flex-wrap: wrap;
   }
+    }
 }

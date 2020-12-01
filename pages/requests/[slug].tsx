@@ -3,13 +3,17 @@ import styles from "../../styles/Request.module.scss";
 import button from "../../styles/Button.module.scss";
 import { useContext, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
-import { getChannel } from "../../utils/chat";
-import ChatModal from "../../components/Modal/ChatModal";
+import { formatDate } from "../../utils/date";
+// import { getChannel } from "../../utils/chat";
+// import Chat from "../../components/Chat/Chat";
 
 export default function request({ request }) {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   const { user } = useContext(AuthContext);
+
+  console.log(request);
+  console.log(user);
 
   if (!request) {
     return (
@@ -27,20 +31,47 @@ export default function request({ request }) {
       <Head>
         <title>Esperti.live | {request.name}</title>
       </Head>
-      <div className={styles.singleRequest}>
-        <h1>{request.title}</h1>
-        <p>{request.description}</p>
+      <div className={styles.requestContainer}>
+        <h1>My Requests</h1>
 
-        <div className={styles.tagContainer}>
-          {request.tags.map((tag) => (
-            <span key={tag.id} className={styles.tag}>
-              {tag.name}
-            </span>
-          ))}
+        <div className={styles.status}>
+          <div
+            className={`${styles.active} ${
+              request.active ? styles.selected : ""
+            }`}
+          >
+            Active
+          </div>
+          <div
+            className={`${styles.closed} ${
+              !request.active ? styles.selected : ""
+            }`}
+          >
+            Closed
+          </div>
+        </div>
+        <div className={styles.singleRequest}>
+          <span>Last Updated: {formatDate(request.updated_at, false)}</span>
+          <h1>{request.title}</h1>
+          <p>{request.description}</p>
+
+          <div className={styles.tagContainer}>
+            {request.tags.map((tag) => (
+              <span key={tag.id} className={styles.tag}>
+                {tag.name}
+              </span>
+            ))}
+          </div>
+          <span>Answers (3)</span>
+          <hr />
+
+          <button>
+            <span>Close Request</span>
+          </button>
         </div>
       </div>
 
-      {user && (
+      {/* {user && (
         <button
           onClick={() => setShowModal(true)}
           className={button.expertFloatingButton}
@@ -49,13 +80,12 @@ export default function request({ request }) {
         </button>
       )}
       {showModal && (
-        <ChatModal
-          closeModal={() => setShowModal(false)}
+        <Chat
           channel={getChannel(user.id, request.profile)}
           user={user}
           expert={user}
         />
-      )}
+      )} */}
     </>
   );
 }

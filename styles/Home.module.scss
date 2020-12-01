@@ -120,7 +120,7 @@
       z-index: 99;
       border-radius: 50%;
       position: absolute;
-      width: 43px;
+      width: 43px ;
       height: 43px;
       box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
       background-color: #ffffff;
@@ -129,6 +129,10 @@
       top: 100%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      img {
+        width: 7px;
+      }
     }
   }
 }

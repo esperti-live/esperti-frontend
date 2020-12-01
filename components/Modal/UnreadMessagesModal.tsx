@@ -6,11 +6,7 @@ import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 
-
 const UnreadMessagesModal = ({ closeModal }) => {
-
-  
-
   const [displayModal, setDisplayModal] = useState("unread_messages");
   const [chatChannel, setChatChannel] = useState("");
   const { setItemToLS } = useLocalStorage("notif_last_check");
@@ -20,8 +16,8 @@ const UnreadMessagesModal = ({ closeModal }) => {
     setItemToLS(new Date().getTime());
   }, []);
 
-  const notifications = useNotifications(user)
-  console.log("UnreadMessagesModal notifications", notifications)
+  const notifications = useNotifications(user);
+  console.log("UnreadMessagesModal notifications", notifications);
 
   const closeModalHandler = () => closeModal();
 
@@ -61,12 +57,10 @@ const UnreadMessagesModal = ({ closeModal }) => {
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"></path>
                   </g>
                 </svg>
-                <p>
-                  {notification.chatId}
-                </p>
-                <h3>
-                  {notification.lastMessage}
-                </h3>
+                <div>
+                  <p>{notification.chatId}</p>
+                  <h3>{notification.lastMessage}</h3>
+                </div>
               </button>
             ))}
           </div>

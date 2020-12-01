@@ -63,6 +63,11 @@ export const persistAuthentication =  (m): Promise<UserData> => {
       try {
         const { email } = await m.user.getMetadata();
         const tokenId = await m.user.generateIdToken();
+        
+        if(process.env.NODE_ENV === 'development'){
+          console.log("persistAuthentication tokenId", tokenId)
+        }
+        
         const profileData = await getProfileData(tokenId);
         const userData = {
           ...profileData,

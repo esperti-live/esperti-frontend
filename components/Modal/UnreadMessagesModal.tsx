@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../Hooks/useLocalStorage";
+import { useNotifications } from "../Hooks/useNotifications";
 import Modal from "../Modal";
 import Chat from "../Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 
-const ChatModal = ({ closeModal, notifications }) => {
+
+const UnreadMessagesModal = ({ closeModal }) => {
+
+  
+
   const [displayModal, setDisplayModal] = useState("unread_messages");
   const [chatChannel, setChatChannel] = useState("");
   const { setItemToLS } = useLocalStorage("notif_last_check");
@@ -14,6 +19,9 @@ const ChatModal = ({ closeModal, notifications }) => {
   useEffect(() => {
     setItemToLS(new Date().getTime());
   }, []);
+
+  const notifications = useNotifications(user)
+  console.log("UnreadMessagesModal notifications", notifications)
 
   const closeModalHandler = () => closeModal();
 
@@ -39,7 +47,7 @@ const ChatModal = ({ closeModal, notifications }) => {
             {notifications.reverse().map((notification) => (
               <button
                 key={notification.from}
-                onClick={() => openChatHandler(notification.fromChannel)}
+                onClick={() => openChatHandler(notification.chatId)}
                 className={styles.notification}
               >
                 <svg
@@ -54,11 +62,11 @@ const ChatModal = ({ closeModal, notifications }) => {
                   </g>
                 </svg>
                 <p>
-                  {notification.from}
-                  {notification.newMsg && (
-                    <span style={{ marginLeft: "15px" }}>new</span>
-                  )}
+                  {notification.chatId}
                 </p>
+                <h3>
+                  {notification.lastMessage}
+                </h3>
               </button>
             ))}
           </div>
@@ -76,4 +84,4 @@ const ChatModal = ({ closeModal, notifications }) => {
   );
 };
 
-export default ChatModal;
+export default UnreadMessagesModal;

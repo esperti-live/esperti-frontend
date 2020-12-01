@@ -1,5 +1,14 @@
 import { MessageActionEvent } from "pubnub";
 
+export interface User {
+  email: string;
+  tokenId: string;
+  slug?: string;
+  id: number;
+  name?: string;
+  type: string;
+}
+
  export interface Skill {
   name: string;
   description: string;

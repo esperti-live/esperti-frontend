@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 
 import AuthContext from "../../contexts/AuthContext";
@@ -7,33 +7,14 @@ import UnreadMessagesModal from "../Modal/UnreadMessagesModal";
 import NotificationContext from "../../contexts/NotificationContext";
 
 import styles from "../../styles/Navigation.module.scss";
-import { clearInterval } from "timers";
 
 const Navigation = () => {
   const [viewMessagesModal, setViewMessagesModal] = useState(false);
   const { user } = useContext(AuthContext);
   const {
-    notifications,
-    refreshNotifications,
-    addNotificationListener,
-    notificationCount,
+    notificationCount
   } = useContext(NotificationContext);
-
-  useEffect(() => {
-    // horrible design, but couldnt come up with anything better
-    let refreshNotificatonInterval;
-    if (user && user.id) {
-      refreshNotifications();
-      refreshNotificatonInterval = setInterval(
-        () => refreshNotifications(),
-        10000
-      );
-    }
-    return () => clearInterval(refreshNotificatonInterval);
-  }, [user]);
-
-  useEffect(() => addNotificationListener(), []);
-
+  
   return (
     <>
       <nav className={styles.navigation}>
@@ -46,7 +27,7 @@ const Navigation = () => {
           {user && (
             <div className={styles.userContainer}>
               <Link href="/settings">
-                <div className={styles.user}>
+                <div title={String(user.id)} className={styles.user}>
                   <img src="/images/user_profile.svg" alt="Avatar" />
                   <span>{user.name}</span>
                 </div>
@@ -69,7 +50,6 @@ const Navigation = () => {
       {viewMessagesModal && (
         <UnreadMessagesModal
           closeModal={() => setViewMessagesModal(false)}
-          notifications={notifications}
         />
       )}
     </>

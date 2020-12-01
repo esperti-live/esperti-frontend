@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { usePubNub } from "pubnub-react";
 import NotificationContext from "../../contexts/NotificationContext";
 
@@ -9,6 +9,7 @@ export const useChat = (channel) => {
 
   useEffect(() => {
     fetchMessages();
+    subscribe()
   }, []);
 
   const sendMessage = (message: string, receiverChannel: string) => {
@@ -17,9 +18,13 @@ export const useChat = (channel) => {
       channel,
     });
 
-    addNotification(receiverChannel, channel);
+    addNotification(channel, message);
   };
 
+  const latestMessagesRef = useRef([]);
+  useEffect(() => {
+    latestMessagesRef.current = messages
+  }, [messages])
   /*
     Subscribes to channel
   */
@@ -34,13 +39,19 @@ export const useChat = (channel) => {
   const addListener = () => {
     pubnub.addListener({
       message: (message) => {
+        const channelName = message.channel;
+        
+        if(channelName !== channel){
+          return
+        }
+
         const formattedMessage = {
           message: message.message,
           time: message.timetoken,
           publisher: message.publisher,
         };
 
-        setMessages((oldMessages) => oldMessages.concat(formattedMessage));
+        setMessages([...latestMessagesRef.current].concat(formattedMessage));
       },
     });
   };
@@ -52,7 +63,7 @@ export const useChat = (channel) => {
     pubnub.fetchMessages(
       {
         channels: [channel],
-        count: 100,
+        count: 1000,
       },
       (_, response: any) => {
         if (Object.keys(response.channels).length > 0) {

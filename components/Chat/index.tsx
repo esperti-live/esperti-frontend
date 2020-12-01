@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 const ChatModal = ({ channel, user, expert }) => {
   const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
-
+  console.log("ChatModal channel", channel)
   const { messages, subscribe, sendMessage } = useChat(channel);
   const router = useRouter();
 
@@ -77,7 +77,7 @@ const ChatModal = ({ channel, user, expert }) => {
         {messages.map((msg) => (
           <div key={msg.time + Math.random()}>
             <strong>{msg.publisher}:</strong>
-            {msg.message.includes('<a href="/sessions') ? (
+            {String(msg.message).includes('<a href="/sessions') ? (
               <span
                 className={styles.message}
                 dangerouslySetInnerHTML={{ __html: msg.message }}

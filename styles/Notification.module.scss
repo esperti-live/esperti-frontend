@@ -3,6 +3,9 @@
   overflow: auto;
   height: 365px;
   width: 100%;
+  background-color: #f1f3ff;
+  padding: 0 10px;
+  height: calc(100vh - 130px);
 }
 .notification {
   margin-bottom: 10px;
@@ -10,13 +13,14 @@
   border: none;
   font-weight: bold;
   font-size: 14px;
+  margin-top: 10px;
+  
+  background-color: #fff;
 
   box-shadow:  0 0 1px rgba(0, 0, 0, 0.35);
-  border: solid 1px rgba(0, 0, 0, 0.1);
 
 
   border-radius: 5px;
-  background: none;
   width: 100%;
 
   display: flex;
@@ -27,6 +31,7 @@
     h3 {
       margin: 0;
       text-align: left;
+      font-weight: 400;
     }
     
     p{

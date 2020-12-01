@@ -30,20 +30,22 @@ const Navigation = () => {
                 </div>
               </Link>
 
-              <button onClick={() => setViewMessagesModal(true)}>
-                {notificationCount < 1 && (
-                  <img src="/images/chat-icon.svg" alt={`No notifications`} />
-                )}
-                {notificationCount > 0 && (
-                  <>
-                    <img
-                      src="/images/chat-notification.svg"
-                      alt={`${notificationCount} notifications`}
-                    />
-                    <span className={styles.chatIconNotification}></span>
-                  </>
-                )}
-              </button>
+              <Link href="/messages">
+                <a>
+                  {notificationCount < 1 && (
+                    <img src="/images/chat-icon.svg" alt={`No notifications`} />
+                  )}
+                  {notificationCount > 0 && (
+                    <>
+                      <img
+                        src="/images/chat-notification.svg"
+                        alt={`${notificationCount} notifications`}
+                      />
+                      <span className={styles.chatIconNotification}></span>
+                    </>
+                  )}
+                </a>
+              </Link>
             </div>
           )}
           {!user && (

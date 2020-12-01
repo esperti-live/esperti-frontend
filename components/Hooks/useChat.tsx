@@ -18,7 +18,7 @@ export const useChat = (channel) => {
       channel,
     });
 
-    addNotification(channel);
+    addNotification(channel, message);
   };
 
   const latestMessagesRef = useRef([]);

@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect, useRef } from "react";
+import axios from 'axios'
 import { Notification } from "../ts/interfaces";
 import NotificationContext from "../contexts/NotificationContext";
 import { usePubNub } from "pubnub-react";
 import { useLocalStorage } from "../components/Hooks/useLocalStorage";
 import AuthContext from "../contexts/AuthContext";
 import { getOtherUserId, getUserInbox, getChannel} from "../utils/chat";
+import { getToken } from "../utils/magic";
 
 /**
  * Given a list of by value types, return a list of the unique values
@@ -101,7 +103,7 @@ export default function AuthProvider({ children }) {
     });
   };
 
-  const addNotification = (channel: string) => { 
+  const addNotification = async (channel: string, message: string) => { 
     const receiver = getOtherUserId(channel, user)
     //Send message to inbox-receiver
     pubnub.publish({
@@ -109,11 +111,33 @@ export default function AuthProvider({ children }) {
       channel: getUserInbox(receiver),
     });
 
+    //Push a chat to Strapi for later use
+    try {
+      const token = await getToken();
+
+      axios({
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_STRAPI_URL}/chats`,
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          lastMessage: message,
+          recipient: receiver
+        }
+      })
+    } catch (err) {
+      console.log("Exception in addNotification ", err)
+    }
+
     //Public your own notification so you can see it. HACK
     pubnub.publish({
       message: receiver,
       channel: getUserInbox(String(user.id)),
     });
+    //Issue with this hack is that it will increase counter on client.
+    //You could reduce counter and live with this
+    //Then add a context for profiles to attach profile id to name
+    //This is not bad
+
   };
 
   useEffect(() => {

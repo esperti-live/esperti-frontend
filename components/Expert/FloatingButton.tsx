@@ -1,23 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styles from "../../styles/Button.module.scss";
 import AuthContext from "../../contexts/AuthContext";
 import { Expert } from "../../ts/interfaces";
-import { getChannel } from "../../utils/chat";
-import ChatModal from "../../components/Modal/ChatModal";
 
 interface FloatingButtonProps {
   editMode: boolean;
   changeEditMode: () => void;
   profile: Expert;
+  showChat: () => void;
 }
 
 const FloatingButton = ({
   changeEditMode,
   editMode,
   profile,
+  showChat,
 }: FloatingButtonProps) => {
   const { user } = useContext(AuthContext);
-  const [showModal, setShowModal] = useState(false);
 
   if (user && user.slug == profile.slug && editMode) {
     return (
@@ -35,18 +34,10 @@ const FloatingButton = ({
   } else if (user && user.id) {
     return (
       <>
-        {showModal && (
-          <ChatModal
-            closeModal={() => setShowModal(false)}
-            channel={getChannel(user.id, profile.id)}
-            user={user}
-            expert={profile}
-          />
-        )}
         <button
           type="button"
           className={styles.expertFloatingButton}
-          onClick={() => setShowModal(true)}
+          onClick={showChat}
         >
           Message
         </button>

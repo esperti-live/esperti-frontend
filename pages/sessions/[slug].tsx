@@ -6,7 +6,7 @@ import { getChannel } from "../../utils/chat";
 import AuthContext from "../../contexts/AuthContext";
 import { Session } from "../../ts/interfaces";
 
-import Chat from "../../components/Chat/";
+import Chat from "../../components/Chat/Chat";
 import SessionStatus from "../../components/Session/SessionStatus";
 import SessionTimer from "../../components/Session/SessionTimer";
 import SessionControls from "../../components/Session/SessionControls";

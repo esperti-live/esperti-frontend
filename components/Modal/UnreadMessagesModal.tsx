@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../Hooks/useLocalStorage";
 import { useNotifications } from "../Hooks/useNotifications";
 import Modal from "../Modal";
-import Chat from "../Chat";
+import Chat from "../Chat/Chat";
 import AuthContext from "../../contexts/AuthContext";
 import styles from "../../styles/Notification.module.scss";
 

@@ -12,12 +12,8 @@ const Navigation = () => {
   const [viewMessagesModal, setViewMessagesModal] = useState(false);
   const { user } = useContext(AuthContext);
   const {
-    notifications,
     notificationCount
   } = useContext(NotificationContext);
-
-
-  console.log("notifications", notifications)
   
   return (
     <>
@@ -54,7 +50,6 @@ const Navigation = () => {
       {viewMessagesModal && (
         <UnreadMessagesModal
           closeModal={() => setViewMessagesModal(false)}
-          notifications={notifications}
         />
       )}
     </>

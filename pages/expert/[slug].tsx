@@ -24,7 +24,7 @@ export default function expert({ profile }) {
       <>
         <Chat
           channel={getChannel(user.id, profile.id)}
-          user={user}
+          other={profile}
           expert={profile}
         />
       </>

@@ -97,7 +97,9 @@ export default function Messages() {
   };
 
   const formatLastMessage = (notification) => {
-    if (notification.lastMessage.length > 30) {
+    if (notification.lastMessage.includes('<a href="/sessions/')) {
+      return `Session Created`;
+    } else if (notification.lastMessage.length > 30) {
       return notification.lastMessage.slice(0, 30) + "...";
     }
     return notification.lastMessage;

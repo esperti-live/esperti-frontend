@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 
-import { getChannel } from "../../utils/chat";
+import { getChannel, getOtherUserId } from "../../utils/chat";
 import AuthContext from "../../contexts/AuthContext";
 import { Session } from "../../ts/interfaces";
 
@@ -12,6 +12,7 @@ import SessionTimer from "../../components/Session/SessionTimer";
 import SessionControls from "../../components/Session/SessionControls";
 
 import styles from "../../styles/Sessions.module.scss";
+import OtherUserHeader from "../../components/Chat/OtherUserHeader";
 
 export default function sessions() {
   const [timerRunning, setTimerRunning] = useState(false);
@@ -55,6 +56,7 @@ export default function sessions() {
           }
         }
       } catch (err) {
+        setValidSession(false);
         console.log(err);
       }
     })();
@@ -66,7 +68,10 @@ export default function sessions() {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
+          `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
+          {
+            headers: { Authorization: `Bearer ${user.tokenId}` },
+          }
         );
         setSession(res.data);
         resolve(res.data);
@@ -75,6 +80,8 @@ export default function sessions() {
       }
     });
   };
+
+  console.log(session);
 
   const continueSession = (session: Session) => {
     const timeNow = new Date().getTime() / 1000;
@@ -112,52 +119,46 @@ export default function sessions() {
       <section className={styles.sessions}>
         {session.user_profile == user.id && (
           <>
-            <h1>Live Session: {slug}</h1>
-            <SessionTimer
-              timerRunning={timerRunning}
-              persistTime={persistTime}
+            <OtherUserHeader
+              channel={getChannel(session.user_profile, session.expert_profile)}
+              image={""}
+              name={"placeholder"}
+              rate={30}
             />
-            <SessionControls
-              session={session}
-              setSession={(session: Session) => setSession(session)}
-              setTimerRunning={() => setTimerRunning(true)}
-              slug={slug}
-              isUser={session.user_profile == user.id}
-              timerRunning={timerRunning}
-            />
-            <hr />
+            <h1 className={styles.requestTitle}>
+              Placeholder request title here
+            </h1>
           </>
         )}
+        <SessionTimer timerRunning={timerRunning} persistTime={persistTime} />
+        {session.user_profile == user.id && (
+          <SessionControls
+            session={session}
+            setSession={(session: Session) => setSession(session)}
+            setTimerRunning={() => setTimerRunning(true)}
+            slug={slug}
+            isUser={session.user_profile == user.id}
+            timerRunning={timerRunning}
+          />
+        )}
+
         <div>
           <SessionStatus
             isExpert={session.expert_profile == user.id}
             session={session}
           />
-          <p>
-            Screen Share on Google Meet:
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://meet.google.com/new"
-            >
-              https://meet.google.com/new
-            </a>
-          </p>
-          <p>
-            Share Code on Code Share:
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://codeshare.io/new"
-            >
-              https://codeshare.io/new
-            </a>
-          </p>
-          <Chat
-            channel={getChannel(session.user_profile, session.expert_profile)}
-            user={user}
-            expert={{ id: session.expert_profile }}
-          />
+          <div className={styles.chat}>
+            <Chat
+              channel={getChannel(session.user_profile, session.expert_profile)}
+              other={
+                session.user_profile === user.id
+                  ? session.expert_profile
+                  : session.user_profile
+              }
+              expert={session.expert_profile}
+              hideOther={true}
+            />
+          </div>
         </div>
       </section>
     );

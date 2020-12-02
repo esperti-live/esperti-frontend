@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import OtherUserHeader from "./OtherUserHeader";
 import AuthContext from "../../contexts/AuthContext";
 
-const ChatModal = ({ channel, other, expert }) => {
+const ChatModal = ({ channel, other, expert, hideOther = false }) => {
   const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
   const { messages, subscribe, sendMessage } = useChat(channel);
@@ -49,7 +49,7 @@ const ChatModal = ({ channel, other, expert }) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions`,
-        { expert_id: expert?.id },
+        { expert_id: other.id },
         {
           headers: { Authorization: `Bearer ${currentUser.tokenId}` },
         }
@@ -68,12 +68,14 @@ const ChatModal = ({ channel, other, expert }) => {
 
   return (
     <div className={styles.chat}>
-      <OtherUserHeader
-        name={other.name}
-        image={null}
-        rate={expert?.rate}
-        channel={channel}
-      />
+      {!hideOther && (
+        <OtherUserHeader
+          name={other.name}
+          image={null}
+          rate={expert?.rate}
+          channel={channel}
+        />
+      )}
 
       <div className={styles.messagesContainer}>
         <div className={styles.messages}>

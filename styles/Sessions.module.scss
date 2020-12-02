@@ -1,18 +1,83 @@
 .sessions {
-  .startBtn, .stopBtn {
-    padding: 5px 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 29px;
-    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
-    color: #fff;
+  background: #f1f3fa;
+
+   box-shadow: inner 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+
+  .counter {
+    color: #3c3e48;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    color: #3c3e48;
+    margin: 0;
+    margin-bottom: 14px;
   }
 
-
-  .startBtn {
-    background-color: #000000;
+  .requestTitle {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #a1abc4;
+    margin: 18px 0 8px 0;
   }
-  .stopBtn {
-   background-color: #1652f0;
+
+  .controlls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .startBtn,
+    .stopBtn {
+     padding: 17px 97px;
+     border-radius: 29px;
+     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+     font-size: 16px;
+     font-weight: bold;
+     background: none;
+     color: #fff;
+     border: none;
+     text-align: center;
+    }
+  
+
+    .startBtn {
+      background-color: #1552f0;
+    }
+
+    .stopBtn {
+      background-color: #ee5b5b;
+    }
+
+    div {
+      padding: 23px 0 28px 0;
+      display: flex;
+      width: 301px;
+      justify-content: space-between;
+      a {
+        width: 145px;
+        text-align: center;
+        padding: 14px 0;
+        border-radius: 29px;
+        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+        background-color: #ffffff;
+        color: #3c3e48;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+
+  }
+
+  .sessionStatus {
+    text-align: center;
+    p {
+      padding: 20px 0 0 0;
+      margin: 0 0 25px 0;
+    }
+  }
+  .chat {
+    height: 500px;
+    overflow: hidden;
   }
 }

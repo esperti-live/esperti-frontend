@@ -47,19 +47,34 @@ export default function SessionControls({
 
   if (isUser) {
     return (
-      <>
+      <div className={styles.controlls}>
         {!timerRunning && (
           <button onClick={startSession} className={styles.startBtn}>
             Start Session
           </button>
         )}
-
         {timerRunning && (
           <button onClick={endSession} className={styles.stopBtn}>
             End Session
           </button>
         )}
-      </>
+        <div>
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://meet.google.com/new"
+          >
+            Google Meet
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://codeshare.io/new"
+          >
+            Codeshare
+          </a>
+        </div>
+      </div>
     );
   } else {
     return <></>;

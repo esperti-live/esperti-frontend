@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-
+import styles from "../../styles/Sessions.module.scss";
 export default function SessionTimer({ timerRunning, persistTime }) {
   const [displayTime, setDisplayTime] = useState(0);
   const timer = useRef(null);
@@ -27,10 +27,9 @@ export default function SessionTimer({ timerRunning, persistTime }) {
   const formatTime = () => {
     const getSeconds = `0${displayTime % 60}`.slice(-2);
     const getMinutes = `0${Math.floor(displayTime / 60) % 60}`.slice(-2);
-    const getHours = `0${Math.floor(displayTime / 3600)}`.slice(-2);
 
-    return `${getHours} : ${getMinutes} : ${getSeconds}`;
+    return `${getMinutes}:${getSeconds}`;
   };
 
-  return <h4>Current Session: {formatTime()}</h4>;
+  return <h4 className={styles.counter}>{formatTime()}</h4>;
 }

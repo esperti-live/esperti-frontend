@@ -8,7 +8,13 @@ import { useRouter } from "next/router";
 import OtherUserHeader from "./OtherUserHeader";
 import AuthContext from "../../contexts/AuthContext";
 
-const ChatModal = ({ channel, other, expert, hideOther = false }) => {
+const ChatModal = ({
+  channel,
+  other,
+  expert,
+  hideOther = false,
+  showControlls = true,
+}) => {
   const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
   const { messages, subscribe, sendMessage } = useChat(channel);
@@ -66,6 +72,19 @@ const ChatModal = ({ channel, other, expert, hideOther = false }) => {
     }
   };
 
+  const formatMessage = (message: string) => {
+    if (String(message).includes('<a href="/sessions')) {
+      return (
+        <span
+          className={styles.message}
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
+      );
+    }
+
+    return <p className={styles.message}> {message}</p>;
+  };
+
   return (
     <div className={styles.chat}>
       {!hideOther && (
@@ -88,20 +107,13 @@ const ChatModal = ({ channel, other, expert, hideOther = false }) => {
                   : styles.otherMessage
               }`}
             >
-              {String(msg.message).includes('<a href="/sessions') ? (
-                <span
-                  className={styles.message}
-                  dangerouslySetInnerHTML={{ __html: msg.message }}
-                />
-              ) : (
-                <p className={styles.message}> {msg.message}</p>
-              )}
+              {formatMessage(msg.message)}
             </div>
           ))}
-          <div ref={BottomDivRef}></div>
+          <div ref={BottomDivRef} className={styles.bottomItemChat}></div>
         </div>
 
-        {currentUser.type === "customer" && (
+        {currentUser.type === "customer" && showControlls && (
           <div className={styles.buttonContainer}>
             <button onClick={createSessionHandler}>+ Create Session</button>
             <Link href="/new-request">

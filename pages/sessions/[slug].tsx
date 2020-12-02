@@ -128,18 +128,21 @@ export default function sessions() {
             <h1 className={styles.requestTitle}>
               Placeholder request title here
             </h1>
+
+            <SessionTimer
+              timerRunning={timerRunning}
+              persistTime={persistTime}
+            />
+
+            <SessionControls
+              session={session}
+              setSession={(session: Session) => setSession(session)}
+              setTimerRunning={() => setTimerRunning(true)}
+              slug={slug}
+              isUser={session.user_profile == user.id}
+              timerRunning={timerRunning}
+            />
           </>
-        )}
-        <SessionTimer timerRunning={timerRunning} persistTime={persistTime} />
-        {session.user_profile == user.id && (
-          <SessionControls
-            session={session}
-            setSession={(session: Session) => setSession(session)}
-            setTimerRunning={() => setTimerRunning(true)}
-            slug={slug}
-            isUser={session.user_profile == user.id}
-            timerRunning={timerRunning}
-          />
         )}
 
         <div>
@@ -157,6 +160,7 @@ export default function sessions() {
               }
               expert={session.expert_profile}
               hideOther={true}
+              showControlls={false}
             />
           </div>
         </div>

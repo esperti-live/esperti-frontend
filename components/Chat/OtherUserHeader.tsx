@@ -1,12 +1,27 @@
+import { useEffect, useState } from "react";
 import styles from "../../styles/Chat.module.scss";
+import { usePresence } from "../Hooks/usePresence";
 
-const OtherUserHeader = ({ image, name, rate }) => {
+const OtherUserHeader = ({ image, name, rate, channel }) => {
+  const [isOnline, setIsOnline] = useState(false);
+  const [onlineUsers] = usePresence(channel);
+
+  useEffect(() => {
+    setIsOnline(onlineUsers.includes(name));
+  }, [JSON.stringify(onlineUsers)]);
+
   return (
     <div className={styles.avatarHead}>
-      <button className={styles.goBack}>
+      {/* add this */}
+      {/* <button className={styles.goBack}>
         <img src="/images/arrow_left.svg" />
-      </button>
-      <img src={image || "/images/profile-user.svg"} alt={name} />
+      </button> */}
+      <div className={styles.imageContainer}>
+        <img src={image || "/images/profile-user.svg"} alt={name} />
+        <div
+          className={`${styles.onlineStatus} ${isOnline ? styles.active : ""} `}
+        ></div>
+      </div>
       <div className={styles.avatarRight}>
         <h3>{name}</h3>
         {rate && <span>{rate} EUR For 15 min call</span>}

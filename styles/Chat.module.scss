@@ -44,10 +44,30 @@
     display: flex;
     align-items: center;
 
-    img {
+    .imageContainer{
       height: 45px;
       width: 45px;
-      border-radius: 50%;
+      position: relative;
+      img {
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+      }
+  
+      .onlineStatus {
+        height: 15px;
+        width: 15px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+         background: gray;
+        border-radius: 50%;
+        border: solid 2px #fff;
+
+        &.active {
+          background: rgb(29, 220, 118) !important;
+        }
+      }
     }
 
     .avatarRight {

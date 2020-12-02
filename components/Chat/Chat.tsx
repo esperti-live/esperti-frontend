@@ -70,8 +70,9 @@ const ChatModal = ({ channel, other, expert }) => {
     <div className={styles.chat}>
       <OtherUserHeader
         name={other.name}
-        image={other.name}
+        image={null}
         rate={expert?.rate}
+        channel={channel}
       />
 
       <div className={styles.messagesContainer}>

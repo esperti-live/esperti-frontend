@@ -99,7 +99,7 @@ const ChatModal = ({ channel, other, expert }) => {
           <div ref={BottomDivRef}></div>
         </div>
 
-        {expert && currentUser.id !== expert.id && (
+        {currentUser.type === "customer" && (
           <div className={styles.buttonContainer}>
             <button onClick={createSessionHandler}>+ Create Session</button>
             <Link href="/new-request">

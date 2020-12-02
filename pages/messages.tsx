@@ -8,43 +8,44 @@ import { getChannel } from "../utils/chat";
 
 /**
  * Given a notification return my name and id
- * @param notification 
- * @param user 
+ * @param notification
+ * @param user
  */
 const getMyChatInfo = (notification, user) => {
   try {
-    return notification.people[user.id]
+    return notification.people[user.id];
   } catch (err) {
     return {
       id: "Not found",
-      name: "Not found"
-    }
+      name: "Not found",
+    };
   }
-  
-}
+};
 
 /**
  * Given a notification return the other person name and id
- * @param notification 
- * @param user 
+ * @param notification
+ * @param user
  */
 const getOtherChatInfo = (notification, user) => {
-  try{
-    const keys = Object.keys(notification.people)
-    const myIndex = Object.keys(notification.people).findIndex(key => key === String(user.id))
-    const otherKey = myIndex === 0 ? keys[1] : keys[0] //Get the opposite index
+  try {
+    const keys = Object.keys(notification.people);
+    const myIndex = Object.keys(notification.people).findIndex(
+      (key) => key === String(user.id)
+    );
+    const otherKey = myIndex === 0 ? keys[1] : keys[0]; //Get the opposite index
     return {
       id: Number(otherKey),
-      name: notification.people[otherKey]
-    }
+      name: notification.people[otherKey],
+    };
   } catch (err) {
-    console.log("Exception in findOtherPerson", err)
+    console.log("Exception in findOtherPerson", err);
     return {
       id: "Not found",
-      name: "Not found"
-    }
+      name: "Not found",
+    };
   }
-}
+};
 
 export default function Messages() {
   const { user } = useContext(AuthContext);
@@ -52,13 +53,13 @@ export default function Messages() {
   const [chatData, setChatData] = useState({
     channel: "",
     me: null,
-    other: null
+    other: null,
   });
 
   const notifications = useNotifications(user);
   console.log("Messages notifications", notifications);
   console.log("Messages user", user);
-  
+
   useEffect(() => {
     if (!user) {
       console.log("no user");
@@ -79,13 +80,13 @@ export default function Messages() {
   //   );
   // } else {
 
-  const other = 
-  
-  console.log("myChatInfo", getMyChatInfo(notifications[0], user))
-  console.log("findOtherPerson", getOtherChatInfo(notifications[0], user))
+  const other = console.log(
+    "myChatInfo",
+    getMyChatInfo(notifications[0], user)
+  );
+  console.log("findOtherPerson", getOtherChatInfo(notifications[0], user));
 
   const openChatHandler = (notification) => {
-
     setChatData({
       channel: notification.chatId,
       me: getMyChatInfo(notification, user),
@@ -95,13 +96,16 @@ export default function Messages() {
     setShowChat(true);
   };
 
+  const formatLastMessage = (notification) => {
+    if (notification.lastMessage.length > 30) {
+      return notification.lastMessage.slice(0, 30) + "...";
+    }
+    return notification.lastMessage;
+  };
+
   if (showChat) {
     return (
-      <Chat
-        channel={chatData.channel}
-        other={chatData.other}
-        expert={null}
-      />
+      <Chat channel={chatData.channel} other={chatData.other} expert={null} />
     );
   } else {
     return (
@@ -128,7 +132,7 @@ export default function Messages() {
               </svg>
               <div>
                 <p>{getOtherChatInfo(notification, user).name}</p>
-                <h3>{notification.lastMessage}</h3>
+                <h3>{formatLastMessage(notification)}</h3>
               </div>
             </button>
           ))}

@@ -3,13 +3,11 @@ import Link from "next/link";
 
 import AuthContext from "../../contexts/AuthContext";
 
-import UnreadMessagesModal from "../Modal/UnreadMessagesModal";
 import NotificationContext from "../../contexts/NotificationContext";
 
 import styles from "../../styles/Navigation.module.scss";
 
 const Navigation = () => {
-  const [viewMessagesModal, setViewMessagesModal] = useState(false);
   const { user } = useContext(AuthContext);
   const { notificationCount } = useContext(NotificationContext);
 
@@ -57,9 +55,6 @@ const Navigation = () => {
           )}
         </div>
       </nav>
-      {viewMessagesModal && (
-        <UnreadMessagesModal closeModal={() => setViewMessagesModal(false)} />
-      )}
     </>
   );
 };

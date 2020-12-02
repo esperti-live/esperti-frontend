@@ -7,6 +7,7 @@ import AuthContext from "../../../contexts/AuthContext";
 import styles from "../../../styles/Review.module.scss";
 import SessionContext from "../../../contexts/SessionContext";
 import { useRouter } from "next/router";
+import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
@@ -18,25 +19,43 @@ const ReviewAndPay = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const formSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const formSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = {
-      rating,
-      comment: textarea,
-      sessionId: session.id,
-    };
+    try {
+      const data = {
+        rating,
+        comment: textarea,
+        sessionId: session.id,
+      };
 
-    axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/reviews`, data, {
-      headers: { Authorization: `Bearer ${user.tokenId}` },
-    });
+      await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/reviews`, data, {
+        headers: { Authorization: `Bearer ${user.tokenId}` },
+      });
+      router.push("/sessions/completed");
+    } catch (err) {
+      console.log("submitReview Error", err);
+    }
+  };
+
+  /**
+   * Calculates total time
+   * @return formatted time string mm:ss
+   */
+
+  const calculateTotalTime = () => {
+    const { totalTime } = session;
+    return `${totalTime}:00`;
   };
 
   useEffect(() => {
     (async () => {
       try {
-        if (slug && !session) {
+        if (slug && !session && user.tokenId) {
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
+            {
+              headers: { Authorization: `Bearer ${user.tokenId}` },
+            }
           );
 
           if (!res.data.validSession) {
@@ -50,7 +69,7 @@ const ReviewAndPay = () => {
         console.log(err);
       }
     })();
-  }, [slug]);
+  }, [slug, user]);
 
   if (!user || !user.tokenId) {
     return <p>Loading...</p>;
@@ -59,25 +78,38 @@ const ReviewAndPay = () => {
   } else {
     return (
       <section className={styles.review}>
-        <h1>Review and Pay</h1>
         <div className={styles.info}>
-          <p>{session.expertName}</p>
-          <p>{session.totalTime} minutes</p>
-          <p>
-            <strong>${session.paymentTotal}</strong>
-          </p>
+          <h1>Session Summary</h1>
+
+          <div className={styles.totals}>
+            <div className={styles.time}>
+              <small>Total time</small>
+              <p>{calculateTotalTime()}</p>
+            </div>
+
+            <div className={styles.payment}>
+              <small>Total to pay</small>
+              <p>{session.paymentTotal}€</p>
+            </div>
+          </div>
         </div>
+
         <div className={styles.rate}>
+          <h2>How would you rate our expert</h2>
+          <ExpertHeadshot
+            name={"Placeholder Name"}
+            title={"Professional Noob"}
+            image={""}
+          />
           <div className={styles.starRating}>
             <StarRating
               rating={rating}
               updateHandler={(rating: number) => setRating(rating)}
             />
           </div>
-          <form onSubmit={formSubmitHandler}>
+          <form onSubmit={formSubmitHandler} className={styles.rateExpert}>
             <textarea
-              className="editInput"
-              rows={5}
+              rows={3}
               onChange={(e) => setTextarea(e.target.value)}
               value={textarea}
             ></textarea>

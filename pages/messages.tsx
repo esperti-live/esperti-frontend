@@ -6,19 +6,59 @@ import styles from "../styles/Notification.module.scss";
 import Chat from "../components/Chat/Chat";
 import { getChannel } from "../utils/chat";
 
-export default function request() {
+/**
+ * Given a notification return my name and id
+ * @param notification 
+ * @param user 
+ */
+const getMyChatInfo = (notification, user) => {
+  try {
+    return notification.people[user.id]
+  } catch (err) {
+    return {
+      id: "Not found",
+      name: "Not found"
+    }
+  }
+  
+}
+
+/**
+ * Given a notification return the other person name and id
+ * @param notification 
+ * @param user 
+ */
+const getOtherChatInfo = (notification, user) => {
+  try{
+    const keys = Object.keys(notification.people)
+    const myIndex = Object.keys(notification.people).findIndex(key => key === String(user.id))
+    const otherKey = myIndex === 0 ? keys[1] : keys[0] //Get the opposite index
+    return {
+      id: Number(otherKey),
+      name: notification.people[otherKey]
+    }
+  } catch (err) {
+    console.log("Exception in findOtherPerson", err)
+    return {
+      id: "Not found",
+      name: "Not found"
+    }
+  }
+}
+
+export default function Messages() {
   const { user } = useContext(AuthContext);
   const [showChat, setShowChat] = useState(false);
   const [chatData, setChatData] = useState({
     channel: "",
-    user: null,
-    expert: null,
+    me: null,
+    other: null
   });
 
   const notifications = useNotifications(user);
-  console.log(notifications);
-
-  console.log(user);
+  console.log("Messages notifications", notifications);
+  console.log("Messages user", user);
+  
   useEffect(() => {
     if (!user) {
       console.log("no user");
@@ -39,32 +79,17 @@ export default function request() {
   //   );
   // } else {
 
+  const other = 
+  
+  console.log("myChatInfo", getMyChatInfo(notifications[0], user))
+  console.log("findOtherPerson", getOtherChatInfo(notifications[0], user))
+
   const openChatHandler = (notification) => {
-    const formattedExpert = {
-      id:
-        user.type === "expert"
-          ? user.id
-          : Number(Object.keys(notification.people)[0]),
-      name:
-        user.type === "expert"
-          ? user.name
-          : Object.values(notification.people)[0],
-    };
-    const formattedUser = {
-      id:
-        user.type === "expert"
-          ? Number(Object.keys(notification.people)[0])
-          : user.id,
-      name:
-        user.type === "expert"
-          ? Object.values(notification.people)[0]
-          : user.id,
-    };
 
     setChatData({
       channel: notification.chatId,
-      user: formattedUser,
-      expert: formattedExpert,
+      me: getMyChatInfo(notification, user),
+      other: getOtherChatInfo(notification, user),
     });
 
     setShowChat(true);
@@ -74,8 +99,8 @@ export default function request() {
     return (
       <Chat
         channel={chatData.channel}
-        user={chatData.user}
-        expert={chatData.expert}
+        other={chatData.other}
+        expert={null}
       />
     );
   } else {
@@ -102,7 +127,7 @@ export default function request() {
                 </g>
               </svg>
               <div>
-                <p>{Object.values(notification.people)[0]}</p>
+                <p>{getOtherChatInfo(notification, user).name}</p>
                 <h3>{notification.lastMessage}</h3>
               </div>
             </button>

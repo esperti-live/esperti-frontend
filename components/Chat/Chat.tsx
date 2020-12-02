@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import OtherUserHeader from "./OtherUserHeader";
 import AuthContext from "../../contexts/AuthContext";
 
-const ChatModal = ({ channel, user, expert }) => {
+const ChatModal = ({ channel, other, expert }) => {
   const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
   const { messages, subscribe, sendMessage } = useChat(channel);
@@ -48,7 +48,7 @@ const ChatModal = ({ channel, user, expert }) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions`,
-        { expert_id: expert.id },
+        { expert_id: expert?.id },
         {
           headers: { Authorization: `Bearer ${currentUser.tokenId}` },
         }
@@ -68,9 +68,9 @@ const ChatModal = ({ channel, user, expert }) => {
   return (
     <div className={styles.chat}>
       <OtherUserHeader
-        name={currentUser.id === user.id ? expert.name : user.name}
-        image={currentUser.id === user.id ? expert.image : user.image}
-        rate={expert.rate}
+        name={other.name}
+        image={other.name}
+        rate={expert?.rate}
       />
 
       <div className={styles.messagesContainer}>
@@ -97,14 +97,14 @@ const ChatModal = ({ channel, user, expert }) => {
           <div ref={BottomDivRef}></div>
         </div>
 
-        {/* {currentUser.id !== expert.id && (
+        {expert && currentUser.id !== expert.id && (
           <div className={styles.buttonContainer}>
             <button onClick={createSessionHandler}>+ Create Session</button>
             <Link href="/new-request">
               <a>Submit Request</a>
             </Link>
           </div>
-        )} */}
+        )}
       </div>
 
       <form onSubmit={formSubmitHandler} className={styles.sendMessage}>

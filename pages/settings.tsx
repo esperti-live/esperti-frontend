@@ -21,6 +21,7 @@ export default function login() {
 
   return (
     <div className={styles.settings}>
+      <h3>{user?.email}</h3>
       {user && !user.slug && (
         <Link href="/create-profile">
           <a>Create profile</a>

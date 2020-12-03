@@ -34,18 +34,21 @@
       position: relative;
     }
 
-    .chatIconNotification::after  {
-        content: "";
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        height: 11px;
-        width: 11px;
-        border: solid 2px #fff;
-        background: #ee5b5b;
-        border-radius: 50%;
-        display: block;
-        z-index: 9999;
+    .chatIconNotification {
+      position: relative;
+      &::after  {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          height: 11px;
+          width: 11px;
+          border: solid 2px #fff;
+          background: #ee5b5b;
+          border-radius: 50%;
+          display: block;
+          z-index: 9999;
+      }
     }
 
     .user {

@@ -6,6 +6,11 @@ import AuthContext from "../../contexts/AuthContext";
 const CheckEmailModal = ({ closeModal }) => {
   const { logout, user } = useContext(AuthContext);
 
+  const closeModalHandler = () => {
+    closeModal();
+    logout();
+  };
+
   return (
     <Modal closeModal={closeModal}>
       <div className={styles.settings}>
@@ -15,7 +20,7 @@ const CheckEmailModal = ({ closeModal }) => {
 
         <button
           type="button"
-          onClick={() => logout()}
+          onClick={closeModalHandler}
           className={styles.logoutBtn}
         >
           Logout

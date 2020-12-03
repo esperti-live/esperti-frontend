@@ -31,14 +31,16 @@ export default function sessions() {
         if (slug && user.id) {
           const session = await getFreshSession();
 
-          if (!session.validSession || session.end_time) {
+          if (!session.validSession || session.paymentTotal) {
             // in case slug is wrong or session is already completed
             setValidSession(false);
+            return;
           } else if (session.start_time !== null) {
             // this means session started, but never ended
             continueSession(session);
             setValidSession(true);
           } else if (
+            // protect from intruders
             user.id !== session.user_profile &&
             user.id !== session.expert_profile.id
           ) {
@@ -46,7 +48,6 @@ export default function sessions() {
           } else {
             // if everything is ok ( session is brand new)
             setValidSession(true);
-            clearInterval(checkInterval);
           }
 
           // checks if the person is an expert and add a ping to backend for
@@ -74,12 +75,12 @@ export default function sessions() {
           }
         );
 
-        setSession(res.data);
-
-        if (!res.data.validSession) {
-          setValidSession(false);
+        // this means that the session is finished and waiting for payment
+        if (res.data.paymentTotal) {
           clearInterval(checkInterval);
         }
+
+        setSession(res.data);
         resolve(res.data);
       } catch (err) {
         reject(err);

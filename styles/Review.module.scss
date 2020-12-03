@@ -34,7 +34,7 @@
       color: #1552f0;
     }
 
-    .total {
+    .time {
       color: #3c3e48;
     }
   }
@@ -97,5 +97,9 @@
         border: none;
         padding: 15px 40px;
         width: 100%;
+
+        &:disabled {
+          background-color: #a1abc4;
+        }
       }
 }

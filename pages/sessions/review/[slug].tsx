@@ -11,8 +11,9 @@ import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
-  const [rating, setRating] = useState(1);
-  const [validSession, setValidSession] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [validSession, setValidSession] = useState(null);
+  const [loadingSession, setLoadingSession] = useState(false);
   const { user } = useContext(AuthContext);
   const { session, setCurrentSession } = useContext(SessionContext);
 
@@ -48,32 +49,46 @@ const ReviewAndPay = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        if (slug && !session && user.tokenId) {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
-            {
-              headers: { Authorization: `Bearer ${user.tokenId}` },
-            }
-          );
-
-          if (!res.data.validSession) {
-            setValidSession(false);
-          } else {
-            setValidSession(true);
-            setCurrentSession(res.data);
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
+    if (slug && !session && user.tokenId) {
+      fetchAndSetSession();
+    }
   }, [slug, user]);
 
-  if (!user || !user.tokenId) {
+  /**
+   * In case there is no session -> user refreshed the page and
+   * session is not available in context then fetch it and check
+   * for validity
+   *
+   * @return void
+   */
+  const fetchAndSetSession = async () => {
+    setLoadingSession(true);
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
+        {
+          headers: { Authorization: `Bearer ${user.tokenId}` },
+        }
+      );
+
+      if (!res.data.validSession) {
+        // if invalid display invalid message (valid -> not completed && exists)
+        setValidSession(false);
+      } else {
+        // if session is valid then continue
+        setValidSession(true);
+        setCurrentSession(res.data);
+      }
+
+      setLoadingSession(false);
+    } catch (err) {
+      console.log("fetchAndSetSession Error", err);
+    }
+  };
+
+  if (!user?.tokenId || loadingSession) {
     return <p>Loading...</p>;
-  } else if (!session || !validSession) {
+  } else if (validSession === false || (!session && !loadingSession)) {
     return <p>Session could not be found or is already completed</p>;
   } else {
     return (
@@ -113,7 +128,11 @@ const ReviewAndPay = () => {
               onChange={(e) => setTextarea(e.target.value)}
               value={textarea}
             ></textarea>
-            <button type="submit" className={styles.reviewButton}>
+            <button
+              disabled={!textarea.length || rating < 1}
+              type="submit"
+              className={styles.reviewButton}
+            >
               Confirm & Pay
             </button>
           </form>

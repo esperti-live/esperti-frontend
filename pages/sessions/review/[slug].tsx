@@ -5,7 +5,6 @@ import axios from "axios";
 import AuthContext from "../../../contexts/AuthContext";
 
 import styles from "../../../styles/Review.module.scss";
-import SessionContext from "../../../contexts/SessionContext";
 import { useRouter } from "next/router";
 import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 
@@ -128,6 +127,7 @@ const ReviewAndPay = () => {
               rows={3}
               onChange={(e) => setTextarea(e.target.value)}
               value={textarea}
+              placeholder="Tell us more about your experience"
             ></textarea>
             <button
               disabled={!textarea.length || rating < 1}

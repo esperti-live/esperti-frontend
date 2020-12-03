@@ -84,6 +84,17 @@
          width: 100%;
          resize: vertical;
          margin-bottom: 37px;
+
+         font-size: 15px;
+         font-weight: 500;
+         color: #3c3e48;
+
+         &::placeholder {
+           font-size: 15px;
+           font-style: italic;
+           line-height: 13px;
+           color: #a1abc4;
+         }
       }
 
       button {

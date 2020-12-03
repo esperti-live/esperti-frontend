@@ -14,20 +14,18 @@ import SessionControls from "../../components/Session/SessionControls";
 import styles from "../../styles/Sessions.module.scss";
 import OtherUserHeader from "../../components/Chat/OtherUserHeader";
 
+let checkInterval: any;
 export default function sessions() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [persistTime, setPersistTime] = useState(0);
-  const [validSession, setValidSession] = useState(true);
+  const [validSession, setValidSession] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
 
   const router = useRouter();
   const { slug } = router.query;
   const { user } = useContext(AuthContext);
 
-  console.log(session);
-
   useEffect(() => {
-    let checkInterval: any;
     (async () => {
       try {
         if (slug && user.id) {
@@ -53,7 +51,7 @@ export default function sessions() {
 
           // checks if the person is an expert and add a ping to backend for
           // status of session (started / finished).
-          if (session.expert_profile.id === user.id) {
+          if (session.expert_profile?.id === user.id) {
             checkInterval = setInterval(getFreshSession, 5000);
           }
         }
@@ -75,7 +73,13 @@ export default function sessions() {
             headers: { Authorization: `Bearer ${user.tokenId}` },
           }
         );
+
         setSession(res.data);
+
+        if (!res.data.validSession) {
+          setValidSession(false);
+          clearInterval(checkInterval);
+        }
         resolve(res.data);
       } catch (err) {
         reject(err);
@@ -93,14 +97,9 @@ export default function sessions() {
     setSession(session);
     setTimerRunning(true);
   };
+  console.log(session);
 
-  if (!validSession) {
-    return (
-      <section className={styles.sessions}>
-        <p>This session is completed or invalid</p>
-      </section>
-    );
-  } else if (
+  if (
     !session ||
     !Object.keys(session).length ||
     !user ||
@@ -113,6 +112,12 @@ export default function sessions() {
           <p>Loading...</p>
         </section>
       </>
+    );
+  } else if (!validSession) {
+    return (
+      <section className={styles.sessions}>
+        <p>This session is completed or invalid</p>
+      </section>
     );
   } else if (validSession) {
     return (

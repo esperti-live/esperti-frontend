@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, FormEvent } from "react";
+import { useContext, useState, useEffect } from "react";
 import StarRating from "../../../components/StarRating";
 
 import axios from "axios";
@@ -10,33 +10,12 @@ import { useRouter } from "next/router";
 import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 
 const ReviewAndPay = () => {
-  const [textarea, setTextarea] = useState("");
-  const [rating, setRating] = useState(0);
-  const [validSession, setValidSession] = useState(null);
   const [loadingSession, setLoadingSession] = useState(false);
   const { user } = useContext(AuthContext);
-  const [session, setSession] = useState(null);
+  const { session, setCurrentSession } = useContext(SessionContext);
 
   const router = useRouter();
   const { slug } = router.query;
-
-  const formSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const data = {
-        rating,
-        comment: textarea,
-        sessionId: session.id,
-      };
-
-      await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/reviews`, data, {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
-      });
-      router.push(`/sessions/${slug}/summary`);
-    } catch (err) {
-      console.log("submitReview Error", err);
-    }
-  };
 
   /**
    * Calculates total time
@@ -54,7 +33,6 @@ const ReviewAndPay = () => {
     }
   }, [slug, user]);
 
-  console.log(session);
   /**
    * In case there is no session -> user refreshed the page and
    * session is not available in context then fetch it and check
@@ -66,31 +44,29 @@ const ReviewAndPay = () => {
     setLoadingSession(true);
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/summary`,
         {
           headers: { Authorization: `Bearer ${user.tokenId}` },
         }
       );
 
-      if (!res.data.validSession) {
-        // if invalid display invalid message (valid -> not completed && exists)
-        setValidSession(false);
+      if (!res.data.completed) {
+        setCurrentSession(null);
       } else {
         // if session is valid then continue
-        setValidSession(true);
-        setSession(res.data);
+        setCurrentSession(res.data);
       }
-
-      setLoadingSession(false);
     } catch (err) {
       console.log("fetchAndSetSession Error", err);
+    } finally {
+      setLoadingSession(false);
     }
   };
 
   if (!user?.tokenId || loadingSession) {
     return <p>Loading...</p>;
-  } else if (validSession === false || (!session && !loadingSession)) {
-    return <p>Session could not be found or is already completed</p>;
+  } else if (!session && !loadingSession) {
+    return <p>Session could not be found</p>;
   } else {
     return (
       <section className={styles.review}>
@@ -118,25 +94,9 @@ const ReviewAndPay = () => {
             image={session.expert_profile.image}
           />
           <div className={styles.starRating}>
-            <StarRating
-              rating={rating}
-              updateHandler={(rating: number) => setRating(rating)}
-            />
+            <StarRating rating={session.review.rating} updateHandler={null} />
           </div>
-          <form onSubmit={formSubmitHandler} className={styles.rateExpert}>
-            <textarea
-              rows={3}
-              onChange={(e) => setTextarea(e.target.value)}
-              value={textarea}
-            ></textarea>
-            <button
-              disabled={!textarea.length || rating < 1}
-              type="submit"
-              className={styles.reviewButton}
-            >
-              Confirm & Pay
-            </button>
-          </form>
+          <p>{session.review.comment}</p>
         </div>
       </section>
     );

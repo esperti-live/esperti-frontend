@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles/StarRating.module.scss";
 export default function StarRating({ rating, updateHandler }) {
   const generateStars = () => {
+    const handleUpdate = (rate: number) => {
+      if (updateHandler) {
+        updateHandler(rate);
+      }
+    };
+
     return Array(5)
       .fill("")
       .map((_, i) => {
@@ -9,7 +15,7 @@ export default function StarRating({ rating, updateHandler }) {
           return (
             <svg
               key={i + 1}
-              onClick={() => updateHandler(i + 1)}
+              onClick={() => handleUpdate(i + 1)}
               xmlns="http://www.w3.org/2000/svg"
               width="36"
               height="36"
@@ -25,7 +31,7 @@ export default function StarRating({ rating, updateHandler }) {
           return (
             <svg
               key={i + 1}
-              onClick={() => updateHandler(i + 1)}
+              onClick={() => handleUpdate(i + 1)}
               xmlns="http://www.w3.org/2000/svg"
               width="36"
               height="36"

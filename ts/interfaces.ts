@@ -9,7 +9,7 @@ export interface User {
   type: string;
 }
 
- export interface Skill {
+export interface Skill {
   name: string;
   description: string;
   profile: number;
@@ -26,7 +26,6 @@ export interface Expert {
   skills?: Skill[];
 }
 
-
 export interface AboutProps {
   bio: string;
   editMode: boolean;
@@ -40,7 +39,7 @@ export interface AvatarProps {
   editMode: boolean;
   rate: number;
   experience: string;
-  id: number
+  id: number;
 }
 
 export interface SkillsProp {
@@ -52,9 +51,8 @@ export interface SkillsProp {
 export interface SkillProp {
   skill: Skill;
   editMode: boolean;
-  removeItem: (item:string) => void;
+  removeItem: (item: string) => void;
 }
-
 
 export interface Tag {
   id: number;
@@ -62,18 +60,18 @@ export interface Tag {
 }
 
 export interface Request {
-    id: number;
-    user: {
-      image_url: string;
-    },
-    title: string;
-    tags: Tag[];
-    type: string;
-    slug: string;
+  id: number;
+  user: {
+    image_url: string;
+  };
+  title: string;
+  tags: Tag[];
+  type: string;
+  slug: string;
 }
 
 export interface RequestProp {
-  request: Request
+  request: Request;
 }
 
 export interface NewRequest {
@@ -82,9 +80,29 @@ export interface NewRequest {
   tags: Tag[];
 }
 
+export interface ExpertProfile {
+  experience: string;
+  image: string;
+  title: string;
+  name: string;
+  type: string;
+  video_url: string;
+  rate: number;
+  id: number;
+}
+
+export interface UserProfile extends ExpertProfile {}
+
+export interface Review {
+  comment: string;
+  created_at: Date;
+  rating: number;
+  session: number;
+}
+
 export interface Session {
-  user_profile: number;
-  expert_profile: number;
+  expert_profile: ExpertProfile;
+  user_profile: number | UserProfile;
   start_time: Date;
   end_time: Date;
   validSession: boolean;
@@ -96,6 +114,7 @@ export interface Session {
   id: number;
   paymentTotal: number;
   totalTime: number;
+  review: Review;
 }
 
 export interface Notification {
@@ -105,10 +124,9 @@ export interface Notification {
   newMsg: boolean;
 }
 
-
-export   interface MessageAction extends MessageActionEvent {
-    data: {
-      timetoken: Date;
-      value: string;
-    };
-  }
+export interface MessageAction extends MessageActionEvent {
+  data: {
+    timetoken: Date;
+    value: string;
+  };
+}

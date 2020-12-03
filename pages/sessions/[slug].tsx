@@ -24,6 +24,8 @@ export default function sessions() {
   const { slug } = router.query;
   const { user } = useContext(AuthContext);
 
+  console.log(session);
+
   useEffect(() => {
     let checkInterval: any;
     (async () => {
@@ -40,7 +42,7 @@ export default function sessions() {
             setValidSession(true);
           } else if (
             user.id !== session.user_profile &&
-            user.id !== session.expert_profile
+            user.id !== session.expert_profile.id
           ) {
             router.push("/");
           } else {
@@ -51,7 +53,7 @@ export default function sessions() {
 
           // checks if the person is an expert and add a ping to backend for
           // status of session (started / finished).
-          if (session.expert_profile === user.id) {
+          if (session.expert_profile.id === user.id) {
             checkInterval = setInterval(getFreshSession, 5000);
           }
         }
@@ -80,8 +82,6 @@ export default function sessions() {
       }
     });
   };
-
-  console.log(session);
 
   const continueSession = (session: Session) => {
     const timeNow = new Date().getTime() / 1000;
@@ -120,10 +120,13 @@ export default function sessions() {
         {session.user_profile == user.id && (
           <>
             <OtherUserHeader
-              channel={getChannel(session.user_profile, session.expert_profile)}
+              channel={getChannel(
+                session.user_profile,
+                session.expert_profile.id
+              )}
               image={""}
-              name={"placeholder"}
-              rate={30}
+              name={session.expert_profile.name}
+              rate={session.expert_profile.rate}
             />
             <h1 className={styles.requestTitle}>
               Placeholder request title here
@@ -147,12 +150,15 @@ export default function sessions() {
 
         <div>
           <SessionStatus
-            isExpert={session.expert_profile == user.id}
+            isExpert={session.expert_profile.id == user.id}
             session={session}
           />
           <div className={styles.chat}>
             <Chat
-              channel={getChannel(session.user_profile, session.expert_profile)}
+              channel={getChannel(
+                session.user_profile as number,
+                session.expert_profile.id
+              )}
               other={
                 session.user_profile === user.id
                   ? session.expert_profile

@@ -4,12 +4,13 @@ import Link from "next/link";
 import AuthContext from "../../contexts/AuthContext";
 
 import NotificationContext from "../../contexts/NotificationContext";
-
+import SettingsModal from "../Modal/SettingsModal";
 import styles from "../../styles/Navigation.module.scss";
 
 const Navigation = () => {
   const { user } = useContext(AuthContext);
   const { notificationCount } = useContext(NotificationContext);
+  const [showSettings, setShowModal] = useState(false);
 
   return (
     <>
@@ -22,11 +23,11 @@ const Navigation = () => {
           </Link>
           {user && (
             <div className={styles.userContainer}>
-              <Link href="/settings">
+              <button onClick={() => setShowModal(true)}>
                 <div title={String(user.id)} className={styles.user}>
                   <img src="/images/profile-user.svg" alt={user.name} />
                 </div>
-              </Link>
+              </button>
 
               <Link href="/messages">
                 <a>
@@ -55,6 +56,7 @@ const Navigation = () => {
           )}
         </div>
       </nav>
+      {showSettings && <SettingsModal closeModal={() => setShowModal(false)} />}
     </>
   );
 };

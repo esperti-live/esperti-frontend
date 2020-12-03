@@ -1,0 +1,46 @@
+.settings {
+  width: 100%;
+  img {
+    margin-bottom: 29px;
+  }
+  p {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3c3e48;
+  }
+  span {
+     display: block;
+     font-size: 16px;
+     font-weight: bold;
+     text-align: center;
+     color: #3c3e48;
+     margin-bottom: 34px;
+  }
+
+  button {
+    display: block;
+    border: none;
+  }
+
+  .logoutBtn {
+     border-radius: 29px;
+     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+     background-color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    padding: 15px 30px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .deleteAccountBtn {
+    background: none;
+    margin: 0 auto;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    color: #a1abc4;
+  }
+}

@@ -1,0 +1,31 @@
+  .sendMessage {
+    padding: 40px 23px;
+    width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    display: flex;
+    box-shadow: 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+
+    button {
+      height: 43px;
+      border-radius: 0 50% 50% 0;
+      border: none;
+      padding: 0 10px;
+      background: #a1abc4;
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="file"] {
+      margin-right: 10px;
+    }
+
+    .messageInput {
+      height: 43px;
+      border-radius: 24px 0 0 24px;
+      border: solid 1px #a1abc4;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+  }

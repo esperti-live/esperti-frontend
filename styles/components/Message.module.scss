@@ -1,0 +1,29 @@
+.ownMessage,
+.otherMessage,
+.sessionLink {
+  padding: 18px 22px;
+  border-radius: 26px;
+  margin-bottom: 13px;
+  width: 80%;
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.25);
+}
+
+.otherMessage {
+  background-color: #e4e6eb;
+  color: #3c3e48;
+  margin-right: auto;
+}
+
+.ownMessage {
+  background-color: #16ce7a;
+  color: #fff !important;
+  margin-left: auto;
+}
+
+.sessionLink {
+  padding: 32px 22px;
+  background-color: #1552f0;
+  color: #fff;
+  width: 100%;
+  font-weight: bold;
+}

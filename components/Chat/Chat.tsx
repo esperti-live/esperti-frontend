@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useChat } from "../Hooks/useChat";
 import { useRouter } from "next/router";
 import { getToken } from "../../utils/magic";
@@ -9,6 +9,8 @@ import OtherUserHeader from "./OtherUserHeader";
 import AuthContext from "../../contexts/AuthContext";
 
 import styles from "../../styles/components/Chat.module.scss";
+import SendMessage from "./SendMessage";
+import Message from "./Message";
 
 const Chat = ({
   channel,
@@ -17,7 +19,6 @@ const Chat = ({
   hideOther = false,
   showControlls = true,
 }) => {
-  const [input, setInput] = useState<string>("");
   const BottomDivRef = useRef(null);
   const { messages, subscribe, sendMessage } = useChat(channel);
   const router = useRouter();
@@ -35,21 +36,6 @@ const Chat = ({
   }, [messages]);
 
   /*
-      Runs when a user submits the form to send a message
-  */
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    if (input) {
-      const ids = channel.split("-");
-      const receiverId = ids[0] == currentUser.id ? ids[1] : ids[0];
-
-      sendMessage(input, `inbox-${receiverId}`);
-      setInput("");
-      BottomDivRef.current.scrollIntoView();
-    }
-  };
-
-  /*
       Creates a session, sends a link in chat & redirects user to session
   */
 
@@ -64,28 +50,16 @@ const Chat = ({
         }
       );
 
-      const url = `/sessions/${res.data.slug}`;
-      sendMessage(
-        `<a href="${url}">SESSION CREATED: ${res.data.slug}</a>`,
-        `inbox-${currentUser.id}`
-      );
-      router.push(url);
+      const session = res.data.slug;
+
+      // this is used to identity that we are sending a session id
+      const identifier = ":#$!sess";
+
+      sendMessage(session + identifier, `inbox-${currentUser.id}`);
+      router.push(`/sessions/${res.data.slug}`);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const formatMessage = (message: string) => {
-    if (String(message).includes('<a href="/sessions')) {
-      return (
-        <span
-          className={styles.message}
-          dangerouslySetInnerHTML={{ __html: message }}
-        />
-      );
-    }
-
-    return <p className={styles.message}> {message}</p>;
   };
 
   return (
@@ -102,16 +76,7 @@ const Chat = ({
       <div className={styles.messagesContainer}>
         <div className={styles.messages}>
           {messages.map((msg) => (
-            <div
-              key={msg.time + Math.random()}
-              className={`${
-                msg.publisher === currentUser.name
-                  ? styles.ownMessage
-                  : styles.otherMessage
-              }`}
-            >
-              {formatMessage(msg.message)}
-            </div>
+            <Message msg={msg} key={msg.time + Math.random()} />
           ))}
           <div ref={BottomDivRef} className={styles.bottomItemChat}></div>
         </div>
@@ -126,19 +91,12 @@ const Chat = ({
         )}
       </div>
 
-      <form onSubmit={formSubmitHandler} className={styles.sendMessage}>
-        {/* add this */}
-        {/* <input type="file" alt="Add file" /> */}
-        <input
-          type="text"
-          onChange={(e) => setInput(e.target.value)}
-          value={input}
-          className={styles.messageInput}
-        />
-        <button type="submit">
-          <img src="/images/send_message.svg" alt="Send message" />
-        </button>
-      </form>
+      <SendMessage
+        channel={channel}
+        currentUser={currentUser}
+        sendMessage={sendMessage}
+        BottomDivRef={BottomDivRef}
+      />
     </div>
   );
 };

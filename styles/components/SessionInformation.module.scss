@@ -1,0 +1,12 @@
+.totals {
+  display: flex;
+  justify-content: space-between;
+
+  .payment {
+    color: #1552f0;
+  }
+
+  .time {
+    color: #3c3e48;
+  }
+}

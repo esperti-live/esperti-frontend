@@ -6,6 +6,7 @@ import StarRating from "../../../components/StarRating";
 import AuthContext from "../../../contexts/AuthContext";
 import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 import axios from "axios";
+import SessionInformation from "../../../components/Session/SessionInformation";
 
 import styles from "../../../styles/pages/Summary.module.scss";
 
@@ -72,17 +73,7 @@ const ReviewAndPay = () => {
         <div className={styles.info}>
           <h1>Session Summary</h1>
 
-          <div className={styles.totals}>
-            <div className={styles.time}>
-              <small>Total time</small>
-              <p>{calculateTotalTime()}</p>
-            </div>
-
-            <div className={styles.payment}>
-              <small>Total to pay</small>
-              <p>{session.paymentTotal}€</p>
-            </div>
-          </div>
+          <SessionInformation session={session} />
         </div>
 
         <div className={styles.rate}>
@@ -92,10 +83,8 @@ const ReviewAndPay = () => {
             title={session.expert_profile.title}
             image={session.expert_profile.image}
           />
-          <div className={styles.starRating}>
-            <StarRating rating={session.review.rating} updateHandler={null} />
-          </div>
-          <p>{session.review.comment}</p>
+          <StarRating rating={session.review.rating} updateHandler={null} />
+          <p className={styles.reviewComment}>{session.review.comment}</p>
         </div>
       </section>
     );

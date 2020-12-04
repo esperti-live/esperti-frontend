@@ -3,7 +3,6 @@ import buttons from "../styles/Button.module.scss";
 import Request from "../components/Request/Request";
 
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { Request as RequestInterface } from "../ts/interfaces";
 // import Link from "next/link";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -28,7 +27,7 @@ export default function requests() {
   }, [user]);
 
   const shownRequests = requests.filter(
-    (request) => request.title.includes(searchQuery) !== false
+    (request: RequestInterface) => request.title.includes(searchQuery) !== false
   );
 
   return (
@@ -65,7 +64,7 @@ export default function requests() {
               />
             )}
           </SkeletonTheme>
-          {shownRequests.map((request) => (
+          {shownRequests.map((request: RequestInterface) => (
             <Request request={request} key={request.id} />
           ))}
         </ul>

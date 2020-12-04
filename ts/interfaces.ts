@@ -68,6 +68,8 @@ export interface Request {
   tags: Tag[];
   type: string;
   slug: string;
+  updated_at: string;
+  description: string;
 }
 
 export interface RequestProp {

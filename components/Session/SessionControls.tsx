@@ -1,8 +1,7 @@
 import styles from "../../styles/Sessions.module.scss";
 import axios from "axios";
 import { useRouter } from "next/router";
-import AuthContext from "../../contexts/AuthContext";
-import { useContext } from "react";
+import { getToken } from "../../utils/magic";
 export default function SessionControls({
   isUser,
   timerRunning,
@@ -12,15 +11,15 @@ export default function SessionControls({
   slug,
 }) {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
 
   const startSession = async () => {
     try {
+      const tokenId = await getToken();
       await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/start`,
         { start_time: new Date() },
         {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
       setTimerRunning(true);
@@ -31,11 +30,12 @@ export default function SessionControls({
 
   const endSession = async () => {
     try {
+      const tokenId = await getToken();
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/finish`,
         {},
         {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
       setSession(res.data);

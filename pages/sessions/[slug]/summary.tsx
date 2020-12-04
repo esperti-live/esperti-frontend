@@ -8,11 +8,12 @@ import styles from "../../../styles/Review.module.scss";
 import SessionContext from "../../../contexts/SessionContext";
 import { useRouter } from "next/router";
 import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
+import { getToken } from "../../../utils/magic";
 
 const ReviewAndPay = () => {
   const [loadingSession, setLoadingSession] = useState(false);
+  const [session, setCurrentSession] = useState(null);
   const { user } = useContext(AuthContext);
-  const { session, setCurrentSession } = useContext(SessionContext);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -28,7 +29,7 @@ const ReviewAndPay = () => {
   };
 
   useEffect(() => {
-    if (slug && !session && user.tokenId) {
+    if (slug && !session && user.email) {
       fetchAndSetSession();
     }
   }, [slug, user]);
@@ -43,17 +44,16 @@ const ReviewAndPay = () => {
   const fetchAndSetSession = async () => {
     setLoadingSession(true);
     try {
+      const tokenId = await getToken();
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}/summary`,
         {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
 
-      if (!res.data.completed) {
-        setCurrentSession(null);
-      } else {
-        // if session is valid then continue
+      if (res.data.completed) {
+        // if session is valid then add it to state
         setCurrentSession(res.data);
       }
     } catch (err) {
@@ -63,7 +63,7 @@ const ReviewAndPay = () => {
     }
   };
 
-  if (!user?.tokenId || loadingSession) {
+  if (!user?.email || loadingSession) {
     return <p>Loading...</p>;
   } else if (!session && !loadingSession) {
     return <p>Session could not be found</p>;

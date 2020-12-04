@@ -7,6 +7,7 @@ import AuthContext from "../../../contexts/AuthContext";
 import styles from "../../../styles/Review.module.scss";
 import { useRouter } from "next/router";
 import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
+import { getToken } from "../../../utils/magic";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");
@@ -28,8 +29,9 @@ const ReviewAndPay = () => {
         sessionId: session.id,
       };
 
+      const tokenId = await getToken();
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/reviews`, data, {
-        headers: { Authorization: `Bearer ${user.tokenId}` },
+        headers: { Authorization: `Bearer ${tokenId}` },
       });
       router.push(`/sessions/${slug}/summary`);
     } catch (err) {
@@ -48,12 +50,11 @@ const ReviewAndPay = () => {
   };
 
   useEffect(() => {
-    if (slug && !session && user.tokenId) {
+    if (slug && user.email) {
       fetchAndSetSession();
     }
   }, [slug, user]);
 
-  console.log(session);
   /**
    * In case there is no session -> user refreshed the page and
    * session is not available in context then fetch it and check
@@ -64,10 +65,11 @@ const ReviewAndPay = () => {
   const fetchAndSetSession = async () => {
     setLoadingSession(true);
     try {
+      const tokenId = await getToken();
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
         {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
 
@@ -77,16 +79,17 @@ const ReviewAndPay = () => {
       } else {
         // if session is valid then continue
         setValidSession(true);
+        console.log(res.data);
         setSession(res.data);
       }
-
-      setLoadingSession(false);
     } catch (err) {
       console.log("fetchAndSetSession Error", err);
+    } finally {
+      setLoadingSession(false);
     }
   };
 
-  if (!user?.tokenId || loadingSession) {
+  if (!user?.email || loadingSession) {
     return <p>Loading...</p>;
   } else if (validSession === false || (!session && !loadingSession)) {
     return <p>Session could not be found or is already completed</p>;

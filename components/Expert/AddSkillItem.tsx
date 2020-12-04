@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/About.module.scss";
 import { Skill } from "../../ts/interfaces";
 import axios from "axios";
-import AuthContext from "../../contexts/AuthContext";
+import { getToken } from "../../utils/magic";
 
 const newSkill = {
   name: "",
@@ -14,7 +14,6 @@ const newSkill = {
 
 export default function AddSkillItem({ skillAdded, userId }) {
   const [skillValues, setSkillValues] = useState<Skill>(newSkill);
-  const { user } = useContext(AuthContext);
   const skillUpdateHandler = (e, key: string) => {
     let updatedSkillValues = {
       ...skillValues,
@@ -24,7 +23,7 @@ export default function AddSkillItem({ skillAdded, userId }) {
     setSkillValues(updatedSkillValues);
   };
 
-  const addSkillHandler = () => {
+  const addSkillHandler = async () => {
     const skill: Skill = {
       description: skillValues.description,
       name: skillValues.name,
@@ -38,8 +37,9 @@ export default function AddSkillItem({ skillAdded, userId }) {
     setSkillValues(newSkill);
 
     // send to backend
+    const tokenId = await getToken();
     axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/skills`, skill, {
-      headers: { Authorization: `Bearer ${user.tokenId}` },
+      headers: { Authorization: `Bearer ${tokenId}` },
     });
   };
 

@@ -10,44 +10,26 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Link from "next/link";
 import AuthContext from "../contexts/AuthContext";
 import { useRouter } from "next/router";
+import { useMyRequest } from "../components/Hooks/useMyRequests";
 
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const [requests, setRequests] = useState<RequestInterface[]>([]);
-  const [shownRequests, setShownRequests] = useState<RequestInterface[]>([]);
-  const [loading, setLoading] = useState(true);
-
   const [searchQuery, setSearchQuery] = useState<string>("");
-
   const { user } = useContext(AuthContext);
 
+  const [requests, loading] = useMyRequest(user);
+  console.log("my-requests requests", requests);
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      if (user && user.id) {
-        try {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/requests?profile=${user.id}&_sort=created_at:DESC`
-          );
-          setRequests(res.data);
-          setShownRequests(res.data);
-          setLoading(false);
-        } catch (err) {
-          console.log(err);
-        }
-      } else {
-        router.replace("/");
-      }
-    })();
+    if (!user) {
+      router.replace("/");
+    }
   }, [user]);
 
-  useEffect(() => {
-    const queriedRequests = requests.filter(
-      (request) => request.title.includes(searchQuery) !== false
-    );
-    setShownRequests(queriedRequests);
-  }, [searchQuery]);
+  const shownRequests = requests.filter(
+    (request) => request.title.includes(searchQuery) !== false
+  );
 
   return (
     <section className={styles.request}>

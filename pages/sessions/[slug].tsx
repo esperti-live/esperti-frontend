@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 
-import { getChannel, getOtherUserId } from "../../utils/chat";
+import { getChannel } from "../../utils/chat";
 import AuthContext from "../../contexts/AuthContext";
 import { Session } from "../../ts/interfaces";
 
@@ -13,6 +13,7 @@ import SessionControls from "../../components/Session/SessionControls";
 
 import styles from "../../styles/Sessions.module.scss";
 import OtherUserHeader from "../../components/Chat/OtherUserHeader";
+import { getToken } from "../../utils/magic";
 
 let checkInterval: any;
 export default function sessions() {
@@ -68,10 +69,11 @@ export default function sessions() {
   const getFreshSession = (): Promise<Session> => {
     return new Promise(async (resolve, reject) => {
       try {
+        const tokenId = await getToken();
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions/${slug}`,
           {
-            headers: { Authorization: `Bearer ${user.tokenId}` },
+            headers: { Authorization: `Bearer ${tokenId}` },
           }
         );
 
@@ -98,7 +100,6 @@ export default function sessions() {
     setSession(session);
     setTimerRunning(true);
   };
-  console.log(session);
 
   if (
     !session ||

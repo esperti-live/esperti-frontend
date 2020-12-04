@@ -7,6 +7,7 @@ import styles from "../../styles/Chat.module.scss";
 import { useRouter } from "next/router";
 import OtherUserHeader from "./OtherUserHeader";
 import AuthContext from "../../contexts/AuthContext";
+import { getToken } from "../../utils/magic";
 
 const ChatModal = ({
   channel,
@@ -53,11 +54,12 @@ const ChatModal = ({
 
   const createSessionHandler = async () => {
     try {
+      const tokenId = await getToken();
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/sessions`,
         { expert_id: other.id },
         {
-          headers: { Authorization: `Bearer ${currentUser.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
 

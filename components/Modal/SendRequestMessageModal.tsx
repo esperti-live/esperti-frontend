@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Modal from "../Modal";
 import styles from "../../styles/Modal.module.scss";
-import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
+import { getToken } from "../../utils/magic";
 
 const CheckEmailModal = ({ closeModal, request }) => {
   const [message, setMessage] = useState("");
@@ -12,8 +12,6 @@ const CheckEmailModal = ({ closeModal, request }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { user } = useContext(AuthContext);
-
   const submitHandler = async (e) => {
     setLoading(true);
     setDisabled(true);
@@ -21,6 +19,7 @@ const CheckEmailModal = ({ closeModal, request }) => {
     e.preventDefault();
 
     try {
+      const tokenId = await getToken();
       const data = {
         message,
       };
@@ -29,13 +28,17 @@ const CheckEmailModal = ({ closeModal, request }) => {
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/messages/request/${request.id}`,
         data,
         {
-          headers: { Authorization: `Bearer ${user.tokenId}` },
+          headers: { Authorization: `Bearer ${tokenId}` },
         }
       );
 
       setSuccess(true);
     } catch (err) {
-      setError(`Something went wrong, please try again: ${err.message ? err.message : err}`);
+      setError(
+        `Something went wrong, please try again: ${
+          err.message ? err.message : err
+        }`
+      );
     } finally {
       setLoading(false);
     }

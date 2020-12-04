@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/Expert.module.scss";
 import { getVideoId } from "../../utils/youtube";
 import Youtube from "react-youtube";
+
+import styles from "../../styles/components/Video.module.scss";
 
 interface VideoProps {
   editMode: boolean;
@@ -64,10 +65,7 @@ export default function Video({ editMode, video_url }: VideoProps) {
       <div className={styles.video}>
         <h6>My Intro</h6>
         <span>Quick introduction</span>
-        {videoId &&
-          <Youtube videoId={videoId} />
-        }
-        
+        {videoId && <Youtube videoId={videoId} />}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import styles from "../../styles/Sessions.module.scss";
+import styles from "../../styles/components/SessionStatus.module.scss";
 
 export default function SessionStatus({ isExpert, session }) {
   if (isExpert) {

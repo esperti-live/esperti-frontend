@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { SkillsProp, Skill } from "../../ts/interfaces";
+
 import SkillItem from "./SkillItem";
 import AddSkillItem from "./AddSkillItem";
-import styles from "../../styles/About.module.scss";
-import { SkillsProp, Skill } from "../../ts/interfaces";
+
+import styles from "../../styles/components/SkillList.module.scss";
 
 const SkillsList = ({ skills, editMode, userId }: SkillsProp) => {
   const [skillsList, setSkillsList] = useState(skills);

@@ -1,0 +1,65 @@
+.createProfile {
+  min-height: calc(100vh - 80px - 50px);
+}
+
+.createProfileForm {
+  padding: 30px 20px 0 20px;
+
+  label {
+    height: 24px;
+    display: block;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: left;
+    color: #3c3e48;
+    margin-bottom: 10px;
+  }
+
+  h5 {
+    font-size: 21px;
+    font-weight: bold;
+    text-align: center;
+    color: #3c3e48;
+    margin: 50px 0;
+  }
+
+  input,
+  textarea {
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.07);
+    border: solid 1px #a1abc4;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: block;
+    font-family: inherit;
+
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: #3c3e48;
+
+    &::placeholder {
+      font-size: 16px;
+      font-style: italic;
+      line-height: 13px;
+      text-align: left;
+      color: #a1abc4;
+    }
+  }
+
+  button {
+    width: 100%;
+    border-radius: 29px;
+    padding: 15px 0;
+    font-weight: 600;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+
+}

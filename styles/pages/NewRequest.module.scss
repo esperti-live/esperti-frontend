@@ -1,0 +1,57 @@
+.newRequests {
+  min-height: calc(100vh - 130px);
+
+  .jumbotron {
+    background-color: #1653f0;
+    border-radius: 0 0 25px 25px;
+    color: #fff;
+    padding: 24px 0;
+
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 300;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+
+  .tags {
+    min-height: 30px;
+    display: flex;
+    flex-wrap: wrap;
+
+    span {
+      border-radius: 29px;
+      box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.07);
+      background-color: #a1abc4;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 23px;
+      color: #ffffff;
+      padding: 5px 35px 5px 15px;
+      position: relative;
+      margin: 0 5px 10px 0;
+    }
+
+    button {
+      position: absolute;
+      border: none;
+      padding: 0;
+      height: auto;
+      background: transparent;
+      top: 50%;
+      transform: translateY(-45%);
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+}

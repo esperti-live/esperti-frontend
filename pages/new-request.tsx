@@ -1,16 +1,17 @@
 import { useState, useContext, useEffect } from "react";
 import slugify from "slugify";
+import axios from "axios";
 
 import AuthContext from "../contexts/AuthContext";
 import RequestForm from "../components/Request/RequestForm";
-import { NewRequest } from "../ts/interfaces";
-
-import styles from "../styles/Request.module.scss";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 import RequestSuccessModal from "../components/Modal/RequestSuccessModal";
-import axios from "axios";
-import { useRouter } from "next/router";
+
+import { NewRequest } from "../ts/interfaces";
 import { getToken } from "../utils/magic";
+import { useRouter } from "next/router";
+
+import styles from "../styles/pages/NewRequest.module.scss";
 
 const newRequest = () => {
   const [step, setStep] = useState<number>(1);

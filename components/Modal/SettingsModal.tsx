@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import Modal from "../Modal";
-import styles from "../../styles/Settings.module.scss";
 import AuthContext from "../../contexts/AuthContext";
+
+import styles from "../../styles/components/modal/SettingsModal.module.scss";
 
 const CheckEmailModal = ({ closeModal }) => {
   const { logout, user } = useContext(AuthContext);

@@ -3,17 +3,18 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 
 import { getChannel } from "../../utils/chat";
-import AuthContext from "../../contexts/AuthContext";
 import { Session } from "../../ts/interfaces";
+import { getToken } from "../../utils/magic";
+
+import AuthContext from "../../contexts/AuthContext";
 
 import Chat from "../../components/Chat/Chat";
 import SessionStatus from "../../components/Session/SessionStatus";
 import SessionTimer from "../../components/Session/SessionTimer";
 import SessionControls from "../../components/Session/SessionControls";
-
-import styles from "../../styles/Sessions.module.scss";
 import OtherUserHeader from "../../components/Chat/OtherUserHeader";
-import { getToken } from "../../utils/magic";
+
+import styles from "../../styles/pages/Sessions.module.scss";
 
 let checkInterval: any;
 export default function sessions() {

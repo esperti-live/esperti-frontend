@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "../../styles/Avatar.module.scss";
 import { AvatarProps } from "../../ts/interfaces";
-import ExpertRating from "./ExpertRating";
 import { getImageUrl } from "../../utils/format";
 import { usePresence } from "../Hooks/usePresence";
+
+import styles from "../../styles/components/Avatar.module.scss";
 
 const Avatar = ({
   image,
@@ -12,7 +12,6 @@ const Avatar = ({
   rate,
   experience,
   editMode,
-  id,
 }: AvatarProps) => {
   const [localImage, setLocalImage] = useState<string | File>(image);
   const [userName, setUserName] = useState<string>(name);

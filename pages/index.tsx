@@ -1,12 +1,16 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.scss";
+
+import styles from "../styles/pages/Index.module.scss";
+
 import ExpertCard from "../components/ExpertCard";
-// import { FAKE_EXPERTS } from "../constants/placeholder";
-import AuthContext from "../contexts/AuthContext";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
+
+import AuthContext from "../contexts/AuthContext";
+
 import Link from "next/link";
 import axios from "axios";
+
 import { Expert } from "../ts/interfaces";
 import { usePresence } from "../components/Hooks/usePresence";
 import { getExpertImage } from "../utils/format";

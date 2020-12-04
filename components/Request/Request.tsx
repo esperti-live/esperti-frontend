@@ -1,7 +1,7 @@
-import React from "react";
 import { RequestProp } from "../../ts/interfaces";
-import styles from "../../styles/Request.module.scss";
 import { formatDate } from "../../utils/date";
+
+import styles from "../../styles/components/Request.module.scss";
 
 const Request = ({ request }: RequestProp) => {
   return (

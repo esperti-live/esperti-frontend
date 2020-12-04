@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 
 import AuthContext from "../contexts/AuthContext";
 
-import styles from "../styles/Auth.module.scss";
+import styles from "../styles/pages/CreateProfile.module.scss";
 import CheckEmailModal from "../components/Modal/CheckEmailModal";
 // import ProfileCreatedModal from "../components/Modal/ProfileCreatedModal";
 import axios from "axios";

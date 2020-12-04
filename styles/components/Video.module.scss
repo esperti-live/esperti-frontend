@@ -1,0 +1,32 @@
+.video {
+  padding: 0 0 100px 0;
+
+  h6 {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 41px;
+    color: #3c3e48;
+    line-height: 1;
+    margin: 0;
+  }
+
+  span {
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+    color: #3c3e48;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  & iframe {
+    width: 100%;
+    border-radius: 15px;
+    height: 192px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 15px;
+  }
+}

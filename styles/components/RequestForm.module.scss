@@ -1,0 +1,69 @@
+.requestForm {
+  padding: 30px 27px;
+
+  label {
+    display: block;
+    font-size: 17px;
+    font-weight: bold;
+    font-stretch: normal;
+    color: #3c3e48;
+    margin-bottom: 10px;
+  }
+
+  input,
+  textarea {
+    font-family: inherit;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.07);
+    border: solid 1px #a1abc4;
+    background-color: #ffffff;
+    padding: 17px;
+    font-size: 16px;
+    line-height: 13px;
+    text-align: left;
+    font-weight: 500;
+    width: 100%;
+    margin-bottom: 34px;
+    line-height: 23px;
+
+    &::placeholder {
+      font-style: italic;
+      color: #a1abc4;
+    }
+  }
+
+  & input:last-child {
+    margin-bottom: 10px;
+  }
+
+  .loginBtn {
+    border: none;
+    padding: 0;
+    height: auto;
+    background: transparent;
+    top: 50%;
+    right: 5px;
+    cursor: pointer;
+  }
+
+  .submit {
+    width: 100%;
+    border-radius: 29px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #000000;
+    height: 57px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+
+    line-height: 22px;
+    text-align: center;
+    color: #ffffff;
+
+    &:disabled {
+      background-color: #000000;
+      opacity: 0.3;
+    }
+  }
+}

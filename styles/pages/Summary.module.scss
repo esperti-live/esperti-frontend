@@ -1,0 +1,54 @@
+.summary {
+
+  .info {
+    padding: 27px 33px 57px 33px;
+    text-align: center;
+    background-color: #e9ecf6;
+
+    h1 {
+      font-size: 21px;
+      font-weight: bold;
+      color: #3c3e48;
+      margin-bottom: 48px;
+      margin-top: 0;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    p {
+      margin: 0 0 3px 0;
+      font-size: 37px;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    small {
+      text-align: center;
+      color: #3c3e48;
+    }
+
+    .payment {
+      color: #1552f0;
+    }
+
+    .time {
+      color: #3c3e48;
+    }
+  }
+
+  .rate {
+    padding: 23px 37px 40px 37px;
+    background-color: #f1f3ff;
+    text-align: center;
+
+    h2 {
+      font-size: 15px;
+      margin: 0 0 24px 0;
+      font-weight: bold;
+      color: #3c3e48;
+    }
+  }
+}

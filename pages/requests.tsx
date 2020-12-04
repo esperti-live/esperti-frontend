@@ -1,5 +1,5 @@
-import styles from "../styles/Request.module.scss";
-import buttons from "../styles/Button.module.scss";
+import styles from "../styles/pages/Requests.module.scss";
+import buttons from "../styles/components/Button.module.scss";
 import Request from "../components/Request/Request";
 
 import { useState, useEffect, useContext } from "react";

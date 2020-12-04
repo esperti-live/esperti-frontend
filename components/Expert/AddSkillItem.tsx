@@ -1,8 +1,10 @@
 import { useState } from "react";
-import styles from "../../styles/About.module.scss";
 import { Skill } from "../../ts/interfaces";
-import axios from "axios";
 import { getToken } from "../../utils/magic";
+
+import axios from "axios";
+
+import styles from "../../styles/components/AddSkillItem.module.scss";
 
 const newSkill = {
   name: "",

@@ -1,9 +1,11 @@
-import { useContext, useState } from "react";
-import Modal from "../Modal";
-import styles from "../../styles/Modal.module.scss";
-import axios from "axios";
-import LoadingSpinner from "../LoadingSpinner";
+import { useState } from "react";
 import { getToken } from "../../utils/magic";
+
+import Modal from "../Modal";
+import LoadingSpinner from "../LoadingSpinner";
+import axios from "axios";
+
+import styles from "../../styles/components/modal/Modal.module.scss";
 
 const CheckEmailModal = ({ closeModal, profile }) => {
   const [message, setMessage] = useState("");
@@ -32,7 +34,11 @@ const CheckEmailModal = ({ closeModal, profile }) => {
 
       setSuccess(true);
     } catch (err) {
-      setError(`Something went wrong, please try again: ${err.message ? err.message : err}`);
+      setError(
+        `Something went wrong, please try again: ${
+          err.message ? err.message : err
+        }`
+      );
     } finally {
       setLoading(false);
     }

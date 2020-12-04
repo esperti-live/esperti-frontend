@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AboutProps } from "../../ts/interfaces";
-
-import AuthContext from "../../contexts/AuthContext";
-
-import styles from "../../styles/About.module.scss";
-import axios from "axios";
 import { getToken } from "../../utils/magic";
+
+import axios from "axios";
+
+import styles from "../../styles/components/About.module.scss";
 
 export default function About({ bio, editMode, userId }: AboutProps) {
   const [bioInput, setBioInput] = useState(bio);

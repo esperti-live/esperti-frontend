@@ -1,0 +1,18 @@
+.sessionStatus {
+  text-align: center;
+
+  p {
+    padding: 20px 0 20px 0;
+    margin: 0;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .inactive {
+    background: #ee5b5b;
+  }
+
+  .active {
+    background: #16ce7a;
+  }
+}

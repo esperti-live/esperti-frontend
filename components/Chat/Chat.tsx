@@ -1,15 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useChat } from "../Hooks/useChat";
-import axios from "axios";
-import Link from "next/link";
-
-import styles from "../../styles/Chat.module.scss";
 import { useRouter } from "next/router";
-import OtherUserHeader from "./OtherUserHeader";
-import AuthContext from "../../contexts/AuthContext";
 import { getToken } from "../../utils/magic";
 
-const ChatModal = ({
+import Link from "next/link";
+import axios from "axios";
+import OtherUserHeader from "./OtherUserHeader";
+import AuthContext from "../../contexts/AuthContext";
+
+import styles from "../../styles/components/Chat.module.scss";
+
+const Chat = ({
   channel,
   other,
   expert,
@@ -142,4 +143,4 @@ const ChatModal = ({
   );
 };
 
-export default ChatModal;
+export default Chat;

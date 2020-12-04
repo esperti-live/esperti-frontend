@@ -1,0 +1,30 @@
+.skillsEdit {
+  margin-top: 25px;
+  display: flex;
+  padding-bottom: 25px;
+  border-bottom: solid 2px #a1abc44d;
+
+  img {
+    margin-right: 14px;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+  }
+
+  .skillsRight {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .addButton {
+    padding: 10px 20px;
+    align-self: flex-start;
+    cursor: pointer;
+    border: none;
+    border-radius: 29px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #1552f0;
+    color: #fff;
+  }
+}

@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import styles from "../../styles/Button.module.scss";
-import AuthContext from "../../contexts/AuthContext";
 import { Expert } from "../../ts/interfaces";
+
+import AuthContext from "../../contexts/AuthContext";
+
+import styles from "../../styles/components/Button.module.scss";
 
 interface FloatingButtonProps {
   editMode: boolean;

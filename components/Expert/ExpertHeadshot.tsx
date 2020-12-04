@@ -1,4 +1,4 @@
-import styles from "../../styles/Review.module.scss";
+import styles from "../../styles/components/ExpertHeadshot.module.scss";
 
 const ExpertHeadshot = ({ image, name, title }) => {
   return (

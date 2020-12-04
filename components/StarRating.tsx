@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "../styles/StarRating.module.scss";
+import styles from "../styles/components/StarRating.module.scss";
+
 export default function StarRating({ rating, updateHandler }) {
   const generateStars = () => {
     const handleUpdate = (rate: number) => {

@@ -1,14 +1,13 @@
 import { useContext, useState, useEffect } from "react";
-import StarRating from "../../../components/StarRating";
-
-import axios from "axios";
-import AuthContext from "../../../contexts/AuthContext";
-
-import styles from "../../../styles/Review.module.scss";
-import SessionContext from "../../../contexts/SessionContext";
 import { useRouter } from "next/router";
-import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 import { getToken } from "../../../utils/magic";
+
+import StarRating from "../../../components/StarRating";
+import AuthContext from "../../../contexts/AuthContext";
+import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
+import axios from "axios";
+
+import styles from "../../../styles/pages/Summary.module.scss";
 
 const ReviewAndPay = () => {
   const [loadingSession, setLoadingSession] = useState(false);
@@ -69,7 +68,7 @@ const ReviewAndPay = () => {
     return <p>Session could not be found</p>;
   } else {
     return (
-      <section className={styles.review}>
+      <section className={styles.summary}>
         <div className={styles.info}>
           <h1>Session Summary</h1>
 

@@ -1,14 +1,17 @@
 import { useContext, useState } from "react";
-import styles from "../../styles/Expert.module.scss";
+import { getChannel } from "../../utils/chat";
+
 import About from "../../components/Expert/About";
 import Avatar from "../../components/Expert/Avatar";
 import SkillsList from "../../components/Expert/SkillsList";
 import Video from "../../components/Expert/Video";
 import FloatingButton from "../../components/Expert/FloatingButton";
 import Head from "next/head";
-import { getChannel } from "../../utils/chat";
-import AuthContext from "../../contexts/AuthContext";
 import Chat from "../../components/Chat/Chat";
+
+import AuthContext from "../../contexts/AuthContext";
+
+import styles from "../../styles/pages/Expert.module.scss";
 
 export default function expert({ profile }) {
   const [editMode, setEditMode] = useState<boolean>(false);

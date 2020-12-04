@@ -1,13 +1,14 @@
 import { useContext, useState, useEffect, FormEvent } from "react";
+import { useRouter } from "next/router";
+import { getToken } from "../../../utils/magic";
+
 import StarRating from "../../../components/StarRating";
+import AuthContext from "../../../contexts/AuthContext";
+import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
 
 import axios from "axios";
-import AuthContext from "../../../contexts/AuthContext";
 
-import styles from "../../../styles/Review.module.scss";
-import { useRouter } from "next/router";
-import ExpertHeadshot from "../../../components/Expert/ExpertHeadshot";
-import { getToken } from "../../../utils/magic";
+import styles from "../../../styles/pages/Review.module.scss";
 
 const ReviewAndPay = () => {
   const [textarea, setTextarea] = useState("");

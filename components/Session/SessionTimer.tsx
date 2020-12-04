@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import styles from "../../styles/Sessions.module.scss";
+
+import styles from "../../styles/components/SessionTimer.module.scss";
+
 export default function SessionTimer({ timerRunning, persistTime }) {
   const [displayTime, setDisplayTime] = useState(0);
   const timer = useRef(null);

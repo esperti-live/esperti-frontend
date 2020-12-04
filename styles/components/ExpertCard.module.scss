@@ -1,0 +1,90 @@
+.expertCard {
+  width: 213px;
+  min-width: 213px;
+  //  height: 341px;
+  padding: 30px 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  margin-right: 23px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 117px;
+    height: 117px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+  }
+
+  .name {
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    color: #3c3e48;
+  }
+
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 2.42;
+    text-align: center;
+    color: #a1abc4;
+    margin-bottom: 13px;
+  }
+
+  .tags {
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    color: #a1abc4;
+    margin: 0 0 26px 0;
+
+    &:not(:first-of-type) {
+      margin-left: 5px;
+    }
+  }
+
+  .viewProfile {
+    width: 179px;
+    text-align: center;
+    padding: 10px 10px;
+    border-radius: 29px;
+    color: #fff;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #000000;
+    border: none;
+    font-weight: 500;
+  }
+
+  .expertAvatar {
+    position: relative;
+  }
+
+  .onlineBadge {
+    height: 19px;
+    width: 19px;
+    position: absolute;
+    bottom: 35px;
+    border-radius: 50%;
+    right: 15px;
+    background: #fff;
+
+    & div {
+      position: absolute;
+      height: 12px;
+      width: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+    }
+  }
+}

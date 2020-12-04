@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "../Modal";
 import Link from "next/link";
-import styles from "../../styles/Modal.module.scss";
+
+import styles from "../../styles/components/modal/Modal.module.scss";
 
 const CheckEmailModal = ({ closeModal }) => {
   return (

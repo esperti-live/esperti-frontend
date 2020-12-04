@@ -1,4 +1,4 @@
-import styles from "../styles/Modal.module.scss";
+import styles from "../styles/components/modal/Modal.module.scss";
 
 interface ModalProps {
   children: any;

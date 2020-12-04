@@ -1,6 +1,7 @@
 import Link from "next/link";
-import styles from "../styles/Expert.module.scss";
 import { usePubNub } from "pubnub-react";
+
+import styles from "../styles/components/ExpertCard.module.scss";
 
 export default function Card({ image_url, name, title, skills, slug, active }) {
   const pubnub = usePubNub();

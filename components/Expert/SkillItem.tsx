@@ -1,5 +1,6 @@
-import styles from "../../styles/About.module.scss";
 import { SkillProp } from "../../ts/interfaces";
+
+import styles from "../../styles/components/SkillItem.module.scss";
 
 export default function SkillItem({ skill, removeItem, editMode }: SkillProp) {
   const removeItemHandler = () => {

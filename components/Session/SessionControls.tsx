@@ -1,7 +1,9 @@
-import styles from "../../styles/Sessions.module.scss";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { getToken } from "../../utils/magic";
+import axios from "axios";
+
+import styles from "../../styles/components/SessionControlls.module.scss";
+
 export default function SessionControls({
   isUser,
   timerRunning,

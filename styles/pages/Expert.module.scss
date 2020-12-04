@@ -1,0 +1,59 @@
+.about {
+  padding: 0 24px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3c3e48;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .navPill {
+    border-radius: 44px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    height: 44px;
+    border-radius: 44px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 43px;
+    overflow: hidden;
+
+    button {
+      width: 33.333%;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      height: 100%;
+      color: #a1abc4;
+      border: none;
+      background-color: #fff;
+
+      &:focus {
+        border-radius: 44px;
+      }
+
+      &.active {
+        width: 33.333%;
+        height: 44px;
+        border-radius: 44px;
+        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.08);
+        background-color: #1552f0;
+        color: #ffff;
+      }
+    }
+  }
+}
+
+.saveButton {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  background: orangered;
+  font-size: 16px;
+  color: white;
+}

@@ -26,7 +26,7 @@
   align-items: center;
   text-align: center;
 
-  @media only screen and (max-height: 640px){
+  @media only screen and (max-height: 640px) {
     padding: 33px 22px;
   }
 
@@ -50,15 +50,17 @@
     font-size: 21px;
     font-weight: bold;
     color: #3c3e48;
-    margin: 30px  0 15px 0;
+    margin: 30px 0 15px 0;
   }
+
   p {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
-      color: #3c3e48;
-      margin: 0 0 30px 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #3c3e48;
+    margin: 0 0 30px 0;
   }
+
   span {
     font-size: 15px;
     line-height: 27px;
@@ -66,35 +68,37 @@
   }
 
   a {
-     font-size: 15px;
-     line-height: 24px;
-     color: #1652f0;
-     text-decoration: underline;
+    font-size: 15px;
+    line-height: 24px;
+    color: #1652f0;
+    text-decoration: underline;
   }
 
-  .btnPrimary, .btnSecondary{
-     width: 262px;
-     border-radius: 29px;
-     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
-     font-size: 16px;
-     font-weight: bold;
-     line-height: 22px;
-     text-align: center;
-     color: #ffffff;
-     text-decoration: none;
-     padding: 17px 0;
-     border: none;
-    }
-    
-    .btnPrimary {
+  .btnPrimary,
+  .btnSecondary {
+    width: 262px;
+    border-radius: 29px;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.16);
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 17px 0;
+    border: none;
+  }
+
+  .btnPrimary {
     margin-bottom: 15px;
     background-color: #000;
+
     &.success {
-      background-color:#05b16a;
+      background-color: #05b16a;
     }
   }
 
-  .error{
+  .error {
     color: #721c24;
     background-color: #f8d7da;
     padding: 12px 24px;
@@ -122,8 +126,7 @@
     }
   }
 
-  .btnSecondary{
+  .btnSecondary {
     background-color: #1653f0;
   }
 }
-

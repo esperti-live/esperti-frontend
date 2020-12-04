@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
+
 import Link from "next/link";
-
 import AuthContext from "../../contexts/AuthContext";
-
 import NotificationContext from "../../contexts/NotificationContext";
 import SettingsModal from "../Modal/SettingsModal";
-import styles from "../../styles/Navigation.module.scss";
+
+import styles from "../../styles/components/Navigation.module.scss";
 
 const Navigation = () => {
   const { user } = useContext(AuthContext);

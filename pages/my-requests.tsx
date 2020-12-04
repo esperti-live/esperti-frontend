@@ -1,15 +1,14 @@
-import styles from "../styles/Request.module.scss";
-import buttons from "../styles/Button.module.scss";
-import Request from "../components/Request/Request";
-
 import { useState, useEffect, useContext } from "react";
 import { Request as RequestInterface } from "../ts/interfaces";
-// import Link from "next/link";
+import { useMyRequest } from "../components/Hooks/useMyRequests";
+import { useRouter } from "next/router";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Link from "next/link";
+
+import Request from "../components/Request/Request";
 import AuthContext from "../contexts/AuthContext";
-import { useRouter } from "next/router";
-import { useMyRequest } from "../components/Hooks/useMyRequests";
+
+import styles from "../styles/pages/MyRequests.module.scss";
 
 export default function requests() {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -70,7 +69,7 @@ export default function requests() {
         </ul>
       </div>
       <Link href="/new-request">
-        <a className={buttons.linkFloatingButton}>Submit Request</a>
+        <a className={styles.linkFloatingButton}>Submit Request</a>
       </Link>
     </section>
   );

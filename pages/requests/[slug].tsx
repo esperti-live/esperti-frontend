@@ -1,7 +1,6 @@
 import Head from "next/head";
-import styles from "../../styles/Request.module.scss";
-import button from "../../styles/Button.module.scss";
-import { useContext, useEffect, useState } from "react";
+import styles from "../../styles/pages/Request.module.scss";
+import { useEffect, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import { formatDate } from "../../utils/date";
 // import { getChannel } from "../../utils/chat";

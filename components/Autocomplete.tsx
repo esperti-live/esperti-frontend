@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from "../styles/Autocomplete.module.scss";
 import { Tag } from "../ts/interfaces";
+
+import styles from "../styles/components/Autocomplete.module.scss";
 
 export default function Autocomplete({ itemClicked }) {
   const [filteredItems, setFilteredItems] = useState<Tag[]>([]);

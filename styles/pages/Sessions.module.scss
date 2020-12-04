@@ -1,0 +1,18 @@
+.sessions {
+  background: #f1f3fa;
+  min-height: calc(100vh - 130px);
+  box-shadow: inner 0 8px 19px 0 rgba(81, 94, 157, 0.16);
+
+  .requestTitle {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #a1abc4;
+    margin: 18px 0 8px 0;
+  }
+
+  .chat {
+    max-height: 500px;
+    margin-bottom: 30px;
+  }
+}

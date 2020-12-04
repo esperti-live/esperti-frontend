@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "../Modal";
-import styles from "../../styles/Modal.module.scss";
+import styles from "../../styles/components/modal/Modal.module.scss";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
 import { getToken } from "../../utils/magic";

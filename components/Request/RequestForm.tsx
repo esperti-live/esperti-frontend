@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/Request.module.scss";
+import styles from "../../styles/components/RequestForm.module.scss";
 import { NewRequest, Tag } from "../../ts/interfaces";
 import Autocomplete from "../Autocomplete";
 import LoadingSpinner from "../LoadingSpinner";
@@ -56,7 +56,7 @@ export default function RequestForm({ formSubmit, loading }: RequestFormProps) {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={styles.requestForm}>
       <label htmlFor="title">Add a title</label>
       <input
         name="title"

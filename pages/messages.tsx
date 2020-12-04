@@ -1,10 +1,12 @@
 import Head from "next/head";
+
 import { useContext, useEffect, useState } from "react";
 import { useNotifications } from "../components/Hooks/useNotifications";
+
 import AuthContext from "../contexts/AuthContext";
-import styles from "../styles/Notification.module.scss";
 import Chat from "../components/Chat/Chat";
-import { getChannel } from "../utils/chat";
+
+import styles from "../styles/pages/Messages.module.scss";
 
 /**
  * Given a notification return my name and id

@@ -7,6 +7,7 @@ import AuthContext from "../contexts/AuthContext";
 import Chat from "../components/Chat/Chat";
 
 import styles from "../styles/pages/Messages.module.scss";
+import { useRouter } from "next/router";
 
 /**
  * Given a notification return my name and id
@@ -57,8 +58,8 @@ export default function Messages() {
     me: null,
     other: null,
   });
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
-
   const [notifications, dataLoading] = useNotifications(user);
   console.log("Messages notifications", notifications);
   console.log("Messages user", user);
@@ -66,6 +67,10 @@ export default function Messages() {
   useEffect(() => {
     if (user && !dataLoading) {
       setLoading(false);
+    }
+
+    if (!user) {
+      router.replace("/");
     }
   }, [user, dataLoading]);
 
@@ -98,8 +103,8 @@ export default function Messages() {
     };
 
     const formatLastMessage = (notification) => {
-      if (notification.lastMessage.includes('<a href="/sessions/')) {
-        return `Session Created`;
+      if (notification.lastMessage.includes(":#$!sess")) {
+        return `New Session Created`;
       } else if (notification.lastMessage.length > 30) {
         return notification.lastMessage.slice(0, 30) + "...";
       }

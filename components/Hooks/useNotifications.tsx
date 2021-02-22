@@ -18,9 +18,7 @@ const fetcher = async (...args) => {
 
 export const useNotifications = (user) => {
   const { data, error } = useSWR("/api/user", fetcher);
-  if (!user) {
-    return [];
-  }
+
 
   return [data || [], loading];
 };

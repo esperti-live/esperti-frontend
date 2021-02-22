@@ -83,6 +83,7 @@ export default function NotificationProvider({ children }) {
     const uniques = getUniqueProfiles(messages);
 
     console.log("loadNotifications messages", messages)
+    console.log("loadNotifications uniques", uniques)
 
     //From unique channels, make them look nice
     setNotifications(fromUniquesToNotifications(uniques, user));
@@ -97,9 +98,12 @@ export default function NotificationProvider({ children }) {
 
     pubnub.addListener({
       message: function (message) {
-        console.log("message", message);
+        console.log("NotificationProvider message", message);
         if (message.channel === channelId) {
           refreshNotificationCount();
+          const data = {
+            [message.publisher]: message?.message?.lastMessage
+          }
         }
       },
     });
@@ -155,6 +159,7 @@ export default function NotificationProvider({ children }) {
         notifications,
         addNotification,
         notificationCount,
+        setNotificationCount,
         loadNotifications,
       }}
     >

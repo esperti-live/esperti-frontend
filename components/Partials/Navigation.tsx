@@ -9,8 +9,16 @@ import styles from "../../styles/components/Navigation.module.scss";
 
 const Navigation = () => {
   const { user } = useContext(AuthContext);
-  const { notificationCount } = useContext(NotificationContext);
+
+  const { notificationCount, setNotificationCount } = useContext(NotificationContext);
   const [showSettings, setShowModal] = useState(false);
+
+  // When you click, set notifs to 0
+  const resetCount = () => {
+    setNotificationCount(0)
+  }
+
+  
 
   return (
     <>
@@ -30,7 +38,7 @@ const Navigation = () => {
               </button>
 
               <Link href="/messages">
-                <a>
+                <a onClick={resetCount}> 
                   {notificationCount < 1 && (
                     <img src="/images/chat-icon.svg" alt={`No notifications`} />
                   )}

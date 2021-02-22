@@ -5,6 +5,7 @@ interface NotificationContext {
   notifications: Notification[];
   addNotification: (channel: string, message: string) => void;
   notificationCount: number;
+  setNotificationCount: (count: number) => void;
   loadNotifications: () => void;
 }
 

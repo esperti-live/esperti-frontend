@@ -2,8 +2,9 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { usePubNub } from "pubnub-react";
 import NotificationContext from "../../contexts/NotificationContext";
 
-export const useChat = (channel) => {
+export const useChat = (channel: string) => {
   const [messages, setMessages] = useState([]);
+  
   const { addNotification } = useContext(NotificationContext);
   const pubnub = usePubNub();
 
@@ -12,7 +13,7 @@ export const useChat = (channel) => {
     subscribe()
   }, []);
 
-  const sendMessage = (message: string, receiverChannel: string) => {
+  const sendMessage = (message: string) => {
     pubnub.publish({
       message,
       channel,

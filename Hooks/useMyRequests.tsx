@@ -1,6 +1,6 @@
 import axios from "axios";
 import useSWR from "swr";
-import { getToken } from "../../utils/magic";
+import { getToken } from "../utils/magic";
 
 let loading = true;
 const fetcher = async (...args) => {

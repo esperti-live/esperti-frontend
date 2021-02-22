@@ -118,10 +118,11 @@ export interface Session {
 }
 
 export interface Notification {
-  messageTime: Date;
-  from: string;
-  fromChannel: string;
-  newMsg: boolean;
+  chatId: string;
+  lastMessage: string;
+  people: {
+    [id: number]: string;
+  }
 }
 
 export interface MessageAction extends MessageActionEvent {

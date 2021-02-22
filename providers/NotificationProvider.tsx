@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import axios from "axios";
+import uniqBy from "lodash.uniqby"
 import { Notification } from "../ts/interfaces";
 import NotificationContext from "../contexts/NotificationContext";
 import { usePubNub } from "pubnub-react";
-import { useLocalStorage } from "../components/Hooks/useLocalStorage";
+import { useLocalStorage } from "../Hooks/useLocalStorage";
 import AuthContext from "../contexts/AuthContext";
 import { getOtherUserId, getUserInbox, getChannel } from "../utils/chat";
 import { getToken } from "../utils/magic";
+import { useNotifications } from "../Hooks/useNotifications";
 
 /**
  * Given a list of by value types, return a list of the unique values
@@ -46,68 +48,16 @@ const fromUniquesToNotifications = (uniques, user) => {
   return uniques.map((unique) => ({
     from: unique,
     fromChannel: getChannel(unique, user.id),
-
   }));
 };
 
 export default function NotificationProvider({ children }) {
-  const [notifications, setNotifications] = useState<Notification[] | []>([]);
-  const [notificationCount, setNotificationCount] = useState(0);
-  const lastMessageCount = useRef(notificationCount);
-
-  const { getItemFromLS } = useLocalStorage("notif_last_check");
-
   const pubnub = usePubNub();
 
   const { user } = useContext(AuthContext);
 
-  /**
-   * Use ref to keep counter updated, because pubnub is a closure
-   */
-  useEffect(() => {
-    lastMessageCount.current = notificationCount;
-    loadNotifications()
-  }, [notificationCount, user]);
+  const [notifications, dataLoading, notificationCount, setNotificationCount] = useNotifications();
 
-  const refreshNotificationCount = () => {
-    setNotificationCount(lastMessageCount.current + 1);
-  };
-
-  const loadNotifications = async () => {
-    const data = await pubnub.fetchMessages({
-      channels: [`inbox-${user?.id}`],
-      count: 100,
-    });
-
-    const messages = data.channels[`inbox-${user?.id}`];
-    const uniques = getUniqueProfiles(messages);
-
-    console.log("loadNotifications messages", messages)
-    console.log("loadNotifications uniques", uniques)
-
-    //From unique channels, make them look nice
-    setNotifications(fromUniquesToNotifications(uniques, user));
-  };
-
-  const addNotificationListener = () => {
-    const channelId = `inbox-${user.id}`;
-    pubnub.subscribe({
-      channels: [channelId],
-    });
-
-
-    pubnub.addListener({
-      message: function (message) {
-        console.log("NotificationProvider message", message);
-        if (message.channel === channelId) {
-          refreshNotificationCount();
-          const data = {
-            [message.publisher]: message?.message?.lastMessage
-          }
-        }
-      },
-    });
-  };
 
   const addNotification = async (channel: string, message: string) => {
     const receiver = getOtherUserId(channel, user);
@@ -147,7 +97,7 @@ export default function NotificationProvider({ children }) {
 
   useEffect(() => {
     if (user) {
-      addNotificationListener();
+
     } else {
       pubnub.unsubscribeAll();
     }
@@ -159,8 +109,7 @@ export default function NotificationProvider({ children }) {
         notifications,
         addNotification,
         notificationCount,
-        setNotificationCount,
-        loadNotifications,
+        setNotificationCount
       }}
     >
       {children}
@@ -169,7 +118,7 @@ export default function NotificationProvider({ children }) {
 }
 
 
-export const useNotifications = () => {
+export const useNotificationsFromContext = () => {
   const {notifications} = useContext(NotificationContext)
   return notifications
 }

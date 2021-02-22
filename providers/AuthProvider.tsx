@@ -8,7 +8,7 @@ import {
   checkIfAuthenticated,
 } from "../utils/authentication";
 import { Magic } from "magic-sdk";
-import { useLocalStorage } from "../components/Hooks/useLocalStorage";
+import { useLocalStorage } from "../Hooks/useLocalStorage";
 
 let m: Magic;
 export default function AuthProvider({ children }) {

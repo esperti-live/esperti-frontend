@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Request as RequestInterface } from "../ts/interfaces";
-import { useMyRequest } from "../components/Hooks/useMyRequests";
+import { useMyRequest } from "../Hooks/useMyRequests";
 import { useRouter } from "next/router";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Link from "next/link";

@@ -6,7 +6,6 @@ interface NotificationContext {
   addNotification: (channel: string, message: string) => void;
   notificationCount: number;
   setNotificationCount: (count: number) => void;
-  loadNotifications: () => void;
 }
 
 const NotificationContext = createContext({} as NotificationContext);

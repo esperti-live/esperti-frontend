@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePresence } from "../Hooks/usePresence";
+import { usePresence } from "../../Hooks/usePresence";
 
 import styles from "../../styles/components/OtherUserHeader.module.scss";
 

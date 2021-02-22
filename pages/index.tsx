@@ -12,7 +12,7 @@ import Link from "next/link";
 import axios from "axios";
 
 import { Expert } from "../ts/interfaces";
-import { usePresence } from "../components/Hooks/usePresence";
+import { usePresence } from "../Hooks/usePresence";
 import { getExpertImage } from "../utils/format";
 
 export default function Home({ profiles }) {

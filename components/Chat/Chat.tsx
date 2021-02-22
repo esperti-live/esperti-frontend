@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import { useChat } from "../Hooks/useChat";
+import { useChat } from "../../Hooks/useChat";
 import { useRouter } from "next/router";
 import { getToken } from "../../utils/magic";
 

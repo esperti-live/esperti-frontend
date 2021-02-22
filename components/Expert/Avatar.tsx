@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AvatarProps } from "../../ts/interfaces";
 import { getImageUrl } from "../../utils/format";
-import { usePresence } from "../Hooks/usePresence";
+import { usePresence } from "../../Hooks/usePresence";
 
 import styles from "../../styles/components/Avatar.module.scss";
 

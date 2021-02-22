@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Link from "next/link";
 import AuthContext from "../../contexts/AuthContext";
@@ -6,6 +6,8 @@ import NotificationContext from "../../contexts/NotificationContext";
 import SettingsModal from "../Modal/SettingsModal";
 
 import styles from "../../styles/components/Navigation.module.scss";
+import { useRouter } from "next/router";
+import { route } from "next/dist/next-server/server/router";
 
 const Navigation = () => {
   const { user } = useContext(AuthContext);
@@ -18,6 +20,13 @@ const Navigation = () => {
     setNotificationCount(0)
   }
 
+  const router = useRouter()
+
+  useEffect(() => {
+    if(router.pathname.includes("/messages")){
+      resetCount()
+    }
+  }, [router, notificationCount])
   
 
   return (

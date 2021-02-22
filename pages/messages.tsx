@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { useContext, useEffect, useState } from "react";
-import { useNotifications } from "../components/Hooks/useNotifications";
+import { useNotifications } from "../Hooks/useNotifications";
 
 import AuthContext from "../contexts/AuthContext";
 import Chat from "../components/Chat/Chat";
@@ -60,9 +60,11 @@ export default function Messages() {
   });
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [notifications, dataLoading] = useNotifications(user);
+  const [notifications, dataLoading, newCount, resetCount] = useNotifications();
+
   console.log("Messages notifications", notifications);
   console.log("Messages user", user);
+  console.log("newCount", newCount)
 
   useEffect(() => {
     if (user && !dataLoading) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { usePubNub } from "pubnub-react";
-import NotificationContext from "../../contexts/NotificationContext";
+import NotificationContext from "../contexts/NotificationContext";
 
 export const useChat = (channel: string) => {
   const [messages, setMessages] = useState([]);

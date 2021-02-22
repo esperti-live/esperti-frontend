@@ -8,8 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/pubnub": "^4.28.3",
+    "@types/lodash.uniqby": "^4.7.6",
+    "@types/pubnub": "^4.29.0",
     "axios": "^0.21.0",
+    "dequal": "^2.0.2",
+    "lodash.uniqby": "^4.7.0",
     "magic-sdk": "^3.0.1",
     "next": "10.0.0",
     "pubnub": "^4.29.9",

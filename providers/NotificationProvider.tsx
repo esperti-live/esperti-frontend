@@ -46,15 +46,17 @@ const fromUniquesToNotifications = (uniques, user) => {
   return uniques.map((unique) => ({
     from: unique,
     fromChannel: getChannel(unique, user.id),
+
   }));
 };
 
-export default function AuthProvider({ children }) {
+export default function NotificationProvider({ children }) {
   const [notifications, setNotifications] = useState<Notification[] | []>([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const lastMessageCount = useRef(notificationCount);
 
   const { getItemFromLS } = useLocalStorage("notif_last_check");
+
   const pubnub = usePubNub();
 
   const { user } = useContext(AuthContext);
@@ -64,6 +66,7 @@ export default function AuthProvider({ children }) {
    */
   useEffect(() => {
     lastMessageCount.current = notificationCount;
+    loadNotifications()
   }, [notificationCount, user]);
 
   const refreshNotificationCount = () => {
@@ -72,12 +75,14 @@ export default function AuthProvider({ children }) {
 
   const loadNotifications = async () => {
     const data = await pubnub.fetchMessages({
-      channels: [`inbox-${user.id}`],
+      channels: [`inbox-${user?.id}`],
       count: 100,
     });
 
-    const messages = data.channels[`inbox-${user.id}`];
+    const messages = data.channels[`inbox-${user?.id}`];
     const uniques = getUniqueProfiles(messages);
+
+    console.log("loadNotifications messages", messages)
 
     //From unique channels, make them look nice
     setNotifications(fromUniquesToNotifications(uniques, user));
@@ -89,8 +94,6 @@ export default function AuthProvider({ children }) {
       channels: [channelId],
     });
 
-    //Debug for subs
-    // console.log("pubnub", pubnub.getSubscribedChannels())
 
     pubnub.addListener({
       message: function (message) {
@@ -106,7 +109,7 @@ export default function AuthProvider({ children }) {
     const receiver = getOtherUserId(channel, user);
     //Send message to inbox-receiver
     pubnub.publish({
-      message: user.id,
+      message: {lastMessage: message, recipient: user.id},
       channel: getUserInbox(receiver),
     });
 
@@ -158,4 +161,10 @@ export default function AuthProvider({ children }) {
       {children}
     </NotificationContext.Provider>
   );
+}
+
+
+export const useNotifications = () => {
+  const {notifications} = useContext(NotificationContext)
+  return notifications
 }

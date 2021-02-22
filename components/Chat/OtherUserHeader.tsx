@@ -3,7 +3,7 @@ import { usePresence } from "../Hooks/usePresence";
 
 import styles from "../../styles/components/OtherUserHeader.module.scss";
 
-const OtherUserHeader = ({ image, name, rate, channel }) => {
+const OtherUserHeader = ({ name, image, rate, channel }) => {
   const [isOnline, setIsOnline] = useState(false);
   const [onlineUsers] = usePresence(channel);
 

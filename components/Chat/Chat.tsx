@@ -84,9 +84,6 @@ const Chat = ({
         {currentUser.type === "customer" && showControlls && (
           <div className={styles.buttonContainer}>
             <button onClick={createSessionHandler}>+ Create Session</button>
-            <Link href="/new-request">
-              <a>Submit Request</a>
-            </Link>
           </div>
         )}
       </div>

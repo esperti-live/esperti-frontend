@@ -61,9 +61,7 @@ export interface Tag {
 
 export interface Request {
   id: number;
-  user: {
-    image_url: string;
-  };
+  profile: number;
   title: string;
   tags: Tag[];
   type: string;

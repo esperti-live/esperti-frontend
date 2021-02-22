@@ -82,11 +82,11 @@ export default function requests() {
           ))}
         </ul>
       </div>
-      {user && (
+      {/* {user && (
         <Link href="/new-request">
           <a className={buttons.linkFloatingButton}>Submit Request</a>
         </Link>
-      )}
+      )} */}
     </section>
   );
 }

@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import AuthProvider from "../providers/AuthProvider";
 import SessionProvider from "../providers/SessionProvider";
 import NotificationProvider from "../providers/NotificationProvider";
+import ChatProvider from "../providers/ChatProvider";
+
 import Layout from "../components/Partials/Layout";
 import PubNub from "pubnub";
 
@@ -27,9 +29,11 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <SessionProvider>
           <NotificationProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <ChatProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ChatProvider>
           </NotificationProvider>
         </SessionProvider>
       </AuthProvider>

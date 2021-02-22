@@ -68,9 +68,9 @@ export default function requests() {
           ))}
         </ul>
       </div>
-      <Link href="/new-request">
+      {/* <Link href="/new-request">
         <a className={styles.linkFloatingButton}>Submit Request</a>
-      </Link>
+      </Link> */}
     </section>
   );
 }

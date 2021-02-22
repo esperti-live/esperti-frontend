@@ -122,7 +122,7 @@ export default function Messages() {
             <title>Esperti.live | Messages</title>
           </Head>
           <div className={styles.notificationContainer}>
-            {[...notifications].reverse().map((notification) => (
+            {[...notifications].map((notification) => (
               <button
                 key={notification.chatId}
                 onClick={() => openChatHandler(notification)}

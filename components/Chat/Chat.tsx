@@ -55,7 +55,7 @@ const Chat = ({
       // this is used to identity that we are sending a session id
       const identifier = ":#$!sess";
 
-      sendMessage(session + identifier, `inbox-${currentUser.id}`);
+      sendMessage(session + identifier);
       router.push(`/sessions/${res.data.slug}`);
     } catch (err) {
       console.log(err);

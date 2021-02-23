@@ -38,15 +38,11 @@ export const authenticateUser = (m, email: string): Promise<UserData> => {
  * @param m (magic link)
  * @description Logs user out from current session
  */
-export const unauthenticateUser = (m) => {
-  return new Promise(async (resolve, reject) => {
+export const unauthenticateUser = async (m) => {
     try {
-      m.user.logout();
-      resolve();
+      await m.user.logout();
     } catch (err) {
-      reject(err);
     }
-  });
 };
 
 /**
